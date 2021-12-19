@@ -1,1 +1,0 @@
-zryj gruz cyganie
