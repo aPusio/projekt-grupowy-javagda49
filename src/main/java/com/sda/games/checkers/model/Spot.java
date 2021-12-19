@@ -7,10 +7,10 @@ public class Spot {
     private int x;
     private int y;
 
-    public Spot(Piece piece, int x, int y) {
-        this.piece = piece;
-        this.x = x;
-        this.y = y;
+    public Spot(int x, int y, Piece piece) {
+        this.setX(x);
+        this.setY(y);
+        this.setPiece(piece);
     }
 
     public Piece getPiece() {
