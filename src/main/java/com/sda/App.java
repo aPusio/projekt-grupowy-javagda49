@@ -3,11 +3,7 @@ package com.sda;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
