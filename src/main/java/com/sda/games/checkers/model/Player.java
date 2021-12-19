@@ -1,4 +1,4 @@
-package mmaGroup.checkers.model;
+package com.sda.games.checkers.model;
 
 public class Player {
 
