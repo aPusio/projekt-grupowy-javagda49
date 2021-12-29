@@ -1,10 +1,15 @@
-package com.sda.games.kamiennozycepapier;
+package com.sda.games.kamiennozycepapier.game;
+
+import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
 
-public class AppKNP {
+@AllArgsConstructor
 
-    public static void main(String[] args) {
+
+public class RockPaperScissorsGame {
+
+    public static void start() {
 
         printChristmasTree('*', 39);
 
@@ -17,7 +22,7 @@ public class AppKNP {
         final int MIKOLAJ = 2;
         final int REMIS = 3;
 
-        int Rudolf, zwyciezca = 0;
+        int rudolf, zwyciezca = 0;
 
         int wygrane = 0, przegrane = 0, remisy = 0;
 
@@ -33,10 +38,10 @@ public class AppKNP {
             System.out.println();
             System.out.print("Mikołaju: ");
             System.out.print("Wskaż swój wybór:\n\t\t1 = Kamień\n\t\t2 = Papier\n\t\t3 = Nożyczki\n\t\t");
-            int Mikołaj = skan.nextInt();
+            int mikołaj = skan.nextInt();
             System.out.print("Twój wybór: ");
             System.out.println();
-            switch (Mikołaj) {
+            switch (mikołaj) {
                 case KAMIEN:
                     System.out.println("Kamień.");
                     break;
@@ -52,13 +57,13 @@ public class AppKNP {
             System.out.print("Rudolfie czerwononosy: ");
             System.out.print("Wskaż swój wybór:\n\t\t1 = Kamien\n\t\t2 = Papier\n\t\t3 = Nozyczki\n\t\t");
             System.out.println();
-            Rudolf = skan.nextInt();
-            switch (Rudolf) {
+            rudolf = skan.nextInt();
+            switch (rudolf) {
                 case KAMIEN:
                     System.out.println("Kamień.");
-                    if (Mikołaj == NOZYCE) {
+                    if (mikołaj == NOZYCE) {
                         zwyciezca = RUDOLF;
-                    } else if (Mikołaj == PAPIER) {
+                    } else if (mikołaj == PAPIER) {
                         zwyciezca = MIKOLAJ;
                     } else {
                         zwyciezca = REMIS;
@@ -66,9 +71,9 @@ public class AppKNP {
                     break;
                 case PAPIER:
                     System.out.println("Papier.");
-                    if (Mikołaj == KAMIEN) {
+                    if (mikołaj == KAMIEN) {
                         zwyciezca = RUDOLF;
-                    } else if (Mikołaj == NOZYCE) {
+                    } else if (mikołaj == NOZYCE) {
                         zwyciezca = MIKOLAJ;
                     } else {
                         zwyciezca = REMIS;
@@ -76,9 +81,9 @@ public class AppKNP {
                     break;
                 case NOZYCE:
                     System.out.println("Nożyczki.");
-                    if (Mikołaj == PAPIER) {
+                    if (mikołaj == PAPIER) {
                         zwyciezca = RUDOLF;
-                    } else if (Mikołaj == KAMIEN) {
+                    } else if (mikołaj == KAMIEN) {
                         zwyciezca = MIKOLAJ;
                     } else {
                         zwyciezca = REMIS;
@@ -141,4 +146,13 @@ public class AppKNP {
         }
     }
 }
+
+
+
+
+
+
+
+
+
 
