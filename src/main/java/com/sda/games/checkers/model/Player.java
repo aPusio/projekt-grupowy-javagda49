@@ -28,11 +28,11 @@ public class Player {
         this.name = name;
     }
 
-    public Boolean getWhite() {
+    public boolean isWhite() {
         return isWhite;
     }
 
-    public void setWhite(Boolean white) {
+    public void setWhite(boolean white) {
         isWhite = white;
     }
 

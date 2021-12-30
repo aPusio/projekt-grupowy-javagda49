@@ -50,5 +50,5 @@ public abstract class Piece {
         this.killed = killed;
     }
 
-    public abstract boolean canMove(Board board, Spot start,  Spot end);
+    public abstract boolean canMove(Board board, Spot start, Spot end);
 }
