@@ -13,8 +13,8 @@ public class Board {
     }
 
     public void setBoardSpot(int startX, int startY, int endX, int endY) {
-        boardSpots[endY][endX] = boardSpots[startX][startY];
-        boardSpots[startY][startX] = null;
+        boardSpots[endY][endX].setPiece(boardSpots[startY][startX].getPiece());
+        boardSpots[startY][startX].setPiece(null);
     }
 
     public void printBoard() {

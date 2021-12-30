@@ -60,8 +60,6 @@ public class Game {
 
     public boolean makeMove(Move move, Player player) {
 
-
-
         Piece sourcePiece = move.getStart().getPiece();
         if (sourcePiece == null) {
             return false;
@@ -87,7 +85,8 @@ public class Game {
         return true;
     }
 
-    public void getNextMove() throws Exception {
+    public boolean getNextMove() throws Exception {
+
         System.out.println(getCurrentTurnPlayer().getName() + " move.");
 
         System.out.println("Which checker to move?");
@@ -129,6 +128,8 @@ public class Game {
         }
 
         getBoard().printBoard();
+
+        return true;
     }
 
     public static String getWhitePlayerName() {
