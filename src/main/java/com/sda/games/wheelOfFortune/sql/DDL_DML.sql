@@ -125,7 +125,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (93,10,'Zawodnik'),
      	 (94,10,'Mecz'),
      	 (95,10,'Gimnastyka artystyczna'),
-     	 (96,10,'Łyżwiarstwo figurowe'),
+     	 (96,10,'Łyżwiarstwo'),
      	 (97,10,'Skoki narciarskie'),
      	 (98,10,'Gra zespołowa'),
      	 (99,10,'Zawody'),
