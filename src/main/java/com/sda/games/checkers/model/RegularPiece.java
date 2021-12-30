@@ -7,7 +7,7 @@ public class RegularPiece extends Piece{
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
-        if (end.isOccupied()) {
+        if (!(end.getPiece() == null)) {
             return false;
         }
 

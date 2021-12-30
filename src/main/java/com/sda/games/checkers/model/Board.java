@@ -12,7 +12,12 @@ public class Board {
         return boardSpots[x][y];
     }
 
-    public void printBoard(Board board) {
+    public void setBoardSpot(Spot boardSpot) {
+        boardSpots[boardSpot.getX()][boardSpot.getY()] = boardSpot;
+        this.boardSpots = boardSpots;
+    }
+
+    public void printBoard() {
         for (int y = 7; y >= 0; y--) {
             System.out.println();
             System.out.print((y + 1) + " ");
@@ -68,4 +73,5 @@ public class Board {
         boardSpots[4][4] = new Spot(4,4,null);
         boardSpots[4][6] = new Spot(4,6,null);
     }
+
 }

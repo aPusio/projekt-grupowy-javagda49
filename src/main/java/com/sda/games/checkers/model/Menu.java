@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void printLogo() {
         System.out.println("      _               _");
         System.out.println("     | |             | |");
@@ -21,7 +23,6 @@ public class Menu {
     }
 
     public static int optionInput() {
-        Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
         switch (input) {
             case 1:
