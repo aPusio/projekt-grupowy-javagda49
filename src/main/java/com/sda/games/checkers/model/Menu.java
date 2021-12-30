@@ -26,14 +26,20 @@ public class Menu {
         switch (input) {
             case 1:
                 System.out.println("New game");
-                break;
+                return 1;
             case 2:
                 System.out.println("Continue");
-                break;
+                return 2;
             case 3:
                 System.out.println("Exit");
-                break;
+                return 3;
         }
         return 0;
+    }
+
+    public static int printMenu() {
+        printLogo();
+        printOptions();
+        return (optionInput());
     }
 }

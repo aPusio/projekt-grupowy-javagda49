@@ -4,7 +4,7 @@ public class Player {
 
     private Integer id;
     private String name;
-    private Boolean isWhite;
+    private boolean isWhite;
 
     public Player(Integer id, String name, Boolean isWhite) {
         this.id = id;
@@ -35,4 +35,5 @@ public class Player {
     public void setWhite(Boolean white) {
         isWhite = white;
     }
+
 }
