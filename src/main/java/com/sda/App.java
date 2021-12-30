@@ -1,5 +1,6 @@
 package com.sda;
 
+import com.sda.games.kamiennozycepapier.game.RockPaperScissorsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 
@@ -13,7 +14,7 @@ public class App
         String userOption = userIoService.getInt("Wpisz numer gry:");
         switch (userOption){
             case "1":
-                System.out.println("Implement me 🤣🤣");
+                RockPaperScissorsBuilder.build().start();
                 break;
             case "2":
                 System.out.println("Implement me 🤣🤣");
