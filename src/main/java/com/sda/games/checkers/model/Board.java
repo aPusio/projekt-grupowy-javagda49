@@ -13,17 +13,15 @@ public class Board {
     }
 
     public void printBoard(Board board) {
-        for (int i = 7; i >= 0; i--) {
+        for (int y = 7; y >= 0; y--) {
             System.out.println();
-            System.out.print((i + 1) + " ");
-            for (int j = 0; j < 8; j++) {
+            System.out.print((y + 1) + " ");
+            for (int x = 0; x < 8; x++) {
                 System.out.print("|");
-                if (boardSpots[i][j] == null || boardSpots[i][j].getPiece() == null) {
+                if (boardSpots[y][x] == null || boardSpots[y][x].getPiece() == null) {
                     System.out.print(" ");
-                } else if (boardSpots[i][j].getPiece().isWhite()) {
-                    System.out.print(boardSpots[i][j].getPiece().getPieceIcon());
-                } else if (!boardSpots[i][j].getPiece().isWhite()) {
-                    System.out.print(boardSpots[i][j].getPiece().getPieceIcon());
+                } else {
+                    System.out.print(boardSpots[y][x].getPiece().getPieceIcon());
                 }
             }
             System.out.print("|");
