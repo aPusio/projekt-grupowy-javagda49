@@ -84,20 +84,11 @@ public class Game {
         move.getEnd().setPiece(move.getStart().getPiece());
         move.getStart().setPiece(null);
 
-//        if (this.currentTurnPlayer == players[0]) {
-//            this.currentTurnPlayer = players[1];
-//        } else {
-//            this.currentTurnPlayer = players[0];
-//        }
-
         return true;
     }
 
     public void getNextMove() throws Exception {
         System.out.println(getCurrentTurnPlayer().getName() + " move.");
-
-        System.out.println(players[0].getName());
-        System.out.println(players[1].getName());
 
         System.out.println("Which checker to move?");
         String startSpotXY = scanner.nextLine();
@@ -128,6 +119,8 @@ public class Game {
 
         Move move = new Move(currentPlayer, startSpot, endSpot);
         makeMove(move, currentPlayer);
+
+        board.setBoardSpot(startX, startY, endX, endY);
 
         if (this.currentTurnPlayer == players[0]) {
             this.currentTurnPlayer = players[1];

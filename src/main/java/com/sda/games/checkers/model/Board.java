@@ -12,9 +12,9 @@ public class Board {
         return boardSpots[x][y];
     }
 
-    public void setBoardSpot(Spot boardSpot) {
-        boardSpots[boardSpot.getX()][boardSpot.getY()] = boardSpot;
-        this.boardSpots = boardSpots;
+    public void setBoardSpot(int startX, int startY, int endX, int endY) {
+        boardSpots[endY][endX] = boardSpots[startX][startY];
+        boardSpots[startY][startX] = null;
     }
 
     public void printBoard() {
