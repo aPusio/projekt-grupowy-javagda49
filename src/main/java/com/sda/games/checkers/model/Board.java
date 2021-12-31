@@ -35,33 +35,36 @@ public class Board {
     }
 
     public void resetBoard() {
+
+        Piece whiteRegular = new RegularPiece(true);
+        Piece blackRegular = new RegularPiece(false);
         // initialize white pieces
-        boardSpots[0][0] = new Spot(0,0,new RegularPiece(true));
-        boardSpots[0][2] = new Spot(0,2,new RegularPiece(true));
-        boardSpots[0][4] = new Spot(0,4,new RegularPiece(true));
-        boardSpots[0][6] = new Spot(0,5,new RegularPiece(true));
-        boardSpots[1][1] = new Spot(1,1,new RegularPiece(true));
-        boardSpots[1][3] = new Spot(1,3,new RegularPiece(true));
-        boardSpots[1][5] = new Spot(1,5,new RegularPiece(true));
-        boardSpots[1][7] = new Spot(1,7,new RegularPiece(true));
-        boardSpots[2][0] = new Spot(2,0,new RegularPiece(true));
-        boardSpots[2][2] = new Spot(2,2,new RegularPiece(true));
-        boardSpots[2][4] = new Spot(2,4,new RegularPiece(true));
-        boardSpots[2][6] = new Spot(2,6,new RegularPiece(true));
+        boardSpots[0][0] = new Spot(0,0,whiteRegular);
+        boardSpots[0][2] = new Spot(0,2,whiteRegular);
+        boardSpots[0][4] = new Spot(0,4,whiteRegular);
+        boardSpots[0][6] = new Spot(0,5,whiteRegular);
+        boardSpots[1][1] = new Spot(1,1,whiteRegular);
+        boardSpots[1][3] = new Spot(1,3,whiteRegular);
+        boardSpots[1][5] = new Spot(1,5,whiteRegular);
+        boardSpots[1][7] = new Spot(1,7,whiteRegular);
+        boardSpots[2][0] = new Spot(2,0,whiteRegular);
+        boardSpots[2][2] = new Spot(2,2,whiteRegular);
+        boardSpots[2][4] = new Spot(2,4,whiteRegular);
+        boardSpots[2][6] = new Spot(2,6,whiteRegular);
 
         // initialize black pieces
-        boardSpots[5][1] = new Spot(5,1,new RegularPiece(false));
-        boardSpots[5][3] = new Spot(5,3,new RegularPiece(false));
-        boardSpots[5][5] = new Spot(5,5,new RegularPiece(false));
-        boardSpots[5][7] = new Spot(5,7,new RegularPiece(false));
-        boardSpots[6][0] = new Spot(6,0,new RegularPiece(false));
-        boardSpots[6][2] = new Spot(6,2,new RegularPiece(false));
-        boardSpots[6][4] = new Spot(6,4,new RegularPiece(false));
-        boardSpots[6][6] = new Spot(6,6,new RegularPiece(false));
-        boardSpots[7][1] = new Spot(7,1,new RegularPiece(false));
-        boardSpots[7][3] = new Spot(7,3,new RegularPiece(false));
-        boardSpots[7][5] = new Spot(7,5,new RegularPiece(false));
-        boardSpots[7][7] = new Spot(7,7,new RegularPiece(false));
+        boardSpots[5][1] = new Spot(5,1,blackRegular);
+        boardSpots[5][3] = new Spot(5,3,blackRegular);
+        boardSpots[5][5] = new Spot(5,5,blackRegular);
+        boardSpots[5][7] = new Spot(5,7,blackRegular);
+        boardSpots[6][0] = new Spot(6,0,blackRegular);
+        boardSpots[6][2] = new Spot(6,2,blackRegular);
+        boardSpots[6][4] = new Spot(6,4,blackRegular);
+        boardSpots[6][6] = new Spot(6,6,blackRegular);
+        boardSpots[7][1] = new Spot(7,1,blackRegular);
+        boardSpots[7][3] = new Spot(7,3,blackRegular);
+        boardSpots[7][5] = new Spot(7,5,blackRegular);
+        boardSpots[7][7] = new Spot(7,7,blackRegular);
 
         // initialize empty spots
         boardSpots[3][1] = new Spot(3,1,null);

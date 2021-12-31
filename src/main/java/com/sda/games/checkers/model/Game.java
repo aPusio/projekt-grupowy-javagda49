@@ -1,45 +1,44 @@
 package com.sda.games.checkers.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Game {
-    static String whitePlayerName;
-    static String blackPlayerName;
 
-    private Player[] players;
+    private List<Player> players;
     private Board board;
     private Player currentTurnPlayer;
     private GameStatus status;
     private List<Move> movesPlayed;
     private Scanner scanner = new Scanner(System.in);
 
-    public Game() {
-        this.players = new Player[2];
-        this.board = new Board();
-        this.currentTurnPlayer = currentTurnPlayer;
-        this.status = status;
-        this.movesPlayed = new ArrayList<>();
-    }
-
     public void newGame() {
         System.out.println("Enter White Player name:");
-        this.whitePlayerName = scanner.nextLine();
+        Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true);
         System.out.println("Enter Black Player name:");
-        this.blackPlayerName = scanner.nextLine();
+        Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false);
 
-        Player whitePlayer = new Player(1, whitePlayerName, true);
-        Player blackPlayer = new Player(2, blackPlayerName, false);
 
         initialize(whitePlayer, blackPlayer);
         getBoard().printBoard();
     }
 
     public void initialize(Player player1, Player player2) {
-        this.players[0] = player1;
-        this.players[1] = player2;
+        this.players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
 
+        this.board = new Board();
         board.resetBoard();
 
         if (player1.isWhite()) {
@@ -48,120 +47,83 @@ public class Game {
             this.currentTurnPlayer = player2;
         }
 
+        this.movesPlayed = new ArrayList<>();
         movesPlayed.clear();
     }
 
-    public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
-        Spot startSpot = board.getBoardSpot(startX, startY);
-        Spot endSpot = board.getBoardSpot(endX, endY);
-        Move move = new Move(player, startSpot, endSpot);
-        return this.makeMove(move, player);
-    }
-
-    public boolean makeMove(Move move, Player player) {
-
-        Piece sourcePiece = move.getStart().getPiece();
-        if (sourcePiece == null) {
-            return false;
-        }
-
-        if (player != currentTurnPlayer) {
-            return false;
-        }
-
-        if (sourcePiece.isWhite() != player.isWhite()) {
-            return false;
-        }
-
-        if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
-            return false;
-        }
-
-        movesPlayed.add(move);
-
-        move.getEnd().setPiece(move.getStart().getPiece());
-        move.getStart().setPiece(null);
-
-        return true;
-    }
-
-    public boolean getNextMove() throws Exception {
+    public boolean makeMove() throws Exception {
 
         System.out.println(getCurrentTurnPlayer().getName() + " move.");
 
-        System.out.println("Which checker to move?");
-        String startSpotXY = scanner.nextLine();
-        System.out.println("Where to go?");
-        String endSpotXY = scanner.nextLine();
 
-        int flagStartX = startSpotXY.charAt(0);
-        int flagStartY = startSpotXY.charAt(1);
+        int startX;
+        int startY;
 
-        int startX = flagStartX - 97;
-        int startY = flagStartY - 49;
+        while(true) {
 
-        System.out.println("Start spot: [" + startX + "][" + startY + "]");
+            System.out.println("Which checker to move?");
+            String startSpotXY = scanner.nextLine();
+            int flagStartX = startSpotXY.charAt(0);
+            int flagStartY = startSpotXY.charAt(1);
+            startX = flagStartX - 97;
+            startY = flagStartY - 49;
 
-        int flagEndX = endSpotXY.charAt(0);
-        int flagEndY = endSpotXY.charAt(1);
+            Piece sourcePiece = board.getBoardSpot(startY, startX).getPiece();
 
-        int endX = flagEndX - 97;
-        int endY = flagEndY - 49;
+            if (getCurrentTurnPlayer().isWhite() != sourcePiece.isWhite()) {
+                System.out.println("Not your piece!");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("End spot: [" + endX + "][" + endY + "]");
+        int endX;
+        int endY;
 
-        playerMove(getCurrentTurnPlayer(), startX, startY, endX, endY);
+        while (true) {
+
+            System.out.println("Where to go?");
+            String endSpotXY = scanner.nextLine();
+            int flagEndX = endSpotXY.charAt(0);
+            int flagEndY = endSpotXY.charAt(1);
+            endX = flagEndX - 97;
+            endY = flagEndY - 49;
+
+            if (currentTurnPlayer.isWhite() && (startY - endY) != -1) {
+                System.out.println("Invalid move! (Can't move back)");
+            } else if (!currentTurnPlayer.isWhite() && (startY - endY != 1)) {
+                System.out.println("Invalid move! (Can't move back)");
+            } else if (board.getBoardSpot(endY, endX).getPiece() != null) {
+                System.out.println("Invalid move! (Piece on destination)");
+            } else {
+                break;
+            }
+        }
+
         Player currentPlayer = getCurrentTurnPlayer();
 
         Spot startSpot = getBoard().getBoardSpot(startX, startY);
         Spot endSpot = getBoard().getBoardSpot(endX, endY);
 
-        Move move = new Move(currentPlayer, startSpot, endSpot);
-        makeMove(move, currentPlayer);
+        Move move = new Move(currentPlayer, startSpot, endSpot, startSpot.getPiece());
+
+        move.getEnd().setPiece(move.getStart().getPiece());
 
         board.setBoardSpot(startX, startY, endX, endY);
 
-        if (this.currentTurnPlayer == players[0]) {
-            this.currentTurnPlayer = players[1];
+        if (this.currentTurnPlayer == players.get(0)) {
+            this.currentTurnPlayer = players.get(1);
         } else {
-            this.currentTurnPlayer = players[0];
+            this.currentTurnPlayer = players.get(0);
         }
+
+
+        movesPlayed.add(move);
+
 
         getBoard().printBoard();
 
         return true;
-    }
-
-    public static String getWhitePlayerName() {
-        return whitePlayerName;
-    }
-
-    public static String getBlackPlayerName() {
-        return blackPlayerName;
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public Player getCurrentTurnPlayer() {
-        return currentTurnPlayer;
-    }
-
-    public List<Move> getMovesPlayed() {
-        return movesPlayed;
-    }
-
-    public GameStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(GameStatus status) {
-        this.status = status;
     }
 
     public boolean isEnd() {

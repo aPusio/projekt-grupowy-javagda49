@@ -15,7 +15,7 @@ public class Main {
             case 1:
                     game.newGame();
                 while (game.getStatus() != GameStatus.ACTIVE) {
-                    game.getNextMove();
+                    game.makeMove();
                 }
                 break;
             default:
