@@ -1,13 +1,12 @@
 package com.sda.games.checkers.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Getter
 @Setter
@@ -53,61 +52,118 @@ public class Game {
 
     public boolean makeMove() throws Exception {
 
+        Player currentPlayer = getCurrentTurnPlayer();
+
         System.out.println(getCurrentTurnPlayer().getName() + " move.");
 
+        Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
 
+        String startSpotXY;
+        String endSpotXY;
+        char charStartY;
+        char charStartX;
         int startX;
         int startY;
+        char charEndX;
+        char charEndY;
+        int endX;
+        int endY;
+        Piece sourcePiece;
 
-        while(true) {
+        while (true) {
+            while (true) {
+                System.out.println("Which checker to move?");
+                startSpotXY = scanner.nextLine();
 
-            System.out.println("Which checker to move?");
-            String startSpotXY = scanner.nextLine();
-            int flagStartX = startSpotXY.charAt(0);
-            int flagStartY = startSpotXY.charAt(1);
-            startX = flagStartX - 97;
-            startY = flagStartY - 49;
 
-            Piece sourcePiece = board.getBoardSpot(startY, startX).getPiece();
+                Matcher matcher = movePattern.matcher(startSpotXY);
+                boolean isInputValid = matcher.matches();
 
-            if (getCurrentTurnPlayer().isWhite() != sourcePiece.isWhite()) {
+                charStartX = startSpotXY.charAt(0);
+                charStartY = startSpotXY.charAt(1);
+                startX = charStartX - 97;
+                startY = charStartY - 49;
+
+                if (!isInputValid) {
+                    System.out.println("Invalid input!");
+                } else if (board.getBoardSpot(startX, startY) == null) {
+                    System.out.println("No checker here!");
+                } else if (currentPlayer.isWhite()) {
+                    if (!board.getBoardSpot(startX, startY).getPiece().isWhite()) {
+                        System.out.println("Not your piece!");
+                    } else if (startX == 0 && (board.getBoardSpot(startX + 1, startY + 1).getPiece() != null)) {
+                        System.out.println("No move available!");
+                    } else if (startX == 7 && (board.getBoardSpot(startX - 1, startY + 1).getPiece() != null)) {
+                        System.out.println("No move available!");
+                    } else if (board.getBoardSpot(startX + 1, startY + 1).getPiece() != null &&
+                            board.getBoardSpot(startX - 1, startY + 1).getPiece() != null) {
+                        System.out.println("No move available!");
+                    } else {
+                        break;
+                    }
+                } else if (!currentPlayer.isWhite()) {
+                        if (board.getBoardSpot(startX, startY).getPiece().isWhite()) {
+                            System.out.println("Not your piece!");
+                        } else if (startX == 0 && (board.getBoardSpot(startX + 1, startY - 1).getPiece() != null)) {
+                            System.out.println("No move available!");
+                        } else if (startX == 7 && (board.getBoardSpot(startX - 1, startY - 1).getPiece() != null)) {
+                            System.out.println("No move available!");
+                        } else if (board.getBoardSpot(startX + 1, startY - 1).getPiece() != null &&
+                                board.getBoardSpot(startX - 1, startY - 1).getPiece() != null) {
+                            System.out.println("No move available!");
+                        } else {
+                            break;
+                        }
+                } else {
+                    break;
+                }
+            }
+
+            sourcePiece = board.getBoardSpot(startX, startY).getPiece();
+
+            if (currentPlayer.isWhite() != sourcePiece.isWhite()) {
                 System.out.println("Not your piece!");
             } else {
                 break;
             }
         }
 
-        int endX;
-        int endY;
-
         while (true) {
+            while (true) {
+                System.out.println("Where to go?");
+                endSpotXY = scanner.nextLine();
+                Matcher matcher = movePattern.matcher(endSpotXY);
+                boolean isInputValid = matcher.matches();
+                if (!isInputValid) {
+                    System.out.println("Invalid input!");
+                } else {
+                    break;
+                }
+            }
 
-            System.out.println("Where to go?");
-            String endSpotXY = scanner.nextLine();
-            int flagEndX = endSpotXY.charAt(0);
-            int flagEndY = endSpotXY.charAt(1);
-            endX = flagEndX - 97;
-            endY = flagEndY - 49;
+            charEndX = endSpotXY.charAt(0);
+            charEndY = endSpotXY.charAt(1);
+            endX = charEndX - 97;
+            endY = charEndY - 49;
 
             if (currentTurnPlayer.isWhite() && (startY - endY) != -1) {
-                System.out.println("Invalid move! (Can't move back)");
+                System.out.println("Invalid move!");
             } else if (!currentTurnPlayer.isWhite() && (startY - endY != 1)) {
-                System.out.println("Invalid move! (Can't move back)");
-            } else if (board.getBoardSpot(endY, endX).getPiece() != null) {
+                System.out.println("Invalid move!");
+            } else if (startX - endX != -1 && startX - endX != 1) {
+                System.out.println("Invalid move!");
+            } else if (board.getBoardSpot(endX, endY).getPiece() != null) {
                 System.out.println("Invalid move! (Piece on destination)");
             } else {
+                System.out.println(startX - endX);
                 break;
             }
         }
-
-        Player currentPlayer = getCurrentTurnPlayer();
 
         Spot startSpot = getBoard().getBoardSpot(startX, startY);
         Spot endSpot = getBoard().getBoardSpot(endX, endY);
 
         Move move = new Move(currentPlayer, startSpot, endSpot, startSpot.getPiece());
-
-        move.getEnd().setPiece(move.getStart().getPiece());
 
         board.setBoardSpot(startX, startY, endX, endY);
 

@@ -11,6 +11,7 @@ public class RegularPiece extends Piece{
         if (!(end.getPiece() == null)) {
             return false;
         }
+
         return true;
     }
 }
