@@ -4,22 +4,21 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
 
-    public static void main(String[] args) throws Exception {
+        Game.run();
+        Scanner scanner = new Scanner(System.in);
 
-        int menuOption = Menu.printMenu();
-        Game game = new Game();
+//        System.out.println("Enter White Player name:");
+//        String whitePlayerName = scanner.nextLine();
+//        System.out.println("Enter Black Player name:");
+//        String blackPlayerName = scanner.nextLine();
+//        Player whitePlayer = new Player(1, whitePlayerName, true);
+//        Player blackPlayer = new Player(2, blackPlayerName, false);
 
-        switch (menuOption) {
-            case 1:
-                    game.newGame();
-                while (game.getStatus() != GameStatus.ACTIVE) {
-                    game.makeMove();
-                }
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + menuOption);
-        }
+        Board board = new Board();
+        board.resetBoard();
+        board.printBoard(board);
+
     }
 }
