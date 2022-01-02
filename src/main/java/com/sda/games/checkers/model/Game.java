@@ -70,6 +70,7 @@ public class Game {
         int endY;
         Piece sourcePiece;
 
+        // Valid checker to move
         while (true) {
             while (true) {
                 System.out.println("Which checker to move?");
@@ -128,6 +129,7 @@ public class Game {
             }
         }
 
+        // Valid destination
         while (true) {
             while (true) {
                 System.out.println("Where to go?");
