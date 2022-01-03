@@ -1,5 +1,11 @@
 package com.sda.games.checkers.model;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Piece {
 
     private boolean white;
@@ -18,37 +24,9 @@ public abstract class Piece {
             return "\u2B58";
     }
 
-    public void setPieceIcon(String pieceIcon) {
-        this.pieceIcon = pieceIcon;
-    }
-
     public Piece(boolean white) {
-        this.setWhite(white);
-    }
-
-    public boolean isWhite() {
-        return white;
-    }
-
-    public void setWhite(boolean white) {
         this.white = white;
     }
 
-    public boolean isRegular() {
-        return regular;
-    }
-
-    public void setRegular(boolean regular) {
-        this.regular = regular;
-    }
-
-    public boolean isKilled() {
-        return this.killed;
-    }
-
-    public void setKilled(boolean killed) {
-        this.killed = killed;
-    }
-
-    public abstract boolean canMove(Board board, Spot start,  Spot end);
+    public abstract boolean canMove(Board board, Spot start, Spot end);
 }
