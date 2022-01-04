@@ -28,7 +28,4 @@ public abstract class Piece {
         this.white = white;
     }
 
-    public abstract boolean isStartPieceValid(Board board, Player player, int startX, int startY) throws Exception;
-
-//    public abstract boolean isEndSpotValid(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception;
 }

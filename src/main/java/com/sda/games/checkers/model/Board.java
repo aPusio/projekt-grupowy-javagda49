@@ -2,8 +2,8 @@ package com.sda.games.checkers.model;
 
 public class Board {
 
-    private final static int BORDER_SIZE = 8;
-    private Spot[][] boardSpots = new Spot[BORDER_SIZE][BORDER_SIZE];
+    private final static int BOARD_SIDE_SIZE = 8;
+    private Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
 
     public Spot getBoardSpot (int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
@@ -12,16 +12,24 @@ public class Board {
         return boardSpots[x][y];
     }
 
-    public void setBoardSpot(int startX, int startY, int endX, int endY) {
+    public void setEndBoardSpot(int startX, int startY, int endX, int endY) {
         boardSpots[endX][endY].setPiece(boardSpots[startX][startY].getPiece());
-        boardSpots[startX][startY].setPiece(null);
+    }
+
+    public void setBoardPieceNull(int x, int y) {
+        boardSpots[x][y].setPiece(null);
+    }
+
+    public void setSpotsAfterMove(int startX, int startY, int endX, int endY) {
+        setEndBoardSpot(startX, startY, endX, endY);
+        setBoardPieceNull(startX, startY);
     }
 
     public void printBoard() {
-        for (int y = 7; y >= 0; y--) {
+        for (int y = BOARD_SIDE_SIZE - 1; y >= 0; y--) {
             System.out.println();
             System.out.print((y + 1) + " ");
-            for (int x = 0; x < 8; x++) {
+            for (int x = 0; x < BOARD_SIDE_SIZE; x++) {
                 System.out.print("|");
                 if (boardSpots[x][y] == null || boardSpots[x][y].getPiece() == null) {
                     System.out.print(" ");
@@ -36,45 +44,43 @@ public class Board {
 
     public void resetBoard() {
 
-        Piece whiteRegular = new RegularPiece(true);
-        Piece blackRegular = new RegularPiece(false);
         // initialize white pieces
-        boardSpots[0][0] = new Spot(0,0,whiteRegular);
-        boardSpots[2][0] = new Spot(0,2,whiteRegular);
-        boardSpots[4][0] = new Spot(0,4,whiteRegular);
-        boardSpots[6][0] = new Spot(0,5,whiteRegular);
-        boardSpots[1][1] = new Spot(1,1,whiteRegular);
-        boardSpots[3][1] = new Spot(1,3,whiteRegular);
-        boardSpots[5][1] = new Spot(1,5,whiteRegular);
-        boardSpots[7][1] = new Spot(1,7,whiteRegular);
-        boardSpots[0][2] = new Spot(2,0,whiteRegular);
-        boardSpots[2][2] = new Spot(2,2,whiteRegular);
-        boardSpots[4][2] = new Spot(2,4,whiteRegular);
-        boardSpots[6][2] = new Spot(2,6,whiteRegular);
+        boardSpots[0][0] = SpotFactory.regularWhite(0, 0);
+        boardSpots[2][0] = SpotFactory.regularWhite(2, 0);
+        boardSpots[4][0] = SpotFactory.regularWhite(4, 0);
+        boardSpots[6][0] = SpotFactory.regularWhite(6, 0);
+        boardSpots[1][1] = SpotFactory.regularWhite(1, 1);
+        boardSpots[3][1] = SpotFactory.regularWhite(3, 1);
+        boardSpots[5][1] = SpotFactory.regularWhite(5, 1);
+        boardSpots[7][1] = SpotFactory.regularWhite(7, 1);
+        boardSpots[0][2] = SpotFactory.regularWhite(0, 2);
+        boardSpots[2][2] = SpotFactory.regularWhite(2, 2);
+        boardSpots[4][2] = SpotFactory.regularWhite(4, 2);
+        boardSpots[6][2] = SpotFactory.regularWhite(6, 2);
 
         // initialize black pieces
-        boardSpots[1][5] = new Spot(5,1,blackRegular);
-        boardSpots[3][5] = new Spot(5,3,blackRegular);
-        boardSpots[5][5] = new Spot(5,5,blackRegular);
-        boardSpots[7][5] = new Spot(5,7,blackRegular);
-        boardSpots[0][6] = new Spot(6,0,blackRegular);
-        boardSpots[2][6] = new Spot(6,2,blackRegular);
-        boardSpots[4][6] = new Spot(6,4,blackRegular);
-        boardSpots[6][6] = new Spot(6,6,blackRegular);
-        boardSpots[1][7] = new Spot(7,1,blackRegular);
-        boardSpots[3][7] = new Spot(7,3,blackRegular);
-        boardSpots[5][7] = new Spot(7,5,blackRegular);
-        boardSpots[7][7] = new Spot(7,7,blackRegular);
+        boardSpots[1][5] = SpotFactory.regularBlack(1, 5);
+        boardSpots[3][5] = SpotFactory.regularBlack(3, 5);
+        boardSpots[5][5] = SpotFactory.regularBlack(5, 5);
+        boardSpots[7][5] = SpotFactory.regularBlack(7, 5);
+        boardSpots[0][6] = SpotFactory.regularBlack(0, 6);
+        boardSpots[2][6] = SpotFactory.regularBlack(2, 6);
+        boardSpots[4][6] = SpotFactory.regularBlack(4, 6);
+        boardSpots[6][6] = SpotFactory.regularBlack(6, 6);
+        boardSpots[1][7] = SpotFactory.regularBlack(1, 7);
+        boardSpots[3][7] = SpotFactory.regularBlack(3, 7);
+        boardSpots[5][7] = SpotFactory.regularBlack(5, 7);
+        boardSpots[7][7] = SpotFactory.regularBlack(7, 7);
 
         // initialize empty spots
-        boardSpots[1][3] = new Spot(3,1,null);
-        boardSpots[3][3] = new Spot(3,3,null);
-        boardSpots[5][3] = new Spot(3,5,null);
-        boardSpots[7][3] = new Spot(3,7,null);
-        boardSpots[0][4] = new Spot(4,0,null);
-        boardSpots[2][4] = new Spot(4,2,null);
-        boardSpots[4][4] = new Spot(4,4,null);
-        boardSpots[6][4] = new Spot(4,6,null);
-    }
+        boardSpots[1][3] = SpotFactory.emptySpot(1, 3);
+        boardSpots[3][3] = SpotFactory.emptySpot(3, 3);
+        boardSpots[5][3] = SpotFactory.emptySpot(5, 3);
+        boardSpots[7][3] = SpotFactory.emptySpot(7, 3);
+        boardSpots[0][4] = SpotFactory.emptySpot(0, 4);
+        boardSpots[2][4] = SpotFactory.emptySpot(2, 4);
+        boardSpots[4][4] = SpotFactory.emptySpot(4, 4);
+        boardSpots[6][4] = SpotFactory.emptySpot(6, 4);
 
+    }
 }

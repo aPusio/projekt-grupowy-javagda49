@@ -16,7 +16,7 @@ public class Game {
 
     private List<Player> players;
     private Board board;
-    private Player currentTurnPlayer;
+    private Player currentPlayer;
     private GameStatus status;
     private List<Move> movesPlayed;
     private Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class Game {
     }
 
     public void initialize(Player player1, Player player2) {
-        this.players = new ArrayList<>();
+        players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
 
@@ -41,20 +41,18 @@ public class Game {
         board.resetBoard();
 
         if (player1.isWhite()) {
-            this.currentTurnPlayer = player1;
+            currentPlayer = player1;
         } else {
-            this.currentTurnPlayer = player2;
+            currentPlayer = player2;
         }
 
-        this.movesPlayed = new ArrayList<>();
+        movesPlayed = new ArrayList<>();
         movesPlayed.clear();
     }
 
     public boolean makeMove() throws Exception {
 
-        Player currentPlayer = getCurrentTurnPlayer();
-
-        System.out.println(getCurrentTurnPlayer().getName() + " move.");
+        System.out.println(currentPlayer.getName() + " move.");
 
         Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
 
@@ -68,14 +66,18 @@ public class Game {
         char charEndY;
         int endX;
         int endY;
-        Piece sourcePiece;
+        Spot sourceSpot;
 
         // Choosing checker to move
         while (true) {
             while (true) {
-                System.out.println("Which checker to move?");
-                startSpotXY = scanner.nextLine();
-
+                do {
+                    System.out.println("Which checker to move?");
+                    startSpotXY = scanner.nextLine();
+                    if (startSpotXY.length() != 2) {
+                        System.out.println("Invalid input!");
+                    }
+                } while (startSpotXY.length() != 2);
                 Matcher matcher = movePattern.matcher(startSpotXY);
                 boolean isInputValid = matcher.matches();
 
@@ -88,11 +90,13 @@ public class Game {
                 if (!isInputValid) {
                     System.out.println("Invalid input!");
                 } else {
-                    if (board.getBoardSpot(startX, startY) == null) {
+                    if (board.getBoardSpot(startX, startY) == null || board.getBoardSpot(startX, startY).getPiece() == null) {
                         System.out.println("No checker here!");
                     } else {
-                        sourcePiece = board.getBoardSpot(startX, startY).getPiece();
-                        if (sourcePiece.isStartPieceValid(board, currentTurnPlayer, startX, startY)) {
+                        sourceSpot = board.getBoardSpot(startX, startY);
+                        if (sourceSpot.isStartSpotValid(board, currentPlayer, startX, startY)) {
+                            break;
+                        } else if (sourceSpot.hasKill(board, currentPlayer, startX, startY)) {
                             break;
                         }
                     }
@@ -103,9 +107,13 @@ public class Game {
         // Choosing where to move
         while (true) {
             while (true) {
-                System.out.println("Where to go?");
-                endSpotXY = scanner.nextLine();
-
+                do {
+                    System.out.println("Where to go?");
+                    endSpotXY = scanner.nextLine();
+                    if (endSpotXY.length() != 2) {
+                        System.out.println("Invalid input!");
+                    }
+                } while (endSpotXY.length() != 2);
                 Matcher matcher = movePattern.matcher(endSpotXY);
                 boolean isInputValid = matcher.matches();
 
@@ -120,7 +128,7 @@ public class Game {
                 } else {
                     if (board.getBoardSpot(endX, endY) == null) {
                         System.out.println("Invalid board spot!");
-                    } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentTurnPlayer, startX, startY, endX, endY)) {
+                    } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                         break;
                     }
                 }
@@ -133,17 +141,11 @@ public class Game {
 
         Move move = new Move(currentPlayer, startSpot, endSpot, startSpot.getPiece());
 
-        board.setBoardSpot(startX, startY, endX, endY);
+        board.setSpotsAfterMove(startX, startY, endX, endY);
 
-        if (this.currentTurnPlayer == players.get(0)) {
-            this.currentTurnPlayer = players.get(1);
-        } else {
-            this.currentTurnPlayer = players.get(0);
-        }
-
+        currentPlayer = currentPlayer.isWhite() ? players.get(1) : players.get(0);
 
         movesPlayed.add(move);
-
 
         getBoard().printBoard();
 
