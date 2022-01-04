@@ -96,8 +96,8 @@ public class Game {
                         sourceSpot = board.getBoardSpot(startX, startY);
                         if (sourceSpot.isStartSpotValid(board, currentPlayer, startX, startY)) {
                             break;
-                        } else if (sourceSpot.hasKill(board, currentPlayer, startX, startY)) {
-                            break;
+//                        } else if (sourceSpot.hasKill(board, currentPlayer, startX, startY)) {
+//                            break;
                         }
                     }
                 }

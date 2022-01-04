@@ -14,39 +14,61 @@ public class Spot {
 
     public boolean isStartSpotValid(Board board, Player player, int startX, int startY) throws Exception {
         if (player.isWhite()) {
-            if (!board.getBoardSpot(startX, startY).getPiece().isWhite()) {
+            if (!board.spotIsWhite(startX, startY)) {
                 System.out.println("Not your piece!");
-            } else if (startX == 0 && (board.getBoardSpot(startX + 1, startY + 1).getPiece() != null)) {
-                System.out.println("No move available!");
-            } else if (startX == 7 && (board.getBoardSpot(startX - 1, startY + 1).getPiece() != null)) {
-                System.out.println("No move available!");
-            } else if (startX == 7 && (board.getBoardSpot(startX - 1, startY + 1).getPiece() == null)) {
+                return false;
+            } else if (startX == 0 && board.spotHasPiece(startX + 1, startY + 1)) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (board.spotHasPiece(startX - 1, startY + 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (!board.spotHasPiece(startX - 1, startY + 1))) {
                 return true;
-            } else if (board.getBoardSpot(startX + 1, startY + 1).getPiece() != null &&
-                    board.getBoardSpot(startX - 1, startY + 1).getPiece() != null) {
-                if (board.getBoardSpot(startX + 1, startY + 1).getPiece().isWhite() &&
-                    board.getBoardSpot(startX - 1, startY + 1).getPiece().isWhite()) {
+            } else if (
+                    board.spotHasPiece(startX + 1, startY + 1) &&
+                            board.spotHasPiece(startX - 1, startY + 1)) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
                     System.out.println("No move available!");
                 }
             } else {
                 return true;
             }
         } else if (!player.isWhite()) {
-            if (board.getBoardSpot(startX, startY).getPiece().isWhite()) {
+            if (board.spotIsWhite(startX, startY)) {
                 System.out.println("Not your piece!");
-            } else if (startX == 0 && (board.getBoardSpot(startX + 1, startY - 1).getPiece() != null)) {
-                System.out.println("No move available!");
-            } else if (startX == 7 && (!board.getBoardSpot(startX - 1, startY - 1).getPiece().isWhite())) {
-                System.out.println("No move available!");
-            } else if (startX == 7 && (board.getBoardSpot(startX - 1, startY - 1).getPiece() == null)) {
+                return false;
+            } else if (startX == 0 && (board.spotHasPiece(startX + 1, startY - 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (board.spotHasPiece(startX - 1, startY - 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available");
+                }
+            } else if (startX == 7 && (!board.spotHasPiece(startX - 1, startY - 1))) {
                 return true;
-            } else if ( startX > 0 && startX < 7 && board.getBoardSpot(startX + 1, startY - 1).getPiece() != null &&
-                    board.getBoardSpot(startX - 1, startY - 1).getPiece() != null) {
+            } else if (startX > 0 && startX < 7 && board.spotHasPiece(startX + 1, startY - 1) &&
+                    board.spotHasPiece(startX - 1, startY - 1)) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 }
                 System.out.println("No move available!");
-                System.out.println("lol");
+//                Check if start checker has kill
+            } else if (hasKill(board, player, startX, startY)) {
+                return true;
             } else {
                 return true;
             }
@@ -78,30 +100,30 @@ public class Spot {
 
     public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
         if (player.isWhite()) {
-            if (startX - 2 == endX && startY + 2 == endY && !(board.getBoardSpot(startX - 1, startY + 1).getPiece().isWhite())) {
+            if (startX - 2 == endX && startY + 2 == endY && !(board.spotIsWhite(startX - 1, startY + 1))) {
                 board.setBoardPieceNull(startX - 1, startY + 1);
                 return true;
-            } else if ((startX + 2 == endX && startY + 2 == endY) && !(board.getBoardSpot(startX + 1, startY + 1).getPiece().isWhite())) {
+            } else if ((startX + 2 == endX && startY + 2 == endY) && !(board.spotIsWhite(startX + 1, startY + 1))) {
                 board.setBoardPieceNull(startX + 1, startY + 1);
                 return true;
-            } else if ((startX - 2 == endX && startY - 2 == endY) && !(board.getBoardSpot(startX - 1, startY - 1).getPiece().isWhite())) {
+            } else if ((startX - 2 == endX && startY - 2 == endY) && !(board.spotIsWhite(startX - 1, startY - 1))) {
                 board.setBoardPieceNull(startX - 1, startY - 1);
                 return true;
-            } else if ((startX + 2 == endX && startY - 2 == endY) && !(board.getBoardSpot(startX + 1, startY - 1).getPiece().isWhite())) {
+            } else if ((startX + 2 == endX && startY - 2 == endY) && !(board.spotIsWhite(startX + 1, startY - 1))) {
                 board.setBoardPieceNull(startX + 1, startY - 1);
                 return true;
             }
         } else if (!player.isWhite()) {
-            if (startX - 2 == endX && startY + 2 == endY && board.getBoardSpot(startX - 1, startY + 1).getPiece().isWhite()) {
+            if (startX - 2 == endX && startY + 2 == endY && board.spotIsWhite(startX - 1, startY + 1)) {
                 board.setBoardPieceNull(startX - 1, startY + 1);
                 return true;
-            } else if ((startX + 2 == endX && startY + 2 == endY) && board.getBoardSpot(startX + 1, startY + 1).getPiece().isWhite()) {
+            } else if ((startX + 2 == endX && startY + 2 == endY) && board.spotIsWhite(startX + 1, startY + 1)) {
                 board.setBoardPieceNull(startX + 1, startY + 1);
                 return true;
-            } else if ((startX - 2 == endX && startY - 2 == endY) && board.getBoardSpot(startX - 1, startY - 1).getPiece().isWhite()) {
+            } else if ((startX - 2 == endX && startY - 2 == endY) && board.spotIsWhite(startX - 1, startY - 1)) {
                 board.setBoardPieceNull(startX - 1, startY - 1);
                 return true;
-            } else if ((startX + 2 == endX && startY - 2 == endY) && board.getBoardSpot(startX + 1, startY - 1).getPiece().isWhite()) {
+            } else if ((startX + 2 == endX && startY - 2 == endY) && board.spotIsWhite(startX + 1, startY - 1)) {
                 board.setBoardPieceNull(startX + 1, startY - 1);
                 return true;
             }
@@ -109,39 +131,57 @@ public class Spot {
         return false;
     }
 
-    public boolean hasKill (Board board, Player player, int startX, int startY) throws Exception {
-        if (startX > 1 && startY > 1 && startX < 6 && startX < 6) {
+    public boolean hasKill(Board board, Player player, int startX, int startY) throws Exception {
+//         Validate center killing
+        if (Move.validateCenterKilling(board, player, startX, startY)) {
+            return true;
+//          Validate left side killing
+        } else if (Move.validateLeftSideKilling(board, player, startX, startY)) {
+            return true;
+//          Validate right side killing
+        } else if (Move.validateRightSideKilling(board, player, startX, startY)) {
+            return true;
+//          Validate row 7
+        } else if (startY == 6 && (startX == 2 || startX == 4)) {
             if (player.isWhite()) {
-                if (board.getBoardSpot(startX - 2, startY + 2).getPiece() == null &&
-                        !board.getBoardSpot(startX - 1, startY + 1).getPiece().isWhite()) {
-                    return true;
-                } else if (board.getBoardSpot(startX + 2, startY + 2).getPiece() == null &&
-                        !board.getBoardSpot(startX + 1, startY + 1).getPiece().isWhite()) {
-                    return true;
-                } else if (board.getBoardSpot(startX - 2, startY - 2).getPiece() == null &&
-                        !board.getBoardSpot(startX - 1, startY - 1).getPiece().isWhite()) {
-                    return true;
-                } else if (board.getBoardSpot(startX + 2, startY - 2).getPiece() == null &&
-                        !board.getBoardSpot(startX + 1, startY - 1).getPiece().isWhite()) {
+                if ((board.spotHasPiece(startX - 2, startY - 2) && !board.spotIsWhite(startX - 1, startY - 1) ||
+                        (board.spotHasPiece(startX + 2, startY - 2) && !board.spotIsWhite(startX + 1, startY - 1)))) {
                     return true;
                 }
             } else if (!player.isWhite()) {
-                if (board.getBoardSpot(startX - 2, startY + 2).getPiece() == null &&
-                        (board.getBoardSpot(startX - 1, startY + 1).getPiece() == null ||
-                                board.getBoardSpot(startX - 1, startY + 1).getPiece().isWhite())) {
-                    return true;
-                } else if (board.getBoardSpot(startX + 2, startY + 2).getPiece() == null &&
-                        board.getBoardSpot(startX + 1, startY + 1).getPiece().isWhite()) {
-                    return true;
-                } else if (board.getBoardSpot(startX - 2, startY - 2).getPiece() == null &&
-                        board.getBoardSpot(startX - 1, startY - 1).getPiece().isWhite()) {
-                    return true;
-                } else if (board.getBoardSpot(startX + 2, startY - 2).getPiece() == null &&
-                        board.getBoardSpot(startX + 1, startY - 1).getPiece().isWhite()) {
+                if ((board.spotHasPiece(startX - 2, startY - 2) && board.spotIsWhite(startX - 1, startY - 1) ||
+                        (board.spotHasPiece(startX + 2, startY - 2) && board.spotIsWhite(startX + 1, startY - 1)))) {
                     return true;
                 }
             }
-            return false;
+//            Validate row 2
+        } else if ((startY == 1 && (startX == 3 || startX == 5))) {
+            if (player.isWhite()) {
+                if ((!board.spotHasPiece(startX - 2, startY + 2) && !board.spotIsWhite(startX - 1, startY + 1) ||
+                        (!board.spotHasPiece(startX + 2, startY + 2) && !board.spotIsWhite(startX + 1, startY + 1)))) {
+                    return true;
+                }
+            } else if (!player.isWhite()) {
+                if ((!board.spotHasPiece(startX - 2, startY + 2) && board.spotIsWhite(startX - 1, startY + 1) ||
+                        (!board.spotHasPiece(startX + 2, startY + 2) && board.spotIsWhite(startX + 1, startY + 1)))) {
+                    return true;
+                }
+            }
+//        } else if (startX == 0 && startY == 0) {
+//        } else if (startX == 6 && startY == 0) {
+//        } else if (startX == 1 && startY == 1) {
+//        } else if (startX == 7 && startY == 1) {
+//        } else if (startX == 0 && startY == 6) {
+//        } else if (startX == 6 && startY == 6) {
+//        } else if (startX == 1 && startY == 7) {
+//        } else if (startX == 7 && startY == 7) {
+
+        } else if (startX == 6 && startY == 6) {
+            if (!player.isWhite()) {
+                if (!board.spotHasPiece(4, 4) && board.spotIsWhite(5, 5)) {
+                    return true;
+                }
+            }
         }
         return false;
     }

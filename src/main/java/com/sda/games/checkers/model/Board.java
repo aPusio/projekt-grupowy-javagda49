@@ -42,6 +42,20 @@ public class Board {
         System.out.println("\n   a b c d e f g h");
     }
 
+    public boolean spotIsWhite(int x, int y) throws Exception {
+        if (getBoardSpot(x, y).getPiece().isWhite()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean spotHasPiece(int x, int y) throws Exception {
+        if (getBoardSpot(x, y).getPiece() != null) {
+            return true;
+        }
+        return false;
+    }
+
     public void resetBoard() {
 
         // initialize white pieces
