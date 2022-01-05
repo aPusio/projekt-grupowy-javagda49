@@ -90,14 +90,12 @@ public class Game {
                 if (!isInputValid) {
                     System.out.println("Invalid input!");
                 } else {
-                    if (board.getBoardSpot(startX, startY) == null || board.getBoardSpot(startX, startY).getPiece() == null) {
+                    if (board.isEmpty(startX, startY)) {
                         System.out.println("No checker here!");
                     } else {
                         sourceSpot = board.getBoardSpot(startX, startY);
                         if (sourceSpot.isStartSpotValid(board, currentPlayer, startX, startY)) {
                             break;
-//                        } else if (sourceSpot.hasKill(board, currentPlayer, startX, startY)) {
-//                            break;
                         }
                     }
                 }

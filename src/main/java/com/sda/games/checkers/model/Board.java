@@ -5,7 +5,7 @@ public class Board {
     private final static int BOARD_SIDE_SIZE = 8;
     private Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
 
-    public Spot getBoardSpot (int x, int y) throws Exception {
+    public Spot getBoardSpot(int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
             throw new Exception("Space is out of bounds");
         }
@@ -42,18 +42,20 @@ public class Board {
         System.out.println("\n   a b c d e f g h");
     }
 
-    public boolean spotIsWhite(int x, int y) throws Exception {
-        if (getBoardSpot(x, y).getPiece().isWhite()) {
-            return true;
-        }
-        return false;
+    public boolean pieceIsWhite(int x, int y) throws Exception {
+        return getBoardSpot(x, y).getPiece().isWhite();
     }
 
-    public boolean spotHasPiece(int x, int y) throws Exception {
-        if (getBoardSpot(x, y).getPiece() != null) {
-            return true;
-        }
-        return false;
+    public boolean pieceIsBlack(int x, int y) throws Exception {
+        return !pieceIsWhite(x, y);
+    }
+
+    public boolean isEmpty(int x, int y) throws Exception {
+        return getBoardSpot(x, y) == null || getBoardSpot(x, y).getPiece() == null;
+    }
+
+    public boolean isNotEmpty(int x, int y) throws Exception {
+        return !isEmpty(x, y);
     }
 
     public void resetBoard() {
