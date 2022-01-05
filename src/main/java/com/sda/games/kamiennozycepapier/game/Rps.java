@@ -6,6 +6,14 @@ import lombok.AllArgsConstructor;
 
 public enum Rps {
 
-    // tu będzie Enum :P
+    KAMIEN(1),
+    PAPIER(2),
+    NOZYCE(3);
+
+    private int wartosc;
+
+    public int getWartosc() {
+        return wartosc;
+    }
 
 }

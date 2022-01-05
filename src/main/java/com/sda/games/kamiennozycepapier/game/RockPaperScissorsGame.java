@@ -1,46 +1,44 @@
 package com.sda.games.kamiennozycepapier.game;
 
-import lombok.AllArgsConstructor;
+import com.sda.games.kamiennozycepapier.game.manu.ChristmasTree;
 
 import java.util.Scanner;
-
-@AllArgsConstructor
 
 
 public class RockPaperScissorsGame {
 
+    private static final int KAMIEN = 1;
+    private static final int PAPIER = 2;
+    private static final int NOZYCE = 3;
+
+    private static final int RUDOLF = 1;
+    private static final int MIKOLAJ = 2;
+    private static final int REMIS = 3;
+
+    public static int zwyciezca = 0;
+
+    private static int wygrane = 0;
+    private static int przegrane = 0;
+    private static int remisy = 0;
+
+
     public static void start() {
 
-        printChristmasTree('*', 39);
-
-
-        final int KAMIEN = 1;
-        final int PAPIER = 2;
-        final int NOZYCE = 3;
-
-        final int RUDOLF = 1;
-        final int MIKOLAJ = 2;
-        final int REMIS = 3;
-
-        int rudolf, zwyciezca = 0;
-
-        int wygrane = 0, przegrane = 0, remisy = 0;
-
+        ChristmasTree christmasTree = new ChristmasTree('*',39);
 
         String znowu = "t";
         Scanner skan = new Scanner(System.in);
+
         do {
-            System.out.println();
-            System.out.println("=========================================");
-            System.out.println("====== Świąteczne wydanie gry : =========");
-            System.out.println("****** Papier, Kamień, Nożyce ******* ");
-            System.out.println("=========================================");
             System.out.println();
             System.out.print("Mikołaju: ");
             System.out.print("Wskaż swój wybór:\n\t\t1 = Kamień\n\t\t2 = Papier\n\t\t3 = Nożyczki\n\t\t");
+
             int mikołaj = skan.nextInt();
+
             System.out.print("Twój wybór: ");
             System.out.println();
+
             switch (mikołaj) {
                 case KAMIEN:
                     System.out.println("Kamień.");
@@ -57,7 +55,7 @@ public class RockPaperScissorsGame {
             System.out.print("Rudolfie czerwononosy: ");
             System.out.print("Wskaż swój wybór:\n\t\t1 = Kamien\n\t\t2 = Papier\n\t\t3 = Nozyczki\n\t\t");
             System.out.println();
-            rudolf = skan.nextInt();
+            int rudolf = skan.nextInt();
             switch (rudolf) {
                 case KAMIEN:
                     System.out.println("Kamień.");
@@ -122,29 +120,14 @@ public class RockPaperScissorsGame {
         System.out.println("Rudolfie czerwononosy zremisowałeś" + remisy + " raz.");
     }
 
-    public static void printChristmasTree(final char sign, int numberOfSignsAtTheBoottom) {
+    public void con() {
 
-        int numberOfSignsAtTheTop = numberOfSignsAtTheBoottom % 2 == 0 ? 2 : 1;
-
-        int height = 0;
-        for (int i = numberOfSignsAtTheBoottom; i > 0; i = i - 2) {
-            height++;
-        }
-
-        int numberOfSingsInARow = numberOfSignsAtTheTop;
-        for (int row = 0; row < height; row++) {
-            int numberOfSpace = (numberOfSignsAtTheBoottom - numberOfSingsInARow) / 2;
-
-            for (int column = 0;
-                 column < numberOfSignsAtTheBoottom - numberOfSpace;
-                 column++
-            ) {
-                System.out.print(column < numberOfSpace ? " " : sign);
-            }
-            numberOfSingsInARow = numberOfSingsInARow + 2;
-            System.out.println();
-        }
     }
+
+    public void exit() {
+
+    }
+
 }
 
 
