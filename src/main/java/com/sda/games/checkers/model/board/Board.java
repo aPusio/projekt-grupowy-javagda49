@@ -1,4 +1,7 @@
-package com.sda.games.checkers.model;
+package com.sda.games.checkers.model.board;
+
+import com.sda.games.checkers.model.piece.Piece;
+import com.sda.games.checkers.model.player.Player;
 
 public class Board {
 
@@ -10,6 +13,18 @@ public class Board {
             throw new Exception("Space is out of bounds");
         }
         return boardSpots[x][y];
+    }
+
+    public void setBoardSpot(int x, int y, Spot spotFactory) {
+        boardSpots[x][y] = spotFactory;
+    }
+
+    public void advancePiece(int x, int y, Player player) {
+        if (player.isWhite()) {
+            boardSpots[x][y] = SpotFactory.uberWhite(x, y);
+        } else if (player.isBlack()){
+            boardSpots[x][y] = SpotFactory.uberBlack(x, y);
+        }
     }
 
     public void setEndBoardSpot(int startX, int startY, int endX, int endY) {

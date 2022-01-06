@@ -1,5 +1,9 @@
-package com.sda.games.checkers.model;
+package com.sda.games.checkers.model.game;
 
+import com.sda.games.checkers.model.board.Board;
+import com.sda.games.checkers.model.board.Spot;
+import com.sda.games.checkers.model.player.Move;
+import com.sda.games.checkers.model.player.Player;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -56,17 +60,16 @@ public class Game {
 
         Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
 
-        String startSpotXY = "";
+        String startSpotXY;
         char charStartY;
         char charStartX;
         int startX;
         int startY;
-        String endSpotXY = "";
+        String endSpotXY;
         char charEndX;
         char charEndY;
         int endX;
         int endY;
-        Spot sourceSpot;
 
         // Choosing checker to move
         while (true) {
@@ -86,17 +89,14 @@ public class Game {
                 startX = charStartX - 97;
                 startY = charStartY - 49;
 
-                // Start piece validation
+                // Start spot validation
                 if (!isInputValid) {
                     System.out.println("Invalid input!");
                 } else {
                     if (board.isEmpty(startX, startY)) {
                         System.out.println("No checker here!");
-                    } else {
-                        sourceSpot = board.getBoardSpot(startX, startY);
-                        if (sourceSpot.isStartSpotValid(board, currentPlayer, startX, startY)) {
-                            break;
-                        }
+                    } else if (board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, startX, startY)) {
+                        break;
                     }
                 }
             }
@@ -131,7 +131,7 @@ public class Game {
                     }
                 }
             }
-                break;
+            break;
         }
 
         Spot startSpot = getBoard().getBoardSpot(startX, startY);
@@ -141,7 +141,12 @@ public class Game {
 
         board.setSpotsAfterMove(startX, startY, endX, endY);
 
+        if ((currentPlayer.isWhite() && endY == 7) || (currentPlayer.isBlack() && endY == 0)) {
+            board.advancePiece(endX, endY, currentPlayer);
+        }
+
         currentPlayer = currentPlayer.isWhite() ? players.get(1) : players.get(0);
+
 
         movesPlayed.add(move);
 
@@ -149,7 +154,8 @@ public class Game {
 
         return true;
     }
-    public boolean isEnd() {
-        return this.getStatus() != GameStatus.ACTIVE;
+
+    public boolean isActive() {
+        return (currentPlayer.kills != 12);
     }
 }

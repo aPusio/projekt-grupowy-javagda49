@@ -1,5 +1,8 @@
 package com.sda.games.checkers.model;
 
+import com.sda.games.checkers.model.game.Game;
+import com.sda.games.checkers.model.game.Menu;
+
 import java.util.Scanner;
 
 public class Main {
@@ -14,9 +17,10 @@ public class Main {
         switch (menuOption) {
             case 1:
                     game.newGame();
-                while (game.getStatus() != GameStatus.ACTIVE) {
+                while (game.isActive()) {
                     game.makeMove();
                 }
+                System.out.println(game.getCurrentPlayer().getName() + " has won the game!");
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + menuOption);

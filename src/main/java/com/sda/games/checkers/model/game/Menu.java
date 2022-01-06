@@ -1,4 +1,4 @@
-package com.sda.games.checkers.model;
+package com.sda.games.checkers.model.game;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
