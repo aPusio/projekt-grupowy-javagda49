@@ -2,6 +2,7 @@ package com.sda.games.checkers.model.game;
 
 import com.sda.games.checkers.model.board.Board;
 import com.sda.games.checkers.model.board.Spot;
+import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Move;
 import com.sda.games.checkers.model.player.Player;
 import lombok.*;
@@ -27,9 +28,9 @@ public class Game {
 
     public void newGame() {
         System.out.println("Enter White Player name:");
-        Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true);
+        Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true, 0);
         System.out.println("Enter Black Player name:");
-        Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false);
+        Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false, 0);
 
 
         initialize(whitePlayer, blackPlayer);
@@ -52,6 +53,10 @@ public class Game {
 
         movesPlayed = new ArrayList<>();
         movesPlayed.clear();
+    }
+
+    public boolean validateInput(Spot spot) {
+        return false;
     }
 
     public boolean makeMove() throws Exception {
@@ -128,6 +133,11 @@ public class Game {
                         System.out.println("Invalid board spot!");
                     } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                         break;
+                    } else if (Piece.hasKill(board, currentPlayer, startX, startY)) {
+                        if (Move.killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
+                            currentPlayer.killCounter();
+                            break;
+                        }
                     }
                 }
             }
@@ -146,7 +156,6 @@ public class Game {
         }
 
         currentPlayer = currentPlayer.isWhite() ? players.get(1) : players.get(0);
-
 
         movesPlayed.add(move);
 

@@ -13,9 +13,9 @@ public class Player {
     private boolean isWhite;
     public static String whitePlayerName;
     public static String blackPlayerName;
-    public static int kills = 0;
+    public int kills = 0;
 
-    public static void killCounter() {
+    public void killCounter() {
         kills += 1;
     }
 

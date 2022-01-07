@@ -1,9 +1,11 @@
 package com.sda.games.checkers.model.board;
 
-import com.sda.games.checkers.model.player.Move;
-import com.sda.games.checkers.model.player.Player;
 import com.sda.games.checkers.model.piece.Piece;
-import lombok.*;
+import com.sda.games.checkers.model.player.Player;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -15,26 +17,39 @@ public class Spot {
     private int y;
     private Piece piece;
 
+//    public boolean pieceIsWhite(Board board, int x, int y) throws Exception {
+//        return hasPiece(board, x, y) && board.getBoardSpot(x, y).getPiece().isWhite();
+//    }
+//
+//    public boolean pieceIsBlack(Board board, int x, int y) throws Exception {
+//        return hasPiece(board, x, y) && !pieceIsWhite(board, x, y);
+//    }
+//
+//    public boolean hasPiece(Board board, int x, int y) throws Exception {
+//        return board.getBoardSpot(x, y).getPiece() != null;
+//    }
+//
+//    public boolean hasNoPiece(Board board, int x, int y) throws Exception {
+//        return !hasPiece(board, x, y);
+//    }
+
     public boolean isStartSpotValid(Board board, Player player, int startX, int startY) throws Exception {
-        return Move.hasMove(board, player, startX, startY);
+        return Piece.hasMove(board, player, startX, startY);
     }
 
     public boolean isEndSpotValid(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
-        if (board.getBoardSpot(endX, endY).getPiece() != null) {
-            System.out.println("Invalid move! (Piece on destination)");
+        if (board.hasPiece(endX, endY)) {
+            System.out.println("Invalid move!");
             return false;
         }
 
-        if (Move.killEnemyPiece(board, player, startX, startY, endX, endY)) {
-            player.killCounter();
-            return true;
-        }
+        return checkPrimaryMove(player, startX, startY, endX, endY);
+    }
 
-        if (player.isWhite() && (startY - endY) != -1) {
-            System.out.println("Invalid move!");
-        } else if (!player.isWhite() && (startY - endY != 1)) {
-            System.out.println("Invalid move!");
-        } else if (startX - endX != -1 && startX - endX != 1) {
+    public boolean checkPrimaryMove(Player player, int startX, int startY, int endX, int endY) {
+        if ((player.isWhite() && (startY - endY) != -1) ||
+                (player.isBlack() && (startY - endY != 1)) ||
+                (startX - endX != -1 && startX - endX != 1)) {
             System.out.println("Invalid move!");
         } else {
             return true;

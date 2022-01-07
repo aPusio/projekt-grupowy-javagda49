@@ -1,12 +1,11 @@
 package com.sda.games.checkers.model.board;
 
-import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Player;
 
 public class Board {
 
     private final static int BOARD_SIDE_SIZE = 8;
-    private Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
+    private static Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
 
     public Spot getBoardSpot(int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
@@ -58,11 +57,19 @@ public class Board {
     }
 
     public boolean pieceIsWhite(int x, int y) throws Exception {
-        return getBoardSpot(x, y).getPiece().isWhite();
+        return hasPiece(x, y) && getBoardSpot(x, y).getPiece().isWhite();
     }
 
     public boolean pieceIsBlack(int x, int y) throws Exception {
-        return !pieceIsWhite(x, y);
+        return hasPiece(x, y) && !pieceIsWhite(x, y);
+    }
+
+    public boolean hasPiece(int x, int y) throws Exception {
+        return getBoardSpot(x, y).getPiece() != null;
+    }
+
+    public boolean hasNoPiece(int x, int y) throws Exception {
+        return !hasPiece(x, y);
     }
 
     public boolean isEmpty(int x, int y) throws Exception {
