@@ -9,7 +9,7 @@ public class ConnectionManager {
         String userName = "root";
         String password = "root";
 
-    public Connection getConnection(){
+    public Connection getConnection() throws SQLException{
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(connectionString,userName,password);
