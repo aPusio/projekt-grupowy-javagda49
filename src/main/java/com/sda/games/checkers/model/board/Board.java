@@ -1,11 +1,13 @@
 package com.sda.games.checkers.model.board;
 
+import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Player;
 
 public class Board {
 
     private final static int BOARD_SIDE_SIZE = 8;
     private static Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
+    private Piece piece;
 
     public Spot getBoardSpot(int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
@@ -78,6 +80,10 @@ public class Board {
 
     public boolean isNotEmpty(int x, int y) throws Exception {
         return !isEmpty(x, y);
+    }
+
+    public boolean isRegularPiece(int x, int y) {
+        return piece.isRegular();
     }
 
     public void resetBoard() {

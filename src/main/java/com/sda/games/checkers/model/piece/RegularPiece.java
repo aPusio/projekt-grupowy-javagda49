@@ -6,9 +6,16 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 public class RegularPiece extends Piece{
+    private final boolean REGULAR = true;
 
     public RegularPiece(boolean white) {
         super(white);
+    }
+
+
+    @Override
+    public boolean isRegular() {
+        return REGULAR;
     }
 
     @Override
