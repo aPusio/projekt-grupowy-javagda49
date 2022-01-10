@@ -2,6 +2,8 @@ package com.sda.games.checkers.model.player;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,5 +23,9 @@ public class Player {
 
     public boolean isBlack() {
         return !isWhite;
+    }
+
+    public Player switchPlayers(Player player, List<Player> players) {
+        return player.isWhite() ? players.get(1) : players.get(0);
     }
 }

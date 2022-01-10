@@ -22,8 +22,8 @@ public class Spot {
                 (startX - endX != -1 && startX - endX != 1));
     }
 
-    public boolean isStartSpotValid(Board board, Player player, int startX, int startY) throws Exception {
-        return Piece.hasMove(board, player, startX, startY);
+    public boolean isStartSpotValid(Board board, Player player, Piece piece, int startX, int startY) throws Exception {
+        return piece.hasMove(board, player, startX, startY);
     }
 
     public boolean isEndSpotValid(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
