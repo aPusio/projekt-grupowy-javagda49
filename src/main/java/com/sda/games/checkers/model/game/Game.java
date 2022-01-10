@@ -28,7 +28,7 @@ public class Game {
     private Object game;
 
     public void runGame() throws Exception {
-        this.game = Menu.mainMenu();
+        Menu.mainMenu();
     }
 
     public List<Player> createPlayers() {
@@ -46,9 +46,6 @@ public class Game {
 
     public Game newGame() {
         players = createPlayers();
-
-        Player whitePlayer = players.get(0);
-        Player blackPlayer = players.get(1);
 
         Game game = initialize(players);
         getBoard().printBoard();
@@ -116,63 +113,43 @@ public class Game {
         int endY;
 
         // Choosing checker to move
-        while (true) {
+        do {
             System.out.println("Which checker to move?");
-            while (true) {
-                startSpotXY = getStringXY();
-                startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
-                startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
+            startSpotXY = getStringXY();
+            startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
+            startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
 
-                if (board.isEmpty(startX, startY)) {
-                    System.out.println("No checker here!");
-                } else if (board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, startX, startY)) {
-                    break;
-                }
-
+            if (board.isEmpty(startX, startY)) {
+                System.out.println("No checker here!");
             }
-            break;
-        }
+        } while (!board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, board.getPiece(startX, startY), startX, startY));
         // Choosing where to move
-        while (true) {
-            while (true) {
-                System.out.println("Where to go?");
-                endSpotXY = getStringXY();
-                endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
-                endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
+        do {
+            System.out.println("Where to go?");
+            endSpotXY = getStringXY();
+            endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
+            endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
 
-                if (board.isEmpty(endX, endY)) {
-                    System.out.println("Invalid board spot!");
-                } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
-                    break;
-                } else if (Piece.hasKill(board, currentPlayer, startX, startY)) {
-                    if (Move.killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
-                        currentPlayer.killCounter();
-                        break;
-                    }
+            if (board.isEmpty(endX, endY)) {
+                System.out.println("Invalid board spot!");
+            } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
+                board.setSpotsAfterMove(startX, startY, endX, endY);
+                getBoard().printBoard();
+                break;
+            } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
+                    currentPlayer.killCounter();
+                    board.setSpotsAfterMove(startX, startY, endX, endY);
+                    getBoard().printBoard();
+                    startX = endX;
+                    startY = endY;
+                } else {
                     System.out.println("Invalid move!");
                 }
             }
-            break;
-        }
-
-        Spot startSpot = getBoard().getBoardSpot(startX, startY);
-        Spot endSpot = getBoard().getBoardSpot(endX, endY);
-
-        Move move = new Move(currentPlayer, startSpot, endSpot, startSpot.getPiece());
-
-        board.setSpotsAfterMove(startX, startY, endX, endY);
-
-        if ((currentPlayer.isWhite() && endY == 7 && board.isRegularPiece(endX, endY))
-                || (currentPlayer.isBlack() && endY == 0) && board.isRegularPiece(endX, endY)) {
-            board.advancePiece(endX, endY, currentPlayer);
-        }
-
-        currentPlayer = currentPlayer.isWhite() ? players.get(1) : players.get(0);
-
-        movesPlayed.add(move);
-
-        getBoard().printBoard();
-
+        } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
+        board.advancePiece(endX, endY, currentPlayer);
+        currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 
     public boolean isActive() {

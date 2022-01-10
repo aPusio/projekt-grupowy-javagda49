@@ -1,5 +1,7 @@
 package com.sda.games.checkers.model.piece;
 
+import com.sda.games.checkers.model.board.Board;
+import com.sda.games.checkers.model.player.Player;
 import lombok.*;
 
 @Getter
@@ -26,7 +28,78 @@ public class UberPiece extends Piece {
         }
     }
 
-
-
-
+    @Override
+    public boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
+        if (player.isWhite()) {
+            if (board.pieceIsBlack(startX, startY)) {
+                System.out.println("Not your piece!");
+                return false;
+            } else if (startY == 7) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 0 && board.hasPiece(startX + 1, startY + 1)) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (board.hasPiece(startX - 1, startY + 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY + 1))) {
+                return true;
+            } else if (
+                    board.hasPiece(startX + 1, startY + 1) &&
+                            board.hasPiece(startX - 1, startY + 1)) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else {
+                return true;
+            }
+        } else if (!player.isWhite()) {
+            if (board.pieceIsWhite(startX, startY)) {
+                System.out.println("Not your piece!");
+                return false;
+            } else if (startY == 0) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 0 && (board.hasPiece(startX + 1, startY - 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available!");
+                }
+            } else if (startX == 7 && (board.hasPiece(startX - 1, startY - 1))) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                } else {
+                    System.out.println("No move available");
+                }
+            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY - 1))) {
+                return true;
+            } else if ((startX > 0 && startX < 7) &&
+                    board.hasPiece(startX + 1, startY - 1) &&
+                    board.hasPiece(startX - 1, startY - 1)) {
+                if (hasKill(board, player, startX, startY)) {
+                    return true;
+                }
+                System.out.println("No move available!");
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }

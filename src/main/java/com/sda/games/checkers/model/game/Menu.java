@@ -57,7 +57,7 @@ public class Menu {
         return (optionInput());
     }
 
-    public static Game mainMenu() throws Exception {
+    public static void mainMenu() throws Exception {
         int menuOption = Menu.printMenu();
         Game game = new Game();
 
@@ -81,6 +81,5 @@ public class Menu {
             default:
                 throw new IllegalStateException("Unexpected value: " + menuOption);
         }
-        return game;
     }
 }

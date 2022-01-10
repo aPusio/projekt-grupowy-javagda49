@@ -6,7 +6,7 @@ import com.sda.games.checkers.model.player.Player;
 public class Board {
 
     private final static int BOARD_SIDE_SIZE = 8;
-    private static Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
+    private Spot[][] boardSpots = new Spot[BOARD_SIDE_SIZE][BOARD_SIDE_SIZE];
     private Piece piece;
 
     public Spot getBoardSpot(int x, int y) throws Exception {
@@ -16,15 +16,17 @@ public class Board {
         return boardSpots[x][y];
     }
 
+    public Piece getPiece(int x, int y) throws Exception {
+        return getBoardSpot(x, y).getPiece();
+    }
+
     public void setBoardSpot(int x, int y, Spot spotFactory) {
         boardSpots[x][y] = spotFactory;
     }
 
     public void advancePiece(int x, int y, Player player) {
-        if (player.isWhite()) {
-            boardSpots[x][y] = SpotFactory.uberWhite(x, y);
-        } else if (player.isBlack()){
-            boardSpots[x][y] = SpotFactory.uberBlack(x, y);
+        if (y == 7) {
+            boardSpots[x][y] = player.isWhite() ? SpotFactory.uberWhite(x, y) : SpotFactory.uberBlack(x, y);
         }
     }
 
@@ -76,14 +78,6 @@ public class Board {
 
     public boolean isEmpty(int x, int y) throws Exception {
         return getBoardSpot(x, y) == null;
-    }
-
-    public boolean isNotEmpty(int x, int y) throws Exception {
-        return !isEmpty(x, y);
-    }
-
-    public boolean isRegularPiece(int x, int y) {
-        return piece.isRegular();
     }
 
     public void resetBoard() {
