@@ -6,9 +6,15 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 public class UberPiece extends Piece {
+    private final boolean REGULAR = false;
 
     public UberPiece(boolean white) {
         super(white);
+    }
+
+    @Override
+    public boolean isRegular() {
+        return REGULAR;
     }
 
     @Override
@@ -19,4 +25,8 @@ public class UberPiece extends Piece {
             return "\u25A1";
         }
     }
+
+
+
+
 }

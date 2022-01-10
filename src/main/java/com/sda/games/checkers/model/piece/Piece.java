@@ -24,6 +24,8 @@ public abstract class Piece {
         this.white = white;
     }
 
+    public abstract boolean isRegular();
+
     public static boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
         if (player.isWhite()) {
             if (board.pieceIsBlack(startX, startY)) {
@@ -109,10 +111,7 @@ public abstract class Piece {
             return true;
         } else if (Move.validateTopKilling(board, player, startX, startY)) {
             return true;
-        } else if (Move.validateBottomKilling(board, player, startX, startY)) {
-            return true;
-        }
-        return false;
+        } else return Move.validateBottomKilling(board, player, startX, startY);
     }
 
 }

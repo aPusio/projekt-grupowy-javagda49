@@ -162,7 +162,8 @@ public class Game {
 
         board.setSpotsAfterMove(startX, startY, endX, endY);
 
-        if ((currentPlayer.isWhite() && endY == 7) || (currentPlayer.isBlack() && endY == 0)) {
+        if ((currentPlayer.isWhite() && endY == 7 && board.isRegularPiece(endX, endY))
+                || (currentPlayer.isBlack() && endY == 0) && board.isRegularPiece(endX, endY)) {
             board.advancePiece(endX, endY, currentPlayer);
         }
 
