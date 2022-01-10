@@ -1,11 +1,13 @@
 package com.sda.games.checkers.model.piece;
 
+import com.sda.games.checkers.model.board.Board;
+import com.sda.games.checkers.model.player.Player;
 import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class RegularPiece extends Piece{
+public class RegularPiece extends Piece {
 
     public RegularPiece(boolean white) {
         super(white);
@@ -19,4 +21,5 @@ public class RegularPiece extends Piece{
             return "\u2B58";
         }
     }
+
 }

@@ -50,8 +50,8 @@ public abstract class Piece {
             } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY + 1))) {
                 return true;
             } else if (
-                    board.isNotEmpty(startX + 1, startY + 1) &&
-                            board.isNotEmpty(startX - 1, startY + 1)) {
+                    board.hasPiece(startX + 1, startY + 1) &&
+                            board.hasPiece(startX - 1, startY + 1)) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
@@ -70,23 +70,23 @@ public abstract class Piece {
                 } else {
                     System.out.println("No move available!");
                 }
-            } else if (startX == 0 && (board.isNotEmpty(startX + 1, startY - 1))) {
+            } else if (startX == 0 && (board.hasPiece(startX + 1, startY - 1))) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
                     System.out.println("No move available!");
                 }
-            } else if (startX == 7 && (board.isNotEmpty(startX - 1, startY - 1))) {
+            } else if (startX == 7 && (board.hasPiece(startX - 1, startY - 1))) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
                     System.out.println("No move available");
                 }
-            } else if (startX == 7 && (board.isEmpty(startX - 1, startY - 1))) {
+            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY - 1))) {
                 return true;
             } else if ((startX > 0 && startX < 7) &&
-                    board.isNotEmpty(startX + 1, startY - 1) &&
-                    board.isNotEmpty(startX - 1, startY - 1)) {
+                    board.hasPiece(startX + 1, startY - 1) &&
+                    board.hasPiece(startX - 1, startY - 1)) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 }

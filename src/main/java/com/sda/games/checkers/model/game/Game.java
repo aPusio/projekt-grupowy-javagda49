@@ -24,26 +24,48 @@ public class Game {
     private Player currentPlayer;
     private GameStatus status;
     private List<Move> movesPlayed;
-    private Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+    private Object game;
 
-    public void newGame() {
+    public void runGame() throws Exception {
+        this.game = Menu.mainMenu();
+    }
+
+    public List<Player> createPlayers() {
         System.out.println("Enter White Player name:");
         Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true, 0);
         System.out.println("Enter Black Player name:");
         Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false, 0);
 
+        players = new ArrayList<>();
+        players.add(whitePlayer);
+        players.add(blackPlayer);
 
-        initialize(whitePlayer, blackPlayer);
-        getBoard().printBoard();
+        return players;
     }
 
-    public void initialize(Player player1, Player player2) {
-        players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
+    public Game newGame() {
+        players = createPlayers();
 
-        this.board = new Board();
+        Player whitePlayer = players.get(0);
+        Player blackPlayer = players.get(1);
+
+        Game game = initialize(players);
+        getBoard().printBoard();
+        return game;
+    }
+
+    public void continueGame() {
+
+    }
+
+    public Game initialize(List<Player> players) {
+
+        board = new Board();
         board.resetBoard();
+
+        Player player1 = players.get(0);
+        Player player2 = players.get(1);
 
         if (player1.isWhite()) {
             currentPlayer = player1;
@@ -52,93 +74,82 @@ public class Game {
         }
 
         movesPlayed = new ArrayList<>();
-        movesPlayed.clear();
+        return (Game) this.game;
     }
 
-    public boolean validateInput(Spot spot) {
-        return false;
+    public String getStringXY() throws Exception {
+        Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
+        String spotXY;
+        while (true) {
+            do {
+                spotXY = scanner.nextLine();
+                if (spotXY.equals("exit")) {
+                    Menu.mainMenu();
+                    break;
+                } else if (spotXY.length() != 2) {
+                    System.out.println("Invalid input!");
+                }
+            } while (spotXY.length() != 2);
+            Matcher matcher = movePattern.matcher(spotXY);
+            boolean isInputValid = matcher.matches();
+            if (isInputValid) {
+                break;
+            } else {
+                System.out.println("Invalid input!");
+            }
+        }
+        char charX = spotXY.charAt(0);
+        char charY = spotXY.charAt(1);
+
+        return String.valueOf(charX - 97) + charY;
     }
 
-    public boolean makeMove() throws Exception {
+    public void makeMove() throws Exception {
 
         System.out.println(currentPlayer.getName() + " move.");
 
-        Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
-
         String startSpotXY;
-        char charStartY;
-        char charStartX;
+        String endSpotXY;
         int startX;
         int startY;
-        String endSpotXY;
-        char charEndX;
-        char charEndY;
         int endX;
         int endY;
 
         // Choosing checker to move
         while (true) {
+            System.out.println("Which checker to move?");
             while (true) {
-                do {
-                    System.out.println("Which checker to move?");
-                    startSpotXY = scanner.nextLine();
-                    if (startSpotXY.length() != 2) {
-                        System.out.println("Invalid input!");
-                    }
-                } while (startSpotXY.length() != 2);
-                Matcher matcher = movePattern.matcher(startSpotXY);
-                boolean isInputValid = matcher.matches();
+                startSpotXY = getStringXY();
+                startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
+                startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
 
-                charStartX = startSpotXY.charAt(0);
-                charStartY = startSpotXY.charAt(1);
-                startX = charStartX - 97;
-                startY = charStartY - 49;
-
-                // Start spot validation
-                if (!isInputValid) {
-                    System.out.println("Invalid input!");
-                } else {
-                    if (board.isEmpty(startX, startY)) {
-                        System.out.println("No checker here!");
-                    } else if (board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, startX, startY)) {
-                        break;
-                    }
+                if (board.isEmpty(startX, startY)) {
+                    System.out.println("No checker here!");
+                } else if (board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, startX, startY)) {
+                    break;
                 }
+
             }
             break;
         }
         // Choosing where to move
         while (true) {
             while (true) {
-                do {
-                    System.out.println("Where to go?");
-                    endSpotXY = scanner.nextLine();
-                    if (endSpotXY.length() != 2) {
-                        System.out.println("Invalid input!");
-                    }
-                } while (endSpotXY.length() != 2);
-                Matcher matcher = movePattern.matcher(endSpotXY);
-                boolean isInputValid = matcher.matches();
+                System.out.println("Where to go?");
+                endSpotXY = getStringXY();
+                endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
+                endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
 
-                charEndX = endSpotXY.charAt(0);
-                charEndY = endSpotXY.charAt(1);
-                endX = charEndX - 97;
-                endY = charEndY - 49;
-
-                // End spot validation
-                if (!isInputValid) {
-                    System.out.println("Invalid input!");
-                } else {
-                    if (board.getBoardSpot(endX, endY) == null) {
-                        System.out.println("Invalid board spot!");
-                    } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
+                if (board.isEmpty(endX, endY)) {
+                    System.out.println("Invalid board spot!");
+                } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
+                    break;
+                } else if (Piece.hasKill(board, currentPlayer, startX, startY)) {
+                    if (Move.killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
+                        currentPlayer.killCounter();
                         break;
-                    } else if (Piece.hasKill(board, currentPlayer, startX, startY)) {
-                        if (Move.killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
-                            currentPlayer.killCounter();
-                            break;
-                        }
                     }
+                    System.out.println("Invalid move!");
                 }
             }
             break;
@@ -161,7 +172,6 @@ public class Game {
 
         getBoard().printBoard();
 
-        return true;
     }
 
     public boolean isActive() {
