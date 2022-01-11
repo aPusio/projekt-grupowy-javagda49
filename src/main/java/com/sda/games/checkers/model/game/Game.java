@@ -113,18 +113,20 @@ public class Game {
         int endY;
 
         // Choosing checker to move
-        do {
+        while(true) {
             System.out.println("Which checker to move?");
             startSpotXY = getStringXY();
             startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
             startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
 
-            if (board.isEmpty(startX, startY)) {
+            if (board.isEmpty(startX, startY) || board.hasNoPiece(startX, startY)) {
                 System.out.println("No checker here!");
+            } else {
+                break;
             }
-        } while (!board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, board.getPiece(startX, startY), startX, startY));
+        }
         // Choosing where to move
-        do {
+        while (true) {
             System.out.println("Where to go?");
             endSpotXY = getStringXY();
             endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
@@ -143,11 +145,16 @@ public class Game {
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
+                    if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                        System.out.println("Another kill!");
+                    } else {
+                        break;
+                    }
                 } else {
                     System.out.println("Invalid move!");
                 }
             }
-        } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
+        }
         board.advancePiece(endX, endY, currentPlayer);
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }

@@ -1,7 +1,6 @@
 package com.sda.games.checkers.model;
 
 import com.sda.games.checkers.model.game.Game;
-import com.sda.games.checkers.model.game.Menu;
 
 import java.util.Scanner;
 
@@ -11,8 +10,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-         Game game = new Game();
-         game.runGame();
+        Game game = new Game();
+        game.runGame();
 
     }
 }
