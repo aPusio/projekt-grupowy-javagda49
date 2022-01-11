@@ -17,10 +17,21 @@ public class Spot {
     private int y;
     private Piece piece;
 
-    public boolean checkPrimaryMove(Player player, int startX, int startY, int endX, int endY) {
-        return !((player.isWhite() && (startY - endY) != -1) || (player.isBlack() && (startY - endY) != 1) ||
-                (startX - endX != -1 && startX - endX != 1));
-    }
+//    public boolean pieceIsWhite(Board board, int x, int y) throws Exception {
+//        return hasPiece(board, x, y) && board.getBoardSpot(x, y).getPiece().isWhite();
+//    }
+//
+//    public boolean pieceIsBlack(Board board, int x, int y) throws Exception {
+//        return hasPiece(board, x, y) && !pieceIsWhite(board, x, y);
+//    }
+//
+//    public boolean hasPiece(Board board, int x, int y) throws Exception {
+//        return board.getBoardSpot(x, y).getPiece() != null;
+//    }
+//
+//    public boolean hasNoPiece(Board board, int x, int y) throws Exception {
+//        return !hasPiece(board, x, y);
+//    }
 
     public boolean isStartSpotValid(Board board, Player player, Piece piece, int startX, int startY) throws Exception {
         return piece.hasMove(board, player, startX, startY);
@@ -30,8 +41,19 @@ public class Spot {
         if (board.hasPiece(endX, endY)) {
             System.out.println("Invalid move!");
             return false;
-        } else {
-            return checkPrimaryMove(player, startX, startY, endX, endY);
         }
+
+        return checkPrimaryMove(player, startX, startY, endX, endY);
+    }
+
+    public boolean checkPrimaryMove(Player player, int startX, int startY, int endX, int endY) {
+        if ((player.isWhite() && (startY - endY) != -1) ||
+                (player.isBlack() && (startY - endY != 1)) ||
+                (startX - endX != -1 && startX - endX != 1)) {
+            System.out.println("Invalid move!");
+        } else {
+            return true;
+        }
+        return false;
     }
 }
