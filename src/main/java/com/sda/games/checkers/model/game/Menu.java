@@ -37,18 +37,18 @@ public class Menu {
                 System.out.println("Invalid input!");
             }
         }
-            switch (Integer.parseInt(input)) {
-                case 1:
-                    System.out.println("New game");
-                    return 1;
-                case 2:
-                    System.out.println("Continue");
-                    return 2;
-                case 3:
-                    System.out.println("Exit");
-                    return 3;
-            }
-            return 0;
+        switch (Integer.parseInt(input)) {
+            case 1:
+                System.out.println("New game");
+                return 1;
+            case 2:
+                System.out.println("Continue");
+                return 2;
+            case 3:
+                System.out.println("Exit");
+                return 3;
+        }
+        return 0;
     }
 
     public static int printMenu() {
