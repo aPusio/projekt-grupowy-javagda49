@@ -77,7 +77,7 @@ public class Board {
     }
 
     public boolean isEmpty(int x, int y) throws Exception {
-        return getBoardSpot(x, y) == null || getBoardSpot(x, y).getPiece() == null;
+        return getBoardSpot(x, y) == null;
     }
 
     public void resetBoard() {
