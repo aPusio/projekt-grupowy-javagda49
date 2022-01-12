@@ -1,24 +1,17 @@
 package com.sda.games.checkers.model;
 
+import com.sda.games.checkers.model.game.Game;
+
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    private static Scanner scanner = new Scanner(System.in);
 
-        Game.run();
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws Exception {
 
-//        System.out.println("Enter White Player name:");
-//        String whitePlayerName = scanner.nextLine();
-//        System.out.println("Enter Black Player name:");
-//        String blackPlayerName = scanner.nextLine();
-//        Player whitePlayer = new Player(1, whitePlayerName, true);
-//        Player blackPlayer = new Player(2, blackPlayerName, false);
-
-        Board board = new Board();
-        board.resetBoard();
-        board.printBoard(board);
+        Game game = new Game();
+        game.runGame();
 
     }
 }
