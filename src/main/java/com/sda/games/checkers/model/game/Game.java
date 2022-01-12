@@ -134,12 +134,14 @@ public class Game {
                 System.out.println("Invalid board spot!");
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
+                board.advancePiece(endX, endY, currentPlayer);
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
+                    board.advancePiece(endX, endY, currentPlayer);
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
@@ -148,7 +150,7 @@ public class Game {
                 }
             }
         } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
-        board.advancePiece(endX, endY, currentPlayer);
+//        board.advancePiece(endX, endY, currentPlayer);
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 

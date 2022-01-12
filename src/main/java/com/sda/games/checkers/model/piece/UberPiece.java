@@ -1,8 +1,14 @@
 package com.sda.games.checkers.model.piece;
 
 import com.sda.games.checkers.model.board.Board;
+import com.sda.games.checkers.model.board.Spot;
 import com.sda.games.checkers.model.player.Player;
 import lombok.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,73 +40,98 @@ public class UberPiece extends Piece {
             if (board.pieceIsBlack(startX, startY)) {
                 System.out.println("Not your piece!");
                 return false;
-            } else if (startY == 7) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else if (startX == 0 && board.hasPiece(startX + 1, startY + 1)) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else if (startX == 7 && (board.hasPiece(startX - 1, startY + 1))) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY + 1))) {
-                return true;
-            } else if (
-                    board.hasPiece(startX + 1, startY + 1) &&
-                            board.hasPiece(startX - 1, startY + 1)) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else {
-                return true;
-            }
+        } else if(!upRightMove(board, player,  startX, startY).isEmpty()){
+            return true;
+        } else {
+            return false;
+        }
+
+//            } else if (startY == 7) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
+//            } else if (startX == 0 && board.hasPiece(startX + 1, startY + 1)) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
+//            } else if (startX == 7 && (board.hasPiece(startX - 1, startY + 1))) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
+//            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY + 1))) {
+//                return true;
+//            } else if (
+//                    board.hasPiece(startX + 1, startY + 1) &&
+//                            board.hasPiece(startX - 1, startY + 1)) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
         } else if (!player.isWhite()) {
             if (board.pieceIsWhite(startX, startY)) {
                 System.out.println("Not your piece!");
                 return false;
-            } else if (startY == 0) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else if (startX == 0 && (board.hasPiece(startX + 1, startY - 1))) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available!");
-                }
-            } else if (startX == 7 && (board.hasPiece(startX - 1, startY - 1))) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                } else {
-                    System.out.println("No move available");
-                }
-            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY - 1))) {
+//            } else if (startY == 0) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
+//            } else if (startX == 0 && (board.hasPiece(startX + 1, startY - 1))) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available!");
+//                }
+//            } else if (startX == 7 && (board.hasPiece(startX - 1, startY - 1))) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                } else {
+//                    System.out.println("No move available");
+//                }
+//            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY - 1))) {
+//                return true;
+//            } else if ((startX > 0 && startX < 7) &&
+//                    board.hasPiece(startX + 1, startY - 1) &&
+//                    board.hasPiece(startX - 1, startY - 1)) {
+//                if (hasKill(board, player, startX, startY)) {
+//                    return true;
+//                }
+//                System.out.println("No move available!");
+            } else if(!upRightMove(board, player,  startX, startY).isEmpty()){
                 return true;
-            } else if ((startX > 0 && startX < 7) &&
-                    board.hasPiece(startX + 1, startY - 1) &&
-                    board.hasPiece(startX - 1, startY - 1)) {
-                if (hasKill(board, player, startX, startY)) {
-                    return true;
-                }
-                System.out.println("No move available!");
             } else {
-                return true;
+                return false;
             }
         }
         return false;
+    }
+
+    public Map<Integer,Integer> upRightMove(Board board, Player player, int startX, int startY) throws Exception {
+        Map<Integer,Integer> possibleMoves = new HashMap<>();
+        if(startY == 7 || startX == 7){
+            return possibleMoves;
+        } else {
+            for (int i = 1; i < 7; i++) {
+                if (i < 2) {
+                    if (board.hasNoPiece(startX + i, startY + i)) {
+                        possibleMoves.put(startX + i, startY + i);
+                    }
+                } else {
+                    if (possibleMoves.containsKey(startX + i - 1) && board.hasNoPiece(startX + i, startY + i)) {
+                        possibleMoves.put(startX + i, startY + i);
+                    }
+                }
+            }
+        }
+        return possibleMoves;
     }
 
     public Map<Integer,Integer> upLeftMove(Board board, Player player, int startX, int startY) throws Exception {
