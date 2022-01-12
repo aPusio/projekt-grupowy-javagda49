@@ -102,4 +102,24 @@ public class UberPiece extends Piece {
         }
         return false;
     }
+
+    public Map<Integer,Integer> upLeftMove(Board board, Player player, int startX, int startY) throws Exception {
+        Map<Integer,Integer> possibleMoves = new HashMap<>();
+        if(startY == 7 || startX == 7){
+            return possibleMoves;
+        } else {
+            for (int i = 1; i < 7; i++) {
+                if (i < 2) {
+                    if (board.hasNoPiece(startX + i, startY + i)) {
+                        possibleMoves.put(startX + i, startY + i);
+                    }
+                } else {
+                    if (possibleMoves.containsKey(startX + i - 1) && board.hasNoPiece(startX + i, startY + i)) {
+                        possibleMoves.put(startX + i, startY + i);
+                    }
+                }
+            }
+        }
+        return possibleMoves;
+    }
 }
