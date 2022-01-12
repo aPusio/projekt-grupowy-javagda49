@@ -98,13 +98,13 @@ public class Board {
         boardSpots[5][1] = SpotFactory.regularWhite(5, 1);
         boardSpots[7][1] = SpotFactory.regularWhite(7, 1);
         boardSpots[0][2] = SpotFactory.regularWhite(0, 2);
-        boardSpots[2][2] = SpotFactory.regularWhite(2, 2);
+//        boardSpots[2][2] = SpotFactory.regularWhite(2, 2);
         boardSpots[4][2] = SpotFactory.regularWhite(4, 2);
         boardSpots[6][2] = SpotFactory.regularWhite(6, 2);
 
         // initialize black pieces
         boardSpots[1][5] = SpotFactory.regularBlack(1, 5);
-        boardSpots[3][5] = SpotFactory.regularBlack(3, 5);
+//        boardSpots[3][5] = SpotFactory.regularBlack(3, 5);
         boardSpots[5][5] = SpotFactory.regularBlack(5, 5);
         boardSpots[7][5] = SpotFactory.regularBlack(7, 5);
         boardSpots[0][6] = SpotFactory.regularBlack(0, 6);
@@ -127,13 +127,15 @@ public class Board {
         boardSpots[6][4] = SpotFactory.emptySpot(6, 4);
 
 
-        boardSpots[1][1] = SpotFactory.regularBlack(1, 1);
+        boardSpots[1][1] = SpotFactory.uberBlack(1, 1);
         boardSpots[3][1] = SpotFactory.emptySpot(3, 1);
-        boardSpots[2][6] = SpotFactory.regularWhite(2, 6);
+        boardSpots[2][6] = SpotFactory.uberWhite(2, 6);
         boardSpots[4][6] = SpotFactory.emptySpot(4, 6);
         boardSpots[3][7] = SpotFactory.emptySpot(3, 7);
         boardSpots[5][7] = SpotFactory.emptySpot(5, 7);
         boardSpots[2][0] = SpotFactory.emptySpot(2, 0);
         boardSpots[4][0] = SpotFactory.emptySpot(4, 0);
+        boardSpots[2][2] = SpotFactory.emptySpot(2, 2);
+        boardSpots[3][5] = SpotFactory.emptySpot(3, 5);
     }
 }
