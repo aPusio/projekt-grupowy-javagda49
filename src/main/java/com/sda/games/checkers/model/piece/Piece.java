@@ -14,7 +14,6 @@ import lombok.Setter;
 public abstract class Piece {
 
     public boolean white;
-    private boolean regular;
     private boolean killed;
     private String pieceIcon;
 
