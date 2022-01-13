@@ -36,6 +36,41 @@ public abstract class Piece {
         return false;
     }
 
+    public boolean upLeftMove(Board board, int startX, int startY) throws Exception {
+        return  (board.hasNoPiece(startX - 1, startY + 1));
+    }
+
+    public boolean upRightMove(Board board, int startX, int startY) throws Exception {
+        return (board.hasNoPiece(startX + 1, startY + 1));
+    }
+
+    public boolean downLeftMove(Board board, int startX, int startY) throws Exception {
+        return (board.hasNoPiece(startX - 1, startY - 1));
+    }
+
+    public boolean downRightMove(Board board, int startX, int startY) throws Exception {
+        return  (board.hasNoPiece(startX + 1, startY - 1));
+    }
+
+    public boolean validateExceptionsMoves(Board board, int startX, int startY) {
+        return false;
+    }
+    public boolean validateCenterMoves(Board board, int startX, int startY) {
+        return false;
+    }
+    public boolean validateLeftMoves(Board board, int startX, int startY) {
+        return false;
+    }
+    public boolean validateRightMoves(Board board, int startX, int startY) {
+        return false;
+    }
+    public boolean validateTopMoves(Board board, int startX, int startY) {
+        return false;
+    }
+    public boolean validateBottomMoves(Board board, int startX, int startY) {
+        return false;
+    }
+
     public boolean upLeftKill(Board board, boolean isPlayerWhite, int startX, int startY) throws Exception {
         return false;
     }

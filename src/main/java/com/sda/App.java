@@ -1,13 +1,13 @@
 package com.sda;
 
+import com.sda.games.checkers.model.game.Game;
 import com.sda.games.kamiennozycepapier.game.RockPaperScissorsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 
 public class App
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws Exception {
         UserIoService userIoService = new UserIoService();
         MainMenu mainMenu = new MainMenu();
         userIoService.printOnScreen(mainMenu.createMenu());
@@ -23,7 +23,8 @@ public class App
                 System.out.println("Implement me 🤣🤣");
                 break;
             case "4":
-                System.out.println("Implement me 🤣🤣");
+                Game game = new Game();
+                game.runGame();
                 break;
             case "q":
                 return;
