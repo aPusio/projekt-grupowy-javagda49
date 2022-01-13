@@ -20,10 +20,6 @@ public class Board {
         return getBoardSpot(x, y).getPiece();
     }
 
-    public void setBoardSpot(int x, int y, Spot spotFactory) {
-        boardSpots[x][y] = spotFactory;
-    }
-
     public void advancePiece(int x, int y, Player player) {
         if (y == 7) {
             boardSpots[x][y] = player.isWhite() ? SpotFactory.uberWhite(x, y) : SpotFactory.uberBlack(x, y);
@@ -119,6 +115,44 @@ public class Board {
         boardSpots[2][4] = SpotFactory.emptySpot(2, 4);
         boardSpots[4][4] = SpotFactory.emptySpot(4, 4);
         boardSpots[6][4] = SpotFactory.emptySpot(6, 4);
+
+//        // initialize white pieces
+//        boardSpots[0][0] = SpotFactory.uberBlack(0, 0);
+//        boardSpots[2][0] = SpotFactory.emptySpot(2, 0);
+//        boardSpots[4][0] = SpotFactory.uberBlack(4, 0);
+//        boardSpots[6][0] = SpotFactory.emptySpot(6, 0);
+//        boardSpots[1][1] = SpotFactory.emptySpot(1, 1);
+//        boardSpots[3][1] = SpotFactory.emptySpot(3, 1);
+//        boardSpots[5][1] = SpotFactory.emptySpot(5, 1);
+//        boardSpots[7][1] = SpotFactory.emptySpot(7, 1);
+//        boardSpots[0][2] = SpotFactory.emptySpot(0, 2);
+//        boardSpots[2][2] = SpotFactory.emptySpot(2, 2);
+//        boardSpots[4][2] = SpotFactory.emptySpot(4, 2);
+//        boardSpots[6][2] = SpotFactory.emptySpot(6, 2);
+//
+//        // initialize black pieces
+//        boardSpots[1][5] = SpotFactory.emptySpot(1, 5);
+//        boardSpots[3][5] = SpotFactory.emptySpot(3, 5);
+//        boardSpots[5][5] = SpotFactory.emptySpot(5, 5);
+//        boardSpots[7][5] = SpotFactory.emptySpot(7, 5);
+//        boardSpots[0][6] = SpotFactory.emptySpot(0, 6);
+//        boardSpots[2][6] = SpotFactory.emptySpot(2, 6);
+//        boardSpots[4][6] = SpotFactory.emptySpot(4, 6);
+//        boardSpots[6][6] = SpotFactory.emptySpot(6, 6);
+//        boardSpots[1][7] = SpotFactory.emptySpot(1, 7);
+//        boardSpots[3][7] = SpotFactory.uberWhite(3, 7);
+//        boardSpots[5][7] = SpotFactory.emptySpot(5, 7);
+//        boardSpots[7][7] = SpotFactory.uberWhite(7, 7);
+//
+//        // initialize empty spots
+//        boardSpots[1][3] = SpotFactory.emptySpot(1, 3);
+//        boardSpots[3][3] = SpotFactory.emptySpot(3, 3);
+//        boardSpots[5][3] = SpotFactory.emptySpot(5, 3);
+//        boardSpots[7][3] = SpotFactory.emptySpot(7, 3);
+//        boardSpots[0][4] = SpotFactory.emptySpot(0, 4);
+//        boardSpots[2][4] = SpotFactory.emptySpot(2, 4);
+//        boardSpots[4][4] = SpotFactory.emptySpot(4, 4);
+//        boardSpots[6][4] = SpotFactory.emptySpot(6, 4);
 
     }
 }
