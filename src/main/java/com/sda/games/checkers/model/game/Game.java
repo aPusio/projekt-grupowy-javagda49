@@ -2,12 +2,15 @@ package com.sda.games.checkers.model.game;
 
 import com.sda.games.checkers.model.board.Board;
 import com.sda.games.checkers.model.board.Spot;
+import com.sda.games.checkers.model.dao.PlayerDao;
 import com.sda.games.checkers.model.player.Move;
 import com.sda.games.checkers.model.player.Player;
+import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,21 +37,31 @@ public class Game {
     }
 
     public List<Player> createPlayers() {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        PlayerDao playerDao = new PlayerDao(hibernateFactory);
+        players = new ArrayList<>();
+
         System.out.println("Enter White Player name:");
         Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true, 0);
+        players.add(whitePlayer);
+        if (playerDao.getByName(whitePlayer.getName()) == null) {
+            playerDao.add(whitePlayer);
+        }
+
         System.out.println("Enter Black Player name:");
         Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false, 0);
-
-        players = new ArrayList<>();
-        players.add(whitePlayer);
         players.add(blackPlayer);
+        if (playerDao.getByName(blackPlayer.getName()) == null) {
+            playerDao.add(blackPlayer);
+        }
+
+        playerDao.getAll().forEach(System.out::println);
 
         return players;
     }
 
     public Game newGame() {
         players = createPlayers();
-
         Game game = initialize(players);
         getBoard().printBoard();
         return game;

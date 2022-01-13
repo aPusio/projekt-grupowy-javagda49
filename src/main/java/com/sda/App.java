@@ -11,7 +11,7 @@ public class App
         UserIoService userIoService = new UserIoService();
         MainMenu mainMenu = new MainMenu();
         userIoService.printOnScreen(mainMenu.createMenu());
-        String userOption = userIoService.getInt("Wpisz numer gry:");
+        String userOption = String.valueOf(userIoService.getInt("Wpisz numer gry:"));
         switch (userOption){
             case "1":
                 RockPaperScissorsBuilder.build().start();
