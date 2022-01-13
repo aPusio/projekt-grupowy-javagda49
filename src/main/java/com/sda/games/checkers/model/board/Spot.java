@@ -17,24 +17,17 @@ public class Spot {
     private int y;
     private Piece piece;
 
-//    public boolean pieceIsWhite(Board board, int x, int y) throws Exception {
-//        return hasPiece(board, x, y) && board.getBoardSpot(x, y).getPiece().isWhite();
-//    }
-//
-//    public boolean pieceIsBlack(Board board, int x, int y) throws Exception {
-//        return hasPiece(board, x, y) && !pieceIsWhite(board, x, y);
-//    }
-//
-//    public boolean hasPiece(Board board, int x, int y) throws Exception {
-//        return board.getBoardSpot(x, y).getPiece() != null;
-//    }
-//
-//    public boolean hasNoPiece(Board board, int x, int y) throws Exception {
-//        return !hasPiece(board, x, y);
-//    }
-
-    public boolean isStartSpotValid(Board board, Player player, Piece piece, int startX, int startY) throws Exception {
-        return piece.hasMove(board, player, startX, startY);
+    public static boolean validateStartSpot(Board board, Player currentPlayer, int startX, int startY) throws Exception {
+        if (board.isEmpty(startX, startY)) {
+            System.out.println("Invalid board spot!");
+        } else if (board.hasNoPiece(startX, startY)) {
+            System.out.println("No checker here!");
+        } else if ((currentPlayer.isWhite() && board.pieceIsBlack(startX, startY)) || (currentPlayer.isBlack()) && board.pieceIsWhite(startX, startY)){
+            System.out.println("Not your checker!");
+        } else if (board.getPiece(startX, startY).hasMove(board, currentPlayer, startX, startY)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean isEndSpotValid(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {

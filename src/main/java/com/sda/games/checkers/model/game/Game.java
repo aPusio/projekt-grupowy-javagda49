@@ -2,10 +2,12 @@ package com.sda.games.checkers.model.game;
 
 import com.sda.games.checkers.model.board.Board;
 import com.sda.games.checkers.model.board.Spot;
-import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Move;
 import com.sda.games.checkers.model.player.Player;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,18 +115,13 @@ public class Game {
         int endY;
 
         // Choosing checker to move
-        while(true) {
-            System.out.println("Which checker to move?");
-            startSpotXY = getStringXY();
-            startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
-            startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
+        do {
+                System.out.println("Which checker to move?");
+                startSpotXY = getStringXY();
+                startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
+                startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
+        } while (!Spot.validateStartSpot(board, currentPlayer, startX, startY));
 
-            if (board.isEmpty(startX, startY) || board.hasNoPiece(startX, startY)) {
-                System.out.println("No checker here!");
-            } else {
-                break;
-            }
-        }
         // Choosing where to move
         while (true) {
             System.out.println("Where to go?");

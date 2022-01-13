@@ -35,10 +35,7 @@ public class RegularPiece extends Piece {
     @Override
     public boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
         if (player.isWhite()) {
-            if (board.pieceIsBlack(startX, startY)) {
-                System.out.println("Not your piece!");
-                return false;
-            } else if (startY == 7) {
+            if (startY == 7) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
@@ -70,10 +67,7 @@ public class RegularPiece extends Piece {
                 return true;
             }
         } else if (!player.isWhite()) {
-            if (board.pieceIsWhite(startX, startY)) {
-                System.out.println("Not your piece!");
-                return false;
-            } else if (startY == 0) {
+            if (startY == 0) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
