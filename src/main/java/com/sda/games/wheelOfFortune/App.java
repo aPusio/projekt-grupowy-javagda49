@@ -1,7 +1,7 @@
 package com.sda.games.wheelOfFortune;
 
-import com.sda.games.wheelOfFortune.db.ConnectionManager;
-import com.sda.games.wheelOfFortune.db.CreateDB;
+import com.sda.games.wheelOfFortune.db.config.ConnectionManager;
+import com.sda.games.wheelOfFortune.db.config.CreateDB;
 
 import java.sql.Connection;
 
