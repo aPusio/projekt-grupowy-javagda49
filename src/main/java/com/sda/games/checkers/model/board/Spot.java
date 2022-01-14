@@ -43,7 +43,6 @@ public class Spot {
         if ((player.isWhite() && (startY - endY) != -1) ||
                 (player.isBlack() && (startY - endY != 1)) ||
                 (startX - endX != -1 && startX - endX != 1)) {
-            System.out.println("Invalid move!");
         } else {
             return true;
         }

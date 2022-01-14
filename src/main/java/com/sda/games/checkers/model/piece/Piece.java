@@ -1,6 +1,7 @@
 package com.sda.games.checkers.model.piece;
 
 import com.sda.games.checkers.model.board.Board;
+import com.sda.games.checkers.model.board.SpotFactory;
 import com.sda.games.checkers.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -114,5 +115,4 @@ public abstract class Piece {
     public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
         return false;
     }
-
 }

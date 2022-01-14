@@ -129,10 +129,10 @@ public class Game {
 
         // Choosing checker to move
         do {
-                System.out.println("Which checker to move?");
-                startSpotXY = getStringXY();
-                startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
-                startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
+            System.out.println("Which checker to move?");
+            startSpotXY = getStringXY();
+            startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
+            startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
         } while (!Spot.validateStartSpot(board, currentPlayer, startX, startY));
 
         // Choosing where to move
@@ -146,12 +146,15 @@ public class Game {
                 System.out.println("Invalid board spot!");
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
+                board.advancePiece(endX, endY, currentPlayer);
+
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
+                    board.advancePiece(endX, endY, currentPlayer);
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
@@ -160,12 +163,9 @@ public class Game {
                     } else {
                         break;
                     }
-                } else {
-                    System.out.println("Invalid move!");
                 }
             }
         }
-        board.advancePiece(endX, endY, currentPlayer);
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 
