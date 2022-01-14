@@ -2,6 +2,7 @@ package com.sda.games.checkers.model.game;
 
 import com.sda.games.checkers.model.board.Board;
 import com.sda.games.checkers.model.board.Spot;
+import com.sda.games.checkers.model.dao.PlayerDao;
 import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Move;
 import com.sda.games.checkers.model.player.Player;
@@ -171,7 +172,7 @@ public class Game {
                 }
             }
             getBoard().printBoard();
-        } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
+        }
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 
