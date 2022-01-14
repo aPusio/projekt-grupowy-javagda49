@@ -24,11 +24,13 @@ public class Board {
         boardSpots[x][y] = spotFactory;
     }
 
-    public void advancePiece(int x, int y, Player player) {
-        if (y == 7 && player.isWhite()) {
-            boardSpots[x][y] =  SpotFactory.uberWhite(x, y);
-        } else if(y == 0 && player.isBlack()){
-            boardSpots[x][y] = SpotFactory.uberBlack(x, y);
+    public void advancePiece(int x, int y, Player player) throws Exception {
+        if(getPiece(x,y).isRegular()) {
+            if (y == 7 && player.isWhite()) {
+                boardSpots[x][y] = SpotFactory.uberWhite(x, y);
+            } else if (y == 0 && player.isBlack()) {
+                boardSpots[x][y] = SpotFactory.uberBlack(x, y);
+            }
         }
     }
 
