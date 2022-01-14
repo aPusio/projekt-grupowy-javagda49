@@ -1,6 +1,8 @@
 package com.sda.games.checkers.model.board;
 
 import com.sda.games.checkers.model.piece.Piece;
+import com.sda.games.checkers.model.piece.RegularPiece;
+import com.sda.games.checkers.model.piece.UberPiece;
 import com.sda.games.checkers.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +33,12 @@ public class Spot {
             System.out.println("Invalid move!");
             return false;
         } else {
-            return checkPrimaryMove(player, startX, startY, endX, endY);
+            if(board.getPiece(startX,startY).isRegular()) {
+                return checkPrimaryMove(player, startX, startY, endX, endY);
+            } else {
+                StringBuilder endXY = new StringBuilder();
+                return board.getPiece(startX,startY).possiblePrimaryMoves(board,player,startX,startY).contains(endXY.append(endX).append(endY).toString());
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.sda.games.checkers.model;
 
 import com.sda.games.checkers.model.game.Game;
-import com.sda.games.checkers.model.game.Menu;
 
 import java.util.Scanner;
 

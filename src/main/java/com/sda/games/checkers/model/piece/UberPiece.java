@@ -5,10 +5,8 @@ import com.sda.games.checkers.model.board.Spot;
 import com.sda.games.checkers.model.player.Player;
 import lombok.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -41,17 +39,8 @@ public class UberPiece extends Piece {
                 System.out.println("Not your piece!");
                 return false;
             } else {
-                return isMovePossibleAndPrintPossible(board, player, startX, startY);
+                return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
             }
-//            } else if (!upLeftMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else if (!downRightMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else if (!downLeftMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else {
-//                return false;
-//            }
 
 //            } else if (startY == 7) {
 //                if (hasKill(board, player, startX, startY)) {
@@ -124,116 +113,119 @@ public class UberPiece extends Piece {
 //                return false;
 //            }
             } else {
-                return isMovePossibleAndPrintPossible(board, player, startX, startY);
+                return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
             }
         }
         return false;
     }
 
-    public boolean isMovePossibleAndPrintPossible(Board board, Player player, int startX, int startY) throws Exception {
-        Map<Integer, Integer> upRightMoves = upRightMove(board, player, startX, startY);
-        Map<Integer, Integer> upLeftMoves = upLeftMove(board, player, startX, startY);
-        Map<Integer, Integer> downRightMoves = downRightMove(board, player, startX, startY);
-        Map<Integer, Integer> downLeftMoves = downLeftMove(board, player, startX, startY);
-        if (!upRightMoves.isEmpty() || !upLeftMoves.isEmpty() || !downRightMoves.isEmpty() || !downLeftMoves.isEmpty()) {
-            return true;
-        }
-        return false;
+    public List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> allPossibleMoves = new ArrayList<>();
+        allPossibleMoves.addAll(upRightMove(board, player, startX, startY));
+        allPossibleMoves.addAll(upLeftMove(board, player, startX, startY));
+        allPossibleMoves.addAll(downRightMove(board, player, startX, startY));
+        allPossibleMoves.addAll(downLeftMove(board, player, startX, startY));
+        allPossibleMoves.forEach(System.out::println);
+        return allPossibleMoves;
     }
 
-    public Map<Integer, Integer> upRightMove(Board board, Player player, int startX, int startY) throws Exception {
-        Map<Integer, Integer> possibleMoves = new HashMap<>();
+    public List<String> upRightMove(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> possibleMoves = new ArrayList<>();
+        StringBuilder actualMove = new StringBuilder();
+        StringBuilder previousMove = new StringBuilder();
         if (startX == 7 || startY == 7) {
             return possibleMoves;
         } else {
             for (int i = 1; i < 7 && startY + i <= 7; i++) {
+                actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX + i, startY + i)) {
-                        possibleMoves.put(startX + i, startY + i);
+                        possibleMoves.add(actualMove.append(startX + i).append(startY + i).toString());
                     }
                 } else {
-                    if (possibleMoves.containsKey(startX + i - 1) && board.hasNoPiece(startX + i, startY + i)) {
-                        possibleMoves.put(startX + i, startY + i);
+                    if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX + i, startY + i)) {
+                        possibleMoves.add(actualMove.append(startX + i).append(startY + i).toString());
                     }
                 }
+                previousMove.setLength(0);
+                previousMove.append(actualMove);
             }
-            System.out.println("Up Right Move");
-            possibleMoves.forEach((k, v) -> {
-                System.out.format("key: %s, value: %d%n", k, v);
-            });
+            return possibleMoves;
         }
-        return possibleMoves;
     }
 
-    public Map<Integer, Integer> upLeftMove(Board board, Player player, int startX, int startY) throws Exception {
-        Map<Integer, Integer> possibleMoves = new HashMap<>();
+    public List<String> upLeftMove(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> possibleMoves = new ArrayList<>();
+        StringBuilder actualMove = new StringBuilder();
+        StringBuilder previousMove = new StringBuilder();
         if (startX == 0 || startY == 7) {
             return possibleMoves;
         } else {
             for (int i = 1; i < 7 && startY + i <= 7; i++) {
+                actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX - i, startY + i)) {
-                        possibleMoves.put(startX - i, startY + i);
+                        possibleMoves.add(actualMove.append(startX - i).append( startY + i).toString());
                     }
                 } else {
-                    if (possibleMoves.containsKey(startX - i + 1) && board.hasNoPiece(startX - i, startY + i)) {
-                        possibleMoves.put(startX - i, startY + i);
+                    if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX - i, startY + i)) {
+                        possibleMoves.add(actualMove.append(startX - i).append( startY + i).toString());
                     }
                 }
+                previousMove.setLength(0);
+                previousMove.append(actualMove);
             }
-            System.out.println("Up Left Move");
-            possibleMoves.forEach((k, v) -> {
-                System.out.format("key: %s, value: %d%n", k, v);
-            });
+            return possibleMoves;
         }
-        return possibleMoves;
     }
 
-    public Map<Integer, Integer> downRightMove(Board board, Player player, int startX, int startY) throws Exception {
-        Map<Integer, Integer> possibleMoves = new HashMap<>();
+    public List<String> downRightMove(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> possibleMoves = new ArrayList<>();
+        StringBuilder actualMove = new StringBuilder();
+        StringBuilder previousMove = new StringBuilder();
         if (startX == 7 || startY == 0) {
             return possibleMoves;
         } else {
             for (int i = 1; i < 7 && startY - i >= 0; i++) {
+                actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX + i, startY - i)) {
-                        possibleMoves.put(startX + i, startY - i);
+                        possibleMoves.add(actualMove.append(startX + i).append( startY - i).toString());
                     }
                 } else {
-                    if (possibleMoves.containsKey(startX + i - 1) && board.hasNoPiece(startX + i, startY - i)) {
-                        possibleMoves.put(startX + i, startY - i);
+                    if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX + i, startY - i)) {
+                        possibleMoves.add(actualMove.append(startX + i).append( startY - i).toString());
                     }
                 }
+                previousMove.setLength(0);
+                previousMove.append(actualMove);
             }
-            System.out.println("Down Right Move");
-            possibleMoves.forEach((k, v) -> {
-                System.out.format("key: %s, value: %d%n", k, v);
-            });
+            return possibleMoves;
         }
-        return possibleMoves;
     }
 
-    public Map<Integer, Integer> downLeftMove(Board board, Player player, int startX, int startY) throws Exception {
-        Map<Integer, Integer> possibleMoves = new HashMap<>();
+    public List<String> downLeftMove(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> possibleMoves = new ArrayList<>();
+        StringBuilder actualMove = new StringBuilder();
+        StringBuilder previousMove = new StringBuilder();
         if (startX == 0 || startY == 0) {
             return possibleMoves;
         } else {
             for (int i = 1; i < 7 && startY - i >= 0; i++) {
+                actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX - i, startY - i)) {
-                        possibleMoves.put(startX - i, startY - i);
+                        possibleMoves.add(actualMove.append(startX - i).append( startY - i).toString());
                     }
                 } else {
-                    if (possibleMoves.containsKey(startX - i + 1) && board.hasNoPiece(startX - i, startY - i)) {
-                        possibleMoves.put(startX - i, startY - i);
+                    if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX - i, startY - i)) {
+                        possibleMoves.add(actualMove.append(startX - i).append( startY - i).toString());
                     }
                 }
+                previousMove.setLength(0);
+                previousMove.append(actualMove);
             }
-            System.out.println("Down Left Move");
-            possibleMoves.forEach((k, v) -> {
-                System.out.format("key: %s, value: %d%n", k, v);
-            });
+            return possibleMoves;
         }
-        return possibleMoves;
     }
 }

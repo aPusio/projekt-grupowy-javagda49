@@ -142,13 +142,14 @@ public class Game {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
                     board.advancePiece(endX, endY, currentPlayer);
-                    getBoard().printBoard();
                     startX = endX;
                     startY = endY;
+                    getBoard().printBoard();
                 } else {
                     System.out.println("Invalid move!");
                 }
             }
+            getBoard().printBoard();
         } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
 //        board.advancePiece(endX, endY, currentPlayer);
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);

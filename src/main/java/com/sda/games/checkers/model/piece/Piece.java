@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -27,9 +29,7 @@ public abstract class Piece {
 
     public abstract boolean isRegular();
 
-    public boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
-        return false;
-    }
+    public abstract boolean hasMove(Board board, Player player, int startX, int startY) throws Exception;
 
     public boolean hasKill(Board board, Player player, int startX, int startY) throws Exception {
         return false;
@@ -78,5 +78,7 @@ public abstract class Piece {
     public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
         return false;
     }
+
+    public abstract List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception;
 
 }
