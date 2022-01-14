@@ -1,11 +1,11 @@
-package com.sda.games.wheelOfFortune.db;
+package com.sda.games.wheelOfFortune.db.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-        String connectionString ="jdbc:hsqldb:file:src/main/java/com/sda/games/wheelOfFortune/db/database/dupa";
+        String connectionString ="jdbc:hsqldb:file:src/main/java/com/sda/games/wheelOfFortune/db/data/tables";
         String userName = "root";
         String password = "root";
 
