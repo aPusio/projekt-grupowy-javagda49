@@ -1,8 +1,6 @@
 package com.sda.games.checkers.model.board;
 
 import com.sda.games.checkers.model.piece.Piece;
-import com.sda.games.checkers.model.piece.RegularPiece;
-import com.sda.games.checkers.model.piece.UberPiece;
 import com.sda.games.checkers.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,9 +17,28 @@ public class Spot {
     private int y;
     private Piece piece;
 
+    public static boolean validateStartSpot(Board board, Player currentPlayer, int startX, int startY) throws Exception {
+        if (board.isEmpty(startX, startY)) {
+            System.out.println("Invalid board spot!");
+        } else if (board.hasNoPiece(startX, startY)) {
+            System.out.println("No checker here!");
+        } else if ((currentPlayer.isWhite() && board.pieceIsBlack(startX, startY)) || (currentPlayer.isBlack()) && board.pieceIsWhite(startX, startY)){
+            System.out.println("Not your checker!");
+        } else if (board.getPiece(startX, startY).hasMove(board, currentPlayer, startX, startY)) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean checkPrimaryMove(Player player, int startX, int startY, int endX, int endY) {
-        return !((player.isWhite() && (startY - endY) != -1) || (player.isBlack() && (startY - endY) != 1) ||
-                (startX - endX != -1 && startX - endX != 1));
+        if ((player.isWhite() && (startY - endY) != -1) ||
+                (player.isBlack() && (startY - endY != 1)) ||
+                (startX - endX != -1 && startX - endX != 1)) {
+            System.out.println("Invalid move!");
+        } else {
+            return true;
+        }
+        return false;
     }
 
     public boolean isStartSpotValid(Board board, Player player, Piece piece, int startX, int startY) throws Exception {

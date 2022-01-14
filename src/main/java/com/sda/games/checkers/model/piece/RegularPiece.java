@@ -35,10 +35,7 @@ public class RegularPiece extends Piece {
     @Override
     public boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
         if (player.isWhite()) {
-            if (board.pieceIsBlack(startX, startY)) {
-                System.out.println("Not your piece!");
-                return false;
-            } else if (startY == 7) {
+            if (startY == 7) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
@@ -70,10 +67,7 @@ public class RegularPiece extends Piece {
                 return true;
             }
         } else if (!player.isWhite()) {
-            if (board.pieceIsWhite(startX, startY)) {
-                System.out.println("Not your piece!");
-                return false;
-            } else if (startY == 0) {
+            if (startY == 0) {
                 if (hasKill(board, player, startX, startY)) {
                     return true;
                 } else {
@@ -251,7 +245,8 @@ public class RegularPiece extends Piece {
     }
 
     @Override
-    public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
+    public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws
+            Exception {
         if (player.isWhite()) {
             if (startX - 2 == endX && startY + 2 == endY && board.pieceIsBlack(startX - 1, startY + 1)) {
                 board.setBoardPieceNull(startX - 1, startY + 1);

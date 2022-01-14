@@ -5,7 +5,12 @@ import com.sda.games.checkers.model.board.Spot;
 import com.sda.games.checkers.model.piece.Piece;
 import com.sda.games.checkers.model.player.Move;
 import com.sda.games.checkers.model.player.Player;
-import lombok.*;
+import com.sda.utils.HibernateFactory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +37,25 @@ public class Game {
     }
 
     public List<Player> createPlayers() {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        PlayerDao playerDao = new PlayerDao(hibernateFactory);
+        players = new ArrayList<>();
+
         System.out.println("Enter White Player name:");
         Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true, 0);
+        players.add(whitePlayer);
+        if (playerDao.getByName(whitePlayer.getName()) == null) {
+            playerDao.add(whitePlayer);
+        }
+
         System.out.println("Enter Black Player name:");
         Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false, 0);
-
-        players = new ArrayList<>();
-        players.add(whitePlayer);
         players.add(blackPlayer);
+        if (playerDao.getByName(blackPlayer.getName()) == null) {
+            playerDao.add(blackPlayer);
+        }
+
+        playerDao.getAll().forEach(System.out::println);
 
         return players;
     }
@@ -124,7 +140,7 @@ public class Game {
             }
         } while (!board.getBoardSpot(startX, startY).isStartSpotValid(board, currentPlayer, board.getPiece(startX, startY), startX, startY));
         // Choosing where to move
-        do {
+        while (true) {
             System.out.println("Where to go?");
             endSpotXY = getStringXY();
             endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
@@ -145,13 +161,17 @@ public class Game {
                     startX = endX;
                     startY = endY;
                     getBoard().printBoard();
+                    if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                        System.out.println("Another kill!");
+                    } else {
+                        break;
+                    }
                 } else {
                     System.out.println("Invalid move!");
                 }
             }
             getBoard().printBoard();
         } while (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY));
-//        board.advancePiece(endX, endY, currentPlayer);
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 
