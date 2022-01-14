@@ -136,7 +136,7 @@ public class UberPiece extends Piece {
         if (startX == 7 || startY == 7) {
             return possibleMoves;
         } else {
-            for (int i = 1; i < 7 && startY + i <= 7; i++) {
+            for (int i = 1; i < 7 && startX + i <= 7 && startY + i <= 7; i++) {
                 actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX + i, startY + i)) {
@@ -161,15 +161,15 @@ public class UberPiece extends Piece {
         if (startX == 0 || startY == 7) {
             return possibleMoves;
         } else {
-            for (int i = 1; i < 7 && startY + i <= 7; i++) {
+            for (int i = 1; i < 7 && startX - i >= 0 && startY + i <= 7; i++) {
                 actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX - i, startY + i)) {
-                        possibleMoves.add(actualMove.append(startX - i).append( startY + i).toString());
+                        possibleMoves.add(actualMove.append(startX - i).append(startY + i).toString());
                     }
                 } else {
                     if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX - i, startY + i)) {
-                        possibleMoves.add(actualMove.append(startX - i).append( startY + i).toString());
+                        possibleMoves.add(actualMove.append(startX - i).append(startY + i).toString());
                     }
                 }
                 previousMove.setLength(0);
@@ -186,15 +186,15 @@ public class UberPiece extends Piece {
         if (startX == 7 || startY == 0) {
             return possibleMoves;
         } else {
-            for (int i = 1; i < 7 && startY - i >= 0; i++) {
+            for (int i = 1; i < 7 && startX + i <= 7 && startY - i >= 0; i++) {
                 actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX + i, startY - i)) {
-                        possibleMoves.add(actualMove.append(startX + i).append( startY - i).toString());
+                        possibleMoves.add(actualMove.append(startX + i).append(startY - i).toString());
                     }
                 } else {
                     if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX + i, startY - i)) {
-                        possibleMoves.add(actualMove.append(startX + i).append( startY - i).toString());
+                        possibleMoves.add(actualMove.append(startX + i).append(startY - i).toString());
                     }
                 }
                 previousMove.setLength(0);
@@ -211,15 +211,15 @@ public class UberPiece extends Piece {
         if (startX == 0 || startY == 0) {
             return possibleMoves;
         } else {
-            for (int i = 1; i < 7 && startY - i >= 0; i++) {
+            for (int i = 1; i < 7 && startX - i >= 0 && startY - i >= 0; i++) {
                 actualMove.setLength(0);
                 if (i < 2) {
                     if (board.hasNoPiece(startX - i, startY - i)) {
-                        possibleMoves.add(actualMove.append(startX - i).append( startY - i).toString());
+                        possibleMoves.add(actualMove.append(startX - i).append(startY - i).toString());
                     }
                 } else {
                     if (possibleMoves.contains(previousMove.toString()) && board.hasNoPiece(startX - i, startY - i)) {
-                        possibleMoves.add(actualMove.append(startX - i).append( startY - i).toString());
+                        possibleMoves.add(actualMove.append(startX - i).append(startY - i).toString());
                     }
                 }
                 previousMove.setLength(0);
