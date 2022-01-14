@@ -1,12 +1,13 @@
 package com.sda.games.checkers.model.piece;
 
 import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.board.SpotFactory;
 import com.sda.games.checkers.model.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +16,6 @@ import lombok.Setter;
 public abstract class Piece {
 
     public boolean white;
-    private boolean regular;
     private boolean killed;
     private String pieceIcon;
 
@@ -29,9 +29,7 @@ public abstract class Piece {
 
     public abstract boolean isRegular();
 
-    public boolean hasMove(Board board, Player player, int startX, int startY) throws Exception {
-        return false;
-    }
+    public abstract boolean hasMove(Board board, Player player, int startX, int startY) throws Exception;
 
     public boolean hasKill(Board board, Player player, int startX, int startY) throws Exception {
         return false;
@@ -115,4 +113,7 @@ public abstract class Piece {
     public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
         return false;
     }
+
+    public abstract List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception;
+
 }

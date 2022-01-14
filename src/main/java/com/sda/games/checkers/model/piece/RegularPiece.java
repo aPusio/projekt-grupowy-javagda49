@@ -1,9 +1,12 @@
 package com.sda.games.checkers.model.piece;
 
 import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.board.SpotFactory;
 import com.sda.games.checkers.model.player.Player;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -276,4 +279,9 @@ public class RegularPiece extends Piece {
         return false;
     }
 
+    @Override
+    public List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> list = new ArrayList<>();
+        return list;
+    }
 }
