@@ -1,5 +1,9 @@
 package com.sda.utils;
 
+import com.sda.games.wheelOfFortune.model.Category;
+import com.sda.games.wheelOfFortune.model.Turn;
+import com.sda.games.wheelOfFortune.model.WheelOfFortune;
+import com.sda.games.wheelOfFortune.model.Words;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -15,6 +19,10 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+        configuration.addAnnotatedClass(Category.class);
+        configuration.addAnnotatedClass(Turn.class);
+        configuration.addAnnotatedClass(WheelOfFortune.class);
+        configuration.addAnnotatedClass(Words.class);
 //		configuration.setProperty("hibernate.show_sql", "true");
         configuration.addAnnotatedClass(UserRPS.class);
         return configuration;
