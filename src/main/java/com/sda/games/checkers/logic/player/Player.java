@@ -1,5 +1,6 @@
 package com.sda.games.checkers.logic.player;
 
+import com.sda.games.checkers.database.model.PlayerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,12 @@ public class Player {
     public static String whitePlayerName;
     public static String blackPlayerName;
     public int kills = 0;
+
+    public Player(PlayerEntity playerEntity) {
+        this.name = playerEntity.getName();
+        this.isWhite = playerEntity.isWhite();
+        this.kills = playerEntity.getKills();
+    }
 
     public void killCounter() {
         kills += 1;

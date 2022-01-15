@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -32,13 +33,13 @@ public class Game {
     private GameStatus status;
     private List<Move> movesPlayed;
     private static Scanner scanner = new Scanner(System.in);
+    private HibernateFactory hibernateFactory = new HibernateFactory();
 
     public void runGame() throws Exception {
         Menu.mainMenu();
     }
 
     public List<Player> createPlayers() {
-        HibernateFactory hibernateFactory = new HibernateFactory();
         PlayerDao playerDao = new PlayerDao(hibernateFactory);
         players = new ArrayList<>();
 
@@ -64,24 +65,54 @@ public class Game {
                 System.out.println("Player already in Data Base!");
             }
         }
-
         playerDao.getAll().forEach(System.out::println);
-
         return players;
     }
 
     public Game newGame() {
         players = createPlayers();
-        Game game = initialize(players);
+        Game game = initializeNewGame(players);
         getBoard().printBoard();
         return game;
     }
 
-    public void continueGame() {
+    public Game continueGame() {
+        PlayerDao playerDao = new PlayerDao(hibernateFactory);
+        List<PlayerEntity> all = playerDao.getAll();
+        List<Player> players = all.stream()
+                .map(playerEntity -> new Player(playerEntity))
+                .collect(Collectors.toList());
 
+        Game game = initializeContinue(players);
+//        System.out.println(players);
+        return game;
     }
 
-    public Game initialize(List<Player> players) {
+    public Game initializeNewGame(List<Player> players) {
+
+        board = new Board();
+        board.resetBoard();
+
+        Player player1 = players.get(0);
+        Player player2 = players.get(1);
+
+        if (player1.isWhite()) {
+            currentPlayer = player1;
+        } else {
+            currentPlayer = player2;
+        }
+
+        movesPlayed = new ArrayList<>();
+        return this;
+    }
+
+    public Game initializeContinue(List<Player> players) {
+
+        MoveDao moveDao = new MoveDao(hibernateFactory);
+        List<MoveEntity> all = moveDao.getAll();
+        List<Move> moves = all.stream()
+                .map(moveEntity -> new Move(moveEntity))
+                .collect(Collectors.toList());
 
         board = new Board();
         board.resetBoard();
@@ -167,21 +198,22 @@ public class Game {
             if (board.isEmpty(endX, endY)) {
                 System.out.println("Invalid board spot!");
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
-                moveDao.add(new MoveEntity(0,startInput, endInput, currentPlayer.isWhite()));
                 board.setSpotsAfterMove(startX, startY, endX, endY);
                 board.advancePiece(endX, endY, currentPlayer);
+                moveDao.add(new MoveEntity(0, currentPlayer, startInput, endInput, currentPlayer.isWhite()));
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
-                    moveDao.add(new MoveEntity(0,startInput, endInput, currentPlayer.isWhite()));
                     board.setSpotsAfterMove(startX, startY, endX, endY);
                     board.advancePiece(endX, endY, currentPlayer);
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
+                    moveDao.add(new MoveEntity(0, currentPlayer, startInput, endInput, currentPlayer.isWhite()));
                     if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                        startInput = endInput;
                         System.out.println("Another kill!");
                     } else {
                         break;
