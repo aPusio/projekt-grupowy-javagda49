@@ -54,9 +54,7 @@ public class RockPaperScissorsGame {
                     break;
             }
             System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
+
 
             System.out.print("Rudolf ");
             System.out.print("make your choice:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
@@ -99,11 +97,13 @@ public class RockPaperScissorsGame {
             }
             if (winner == RUDOLF) {
                 System.out.println();
+                System.out.println("Santa choose " + santa + " " + "Rudolf choose " + rudolf);
                 System.out.println("RUDOLF --> won!");
                 defeats++;
 
             } else if (winner == SANTA) {
                 System.out.println();
+                System.out.println("Santa choose " + santa + " " + "Rudolf choose " + rudolf);
                 System.out.println("SANTA --> won!");
                 wins++;
 
