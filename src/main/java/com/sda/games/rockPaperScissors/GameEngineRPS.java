@@ -47,7 +47,8 @@ public class GameEngineRPS {
 
     private void increaseWinnersScore(Enum<SymbolRPS> humanSymbol, Enum<SymbolRPS> aiSymbol) {
         if (humanSymbol.equals(aiSymbol)){
-            System.out.println("Tie!");
+            human.setScore(human.getScore()+1);
+            ai.setScore(ai.getScore()+1);
         }
         else if (humanSymbol.equals(SymbolRPS.ROCK) && (aiSymbol.equals(SymbolRPS.SCISSORS))){
             human.setScore(human.getScore()+1);
