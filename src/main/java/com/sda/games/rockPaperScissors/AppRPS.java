@@ -7,6 +7,8 @@ import com.sda.utils.HibernateFactory;
 
 import java.util.Scanner;
 
+import static com.sda.games.rockPaperScissors.Menu.printMenu;
+
 public class AppRPS {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
