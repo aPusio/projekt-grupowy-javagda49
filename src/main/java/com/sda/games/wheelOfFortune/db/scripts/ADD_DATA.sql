@@ -1,14 +1,14 @@
-INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
-	 (1,'Polityka'),
-	 (2,'Muzyka'),
-	 (3,'Biologia'),
-	 (4,'Geografia'),
-	 (5,'Chemia'),
-	 (6,'Fizyka'),
-	 (7,'Religie'),
-	 (8,'Informatyka'),
-	 (9,'Anatomia'),
-	 (10,'Sport');
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
+	    (1,'Polityka'),
+	    (2,'Muzyka'),
+	    (3,'Biologia'),
+	    (4,'Geografia'),
+	    (5,'Chemia'),
+	    (6,'Fizyka'),
+	    (7,'Religie'),
+	    (8,'Informatyka'),
+	    (9,'Anatomia'),
+	    (10,'Sport');
 
 	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Hasla (WORD_ID,CATEGORY_ID) VALUES
      	 (1,1,'Sejm'),
@@ -21,7 +21,8 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,1,'Koalicja'),
      	 (9,1,'Partia'),
      	 (10,1,'Immunitet');
-         (1,2,'Opera'),
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Muzyka (ID,CATEGORY_ID,WORD) VALUES
+     	 (1,2,'Opera'),
      	 (2,2,'Wiolonczela'),
      	 (3,2,'Solista'),
      	 (4,2,'Festiwal muzyczny'),
@@ -31,6 +32,9 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,2,'Gitara akustyczna'),
      	 (9,2,'Szanty'),
      	 (10,2,'Hymn Państwowy');
+
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Biologia (ID,CATEGORY_ID,WORD) VALUES
+
      	 (1,3,'Roślin'),
      	 (2,3,'Ssaki'),
      	 (3,3,'Pantofelek'),
@@ -41,7 +45,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,3,'Dinozaury'),
      	 (9,3,'Płaz'),
      	 (10,3,'Krokodyl');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Geografia (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Geografia (ID,CATEGORY_ID,WORD) VALUES
      	 (1,4,'Rzeka'),
      	 (2,4,'Kontynent'),
      	 (3,4,'Płyta tektoniczna'),
@@ -52,7 +56,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,4,'Równik'),
      	 (9,4,'Wody głębinowe'),
      	 (10,4,'Puszcza Amazońska');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Chemia (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Chemia (ID,CATEGORY_ID,WORD) VALUES
      	 (1,5,'Pierwiastek'),
      	 (2,5,'Tablica Mendelejewa'),
      	 (3,5,'Reakcja chemiczna'),
@@ -63,7 +67,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,5,'Doświadczenie chemiczne'),
      	 (9,5,'Amony'),
      	 (10,5,'Radioaktywność');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_fizyka (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_fizyka (ID,CATEGORY_ID,WORD) VALUES
      	 (1,6,'Grawitacja'),
      	 (2,6,'Termodynamika'),
      	 (3,6,'Amplituda'),
@@ -74,7 +78,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,6,'Rezonans magnetyczny'),
      	 (9,6,'Teoria względności'),
      	 (10,6,'Woltomierz');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Religie (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Religie (ID,CATEGORY_ID,WORD) VALUES
      	 (1,7,'Hinduizm'),
      	 (2,7,'Chrześcijaństwo'),
      	 (3,7,'Synagoga'),
@@ -85,7 +89,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,7,'Oświecenie'),
      	 (9,7,'Koran'),
      	 (10,7,'Biblia');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Informatyka (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Informatyka (ID,CATEGORY_ID,WORD) VALUES
      	 (1,8,'Baza danych'),
      	 (2,8,'Internet'),
      	 (3,8,'Serwerownia'),
@@ -96,7 +100,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,8,'Naprawa błędów aplikacji'),
      	 (9,8,'Gry komputerowe'),
      	 (10,8,'Połączenie sieciowe');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Anatomia (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Anatomia (ID,CATEGORY_ID,WORD) VALUES
      	 (1,9,'Układ krążenia'),
      	 (2,9,'Kościec'),
      	 (3,9,'Tętnice'),
@@ -107,7 +111,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,9,'Trąbka słuchowa'),
      	 (9,9,'Rdzeń kręgowy'),
      	 (10,9,'Nerki');
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Sport (ID,CATEGORY_ID,WORD) VALUES
+     INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Sport (ID,CATEGORY_ID,WORD) VALUES
      	 (1,10,'Olimpiada'),
      	 (2,10,'Trener'),
      	 (3,10,'Zawodnik'),
