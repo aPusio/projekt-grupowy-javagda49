@@ -1,11 +1,13 @@
 package com.sda;
 
 import com.sda.games.angrynerds.AngryNerdsBuilder;
+import com.sda.games.kamiennozycepapier.game.RockPaperScissorsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 import lombok.SneakyThrows;
 
 public class App {
+
     @SneakyThrows
     public static void main(String[] args) {
         UserIoService userIoService = new UserIoService();
@@ -14,7 +16,7 @@ public class App {
         Integer userOption = userIoService.getInt("Wpisz numer gry:");
         switch (userOption) {
             case 1:
-                System.out.println("Implement me 🤣🤣");
+                RockPaperScissorsBuilder.build().start();
                 break;
             case 2:
                 System.out.println("Implement me 🤣🤣");
