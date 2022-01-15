@@ -16,7 +16,6 @@ import javax.persistence.Id;
 public class GameRPS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer id2;
+    private Integer user_id;
 
 }
