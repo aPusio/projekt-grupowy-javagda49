@@ -10,7 +10,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
 	 (9,'Anatomia'),
 	 (10,'Sport');
 
-	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_POLITYKA (ID,CATEGORY_ID,WORD) VALUES
+	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Hasla (WORD_ID,CATEGORY_ID) VALUES
      	 (1,1,'Sejm'),
      	 (2,1,'Senat'),
      	 (3,1,'Konstytucja'),
@@ -21,9 +21,7 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,1,'Koalicja'),
      	 (9,1,'Partia'),
      	 (10,1,'Immunitet');
-
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Muzyka (ID,CATEGORY_ID,WORD) VALUES
-     	 (1,2,'Opera'),
+         (1,2,'Opera'),
      	 (2,2,'Wiolonczela'),
      	 (3,2,'Solista'),
      	 (4,2,'Festiwal muzyczny'),
@@ -33,8 +31,6 @@ INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_KATEGORIE (ID,NAME) VALUES
      	 (8,2,'Gitara akustyczna'),
      	 (9,2,'Szanty'),
      	 (10,2,'Hymn Państwowy');
-
-     	 INSERT INTO PUBLIC.PUBLIC.KOLOFORTUNY_Biologia (ID,CATEGORY_ID,WORD) VALUES
      	 (1,3,'Roślin'),
      	 (2,3,'Ssaki'),
      	 (3,3,'Pantofelek'),
