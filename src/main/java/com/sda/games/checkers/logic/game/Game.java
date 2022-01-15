@@ -1,5 +1,7 @@
 package com.sda.games.checkers.logic.game;
 
+import com.sda.games.checkers.database.dao.MoveDao;
+import com.sda.games.checkers.database.model.MoveEntity;
 import com.sda.games.checkers.database.model.PlayerEntity;
 import com.sda.games.checkers.logic.board.Board;
 import com.sda.games.checkers.logic.board.Spot;
@@ -97,20 +99,20 @@ public class Game {
         return this;
     }
 
-    public String getStringXY() throws Exception {
+    public String getPlayerInput() throws Exception {
         Pattern movePattern = Pattern.compile("[a-hA-H][1-8]");
-        String spotXY;
+        String input;
         while (true) {
             do {
-                spotXY = scanner.nextLine();
-                if (spotXY.equals("exit")) {
+                input = scanner.nextLine();
+                if (input.equals("exit")) {
                     Menu.mainMenu();
                     break;
-                } else if (spotXY.length() != 2) {
+                } else if (input.length() != 2) {
                     System.out.println("Invalid input!");
                 }
-            } while (spotXY.length() != 2);
-            Matcher matcher = movePattern.matcher(spotXY);
+            } while (input.length() != 2);
+            Matcher matcher = movePattern.matcher(input);
             boolean isInputValid = matcher.matches();
             if (isInputValid) {
                 break;
@@ -118,16 +120,24 @@ public class Game {
                 System.out.println("Invalid input!");
             }
         }
-        char charX = spotXY.charAt(0);
-        char charY = spotXY.charAt(1);
 
+        return input;
+    }
+
+    public String convertPlayerInput(String input) {
+        char charX = input.charAt(0);
+        char charY = input.charAt(1);
         return String.valueOf(charX - 97) + charY;
     }
 
     public void makeMove() throws Exception {
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        MoveDao moveDao = new MoveDao(hibernateFactory);
 
         System.out.println(currentPlayer.getName() + " move.");
 
+        String startInput;
+        String endInput;
         String startSpotXY;
         String endSpotXY;
         int startX;
@@ -136,31 +146,36 @@ public class Game {
         int endY;
 
         // Choosing checker to move
+        boolean isSpotValid;
         do {
             System.out.println("Which checker to move?");
-            startSpotXY = getStringXY();
+            startInput = getPlayerInput();
+            startSpotXY = convertPlayerInput(startInput);
             startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
             startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
-        } while (!Spot.validateStartSpot(board, currentPlayer, startX, startY));
+            isSpotValid = Spot.validateStartSpot(board, currentPlayer, startX, startY);
+        } while (!isSpotValid);
 
         // Choosing where to move
         while (true) {
             System.out.println("Where to go?");
-            endSpotXY = getStringXY();
+            endInput = getPlayerInput();
+            endSpotXY = convertPlayerInput(endInput);
             endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
             endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
 
             if (board.isEmpty(endX, endY)) {
                 System.out.println("Invalid board spot!");
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
+                moveDao.add(new MoveEntity(0,startInput, endInput, currentPlayer.isWhite()));
                 board.setSpotsAfterMove(startX, startY, endX, endY);
                 board.advancePiece(endX, endY, currentPlayer);
-
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
+                    moveDao.add(new MoveEntity(0,startInput, endInput, currentPlayer.isWhite()));
                     board.setSpotsAfterMove(startX, startY, endX, endY);
                     board.advancePiece(endX, endY, currentPlayer);
                     getBoard().printBoard();

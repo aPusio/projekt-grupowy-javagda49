@@ -19,6 +19,7 @@ public class GameEntity {
     @Column(name = "id", nullable = false)
     private int id;
 
+
 //    private List<Move>
 
     public GameEntity(Game game){

@@ -1,5 +1,7 @@
 package com.sda.utils;
 
+import com.sda.games.checkers.database.model.GameEntity;
+import com.sda.games.checkers.database.model.MoveEntity;
 import com.sda.games.checkers.database.model.PlayerEntity;
 import com.sda.games.checkers.logic.player.Player;
 import org.hibernate.SessionFactory;
@@ -19,6 +21,8 @@ public class HibernateFactory {
 //		configuration.setProperty("hibernate.show_sql", "true");
 
         configuration.addAnnotatedClass(PlayerEntity.class);
+        configuration.addAnnotatedClass(GameEntity.class);
+        configuration.addAnnotatedClass(MoveEntity.class);
         return configuration;
     }
 

@@ -15,7 +15,6 @@ public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "playerName")
     private String name;
     private boolean isWhite;
     public int kills;
