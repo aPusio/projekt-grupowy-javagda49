@@ -1,9 +1,11 @@
 package com.sda.games.rockPaperScissors;
 
+import com.sda.games.rockPaperScissors.daoRPS.EntityDao;
 import com.sda.games.rockPaperScissors.modelRPS.RoundRPS;
 import com.sda.games.rockPaperScissors.modelRPS.SymbolRPS;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
 
+import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 
 import java.util.Random;
@@ -14,9 +16,19 @@ public class GameEngineRPS {
     private UserRPS human;
     private UserRPS ai;
     private RoundRPS round;
+    private EntityDao<UserRPS> genericUserDao;
+
+
 
     public void startGame(){
+        Scanner scanner = new Scanner(System.in);
         round.setRoundCounter(round.getSTARTING_ROUND());
+        System.out.println("Player enter your name:");
+        human.setNickname(scanner.nextLine());
+        System.out.println("Hello " + human.getNickname() + ". Thank you for choosing our game, good luck !!");
+
+        genericUserDao.save(human);
+
         while(round.getRoundCounter() <= round.getMAX_ROUNDS()){
             System.out.println("Round: " + round.getRoundCounter());
             humanMove();
