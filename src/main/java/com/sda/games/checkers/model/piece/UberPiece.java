@@ -228,4 +228,26 @@ public class UberPiece extends Piece {
             return possibleMoves;
         }
     }
+
+    public List<String> upRightKill(Board board, Player player, int startX, int startY) throws Exception {
+        List<String> possibleKills = new ArrayList<>();
+        StringBuilder actualMove = new StringBuilder();
+        if (startX >= 6 || startY >= 6) {
+            return possibleKills;
+        } else {
+            actualMove.setLength(0);
+            for (int i = 1; i < 6 && startX + i <= 6 && startY + i <= 6; i++) {
+                if (i < 2) {
+                    if (board.hasNoPiece(startX + i, startY + i)) {
+                        possibleKills.add(actualMove.append(startX + i).append(startY + i).toString());
+                    }
+                } else {
+                    if (board.hasNoPiece(startX + i, startY + i)) {
+                        possibleKills.add(actualMove.append(startX + i).append(startY + i).toString());
+                    }
+                }
+            }
+            return possibleKills;
+        }
+    }
 }
