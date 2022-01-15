@@ -4,7 +4,6 @@ import com.sda.games.rockPaperScissors.daoRPS.EntityDao;
 import com.sda.games.rockPaperScissors.modelRPS.RoundRPS;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
 import com.sda.utils.HibernateFactory;
-import org.hsqldb.rights.User;
 
 import java.util.Scanner;
 
@@ -15,6 +14,12 @@ public class AppRPS {
         EntityDao<UserRPS> genericUserDao = new EntityDao<>(hibernateFactory, UserRPS.class);
         UserRPS human = new UserRPS(true, 0);
         UserRPS ai = new UserRPS(false, 0);
+
+        System.out.println("Player enter your name:");
+        String playerName = scanner.nextLine();
+        System.out.println("Hello " + playerName + ". Thank you for choosing our game, good luck !!");
+
+        printMenu();
 
         boolean gameOver = false;
         while(!gameOver){
