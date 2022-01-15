@@ -1,4 +1,4 @@
-package com.sda.games.rockPaperScissors.game;
+package com.sda.games.rockPaperScissors;
 
 
 
