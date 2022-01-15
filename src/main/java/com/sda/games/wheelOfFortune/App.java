@@ -2,34 +2,19 @@ package com.sda.games.wheelOfFortune; //Tu piszemy jebany kod koła
 
 import com.sda.games.wheelOfFortune.methods.WheelGame;
 
+import java.util.Locale;
+
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Start gry");
         //wybierz kategorie
         //losowanie w ramach kategori
-        String wylosowaneHaslo = WheelGame.idWord(4);
-        System.out.println(wylosowaneHaslo);
-        //char[] haslo=new char[wylosowaneHaslo.length()];
-        String[] haslo=wylosowaneHaslo.split("");
-        String[] hasloStan=new String[wylosowaneHaslo.length()];
+     /*   String guessMeWord = WheelGame.idWord(4).toUpperCase(Locale.ROOT);
+        System.out.println(guessMeWord);
+        String[] wordUnknown = WheelGame.prepareUnknown(guessMeWord);
+        WheelGame.showMeUnknown(wordUnknown);*/
+        WheelGame.startGame();
 
-        for (int i=0;i<wylosowaneHaslo.length();i++) {
-            if (haslo[i].equals(" ")) {
-                hasloStan[i]=" ";
-            } else {
-                hasloStan[i]="_";
-            }
-        }
 
-        for (String string: hasloStan
-             ) {
-            System.out.print(string);
-            
-        }
-         
-
-  
-            
-        
     }
 }
