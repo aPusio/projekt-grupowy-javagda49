@@ -16,7 +16,6 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 //		configuration.setProperty("hibernate.show_sql", "true");
-
         configuration.addAnnotatedClass(UserRPS.class);
         return configuration;
     }
