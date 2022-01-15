@@ -12,12 +12,12 @@ public class Menu {
 
 
     public static void printGameLogo(){
-        System.out.println(" _____     ___     ___  ");
-        System.out.println("|     \\   //   \\ //   \\  |    //");
-        System.out.println("|     // |     | |       |   // ");
-        System.out.println("|----    |     | |       | //   ");
-        System.out.println("|    \\    \\   // \\   //  |  \\  ");
-        System.out.println("|     \\   ___     ___    |    \\");
+        System.out.println(" _____     ___     ___                 _____      ___      _____    ______    _____");
+        System.out.println("|     \\   //   \\ //   \\  |    //      |     \\   //    \\   |     \\   |        |     \\");
+        System.out.println("|     // |     | |       |   //       |     //  |      |  |     //  |        |     //");
+        System.out.println("|----//  |     | |       | //         |------   |------|  |-----    |----    |----//");
+        System.out.println("|    \\    \\   // \\   //  |  \\         |         |      |  |         |        |    \\");
+        System.out.println("|     \\    ___     ___   |    \\ ,,    |         |      |  |         |______  |     \\ ,,");
         System.out.println();
     }
 
