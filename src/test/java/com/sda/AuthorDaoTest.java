@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class AuthorDaoTest {
 
@@ -28,10 +30,13 @@ class AuthorDaoTest {
         Mockito.when(session.find(Mockito.eq(Authro.class), Mockito.any())).thenReturn(authro);
 
         //when
-        Authro byId = authorDao.getById(2L);
+        Optional<Authro> byId = authorDao.getById(2L);
 
         //then
         Assertions.assertNotNull(byId);
+        if(byId.isPresent()) {
+            Assertions.assertEquals(authro, byId.get());
+        }
     }
 
     @Test
@@ -42,9 +47,10 @@ class AuthorDaoTest {
         Mockito.when(session.find(Mockito.eq(Authro.class), Mockito.any())).thenReturn(null);
 
         //when
-        Authro result = authorDao.getById(2L);
+        Optional<Authro> result = authorDao.getById(2L);
 
         //then
-        Assertions.assertNull(result);
+        Assertions.assertTrue(result.isEmpty());
+        Assertions.assertEquals(Optional.empty(), result);
     }
 }
