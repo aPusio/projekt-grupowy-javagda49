@@ -1,4 +1,4 @@
-package com.sda.games.checkers.model.game;
+package com.sda.games.checkers.logic.game;
 
 public enum GameStatus {
     ACTIVE,

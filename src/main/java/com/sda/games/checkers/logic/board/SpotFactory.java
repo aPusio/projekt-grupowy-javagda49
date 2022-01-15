@@ -1,7 +1,7 @@
-package com.sda.games.checkers.model.board;
+package com.sda.games.checkers.logic.board;
 
-import com.sda.games.checkers.model.piece.RegularPiece;
-import com.sda.games.checkers.model.piece.UberPiece;
+import com.sda.games.checkers.logic.piece.RegularPiece;
+import com.sda.games.checkers.logic.piece.UberPiece;
 
 public class SpotFactory {
     public static Spot regularWhite(int x, int y) {

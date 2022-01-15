@@ -1,12 +1,10 @@
-package com.sda.games.checkers.model.piece;
+package com.sda.games.checkers.logic.piece;
 
-import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.board.Spot;
-import com.sda.games.checkers.model.player.Player;
+import com.sda.games.checkers.logic.board.Board;
+import com.sda.games.checkers.logic.player.Player;
 import lombok.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -41,77 +39,10 @@ public class UberPiece extends Piece {
             } else {
                 return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
             }
-
-//            } else if (startY == 7) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
-//            } else if (startX == 0 && board.hasPiece(startX + 1, startY + 1)) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
-//            } else if (startX == 7 && (board.hasPiece(startX - 1, startY + 1))) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
-//            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY + 1))) {
-//                return true;
-//            } else if (
-//                    board.hasPiece(startX + 1, startY + 1) &&
-//                            board.hasPiece(startX - 1, startY + 1)) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
         } else if (!player.isWhite()) {
             if (board.pieceIsWhite(startX, startY)) {
                 System.out.println("Not your piece!");
                 return false;
-//            } else if (startY == 0) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
-//            } else if (startX == 0 && (board.hasPiece(startX + 1, startY - 1))) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available!");
-//                }
-//            } else if (startX == 7 && (board.hasPiece(startX - 1, startY - 1))) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                } else {
-//                    System.out.println("No move available");
-//                }
-//            } else if (startX == 7 && (board.hasNoPiece(startX - 1, startY - 1))) {
-//                return true;
-//            } else if ((startX > 0 && startX < 7) &&
-//                    board.hasPiece(startX + 1, startY - 1) &&
-//                    board.hasPiece(startX - 1, startY - 1)) {
-//                if (hasKill(board, player, startX, startY)) {
-//                    return true;
-//                }
-//                System.out.println("No move available!");
-//            } else if (!upRightMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else if (!upLeftMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else if (!downRightMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else if (!downLeftMove(board, player, startX, startY).isEmpty()) {
-//                return true;
-//            } else {
-//                return false;
-//            }
             } else {
                 return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
             }

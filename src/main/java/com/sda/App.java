@@ -1,6 +1,6 @@
 package com.sda;
 
-import com.sda.games.checkers.model.game.Game;
+import com.sda.games.checkers.logic.game.Game;
 import com.sda.games.kamiennozycepapier.game.RockPaperScissorsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;

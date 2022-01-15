@@ -1,16 +1,16 @@
-package com.sda.games.checkers.model.game;
+package com.sda.games.checkers.logic.game;
 
-import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.board.Spot;
-import com.sda.games.checkers.model.dao.PlayerDao;
-import com.sda.games.checkers.model.player.Move;
-import com.sda.games.checkers.model.player.Player;
+import com.sda.games.checkers.database.model.PlayerEntity;
+import com.sda.games.checkers.logic.board.Board;
+import com.sda.games.checkers.logic.board.Spot;
+import com.sda.games.checkers.database.dao.PlayerDao;
+import com.sda.games.checkers.logic.player.Move;
+import com.sda.games.checkers.logic.player.Player;
 import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ public class Game {
     private GameStatus status;
     private List<Move> movesPlayed;
     private static Scanner scanner = new Scanner(System.in);
-    private Object game;
 
     public void runGame() throws Exception {
         Menu.mainMenu();
@@ -41,18 +40,27 @@ public class Game {
         PlayerDao playerDao = new PlayerDao(hibernateFactory);
         players = new ArrayList<>();
 
-        System.out.println("Enter White Player name:");
-        Player whitePlayer = new Player(1, Player.whitePlayerName = scanner.nextLine(), true, 0);
-        players.add(whitePlayer);
-        if (playerDao.getByName(whitePlayer.getName()) == null) {
-            playerDao.add(whitePlayer);
+        while (true) {
+            System.out.println("Enter White Player name:");
+            Player whitePlayer = new Player(Player.whitePlayerName = scanner.nextLine(), true, 0);
+            if (playerDao.getByName(whitePlayer.getName()).isEmpty()) {
+                players.add(whitePlayer);
+                playerDao.add(new PlayerEntity(whitePlayer));
+                break;
+            } else {
+                System.out.println("Player already in Data Base!");
+            }
         }
-
-        System.out.println("Enter Black Player name:");
-        Player blackPlayer = new Player(2, Player.blackPlayerName = scanner.nextLine(), false, 0);
-        players.add(blackPlayer);
-        if (playerDao.getByName(blackPlayer.getName()) == null) {
-            playerDao.add(blackPlayer);
+        while (true) {
+            System.out.println("Enter Black Player name:");
+            Player blackPlayer = new Player(Player.blackPlayerName = scanner.nextLine(), false, 0);
+            if (playerDao.getByName(blackPlayer.getName()).isEmpty()) {
+                players.add(blackPlayer);
+                playerDao.add(new PlayerEntity(blackPlayer));
+                break;
+            } else {
+                System.out.println("Player already in Data Base!");
+            }
         }
 
         playerDao.getAll().forEach(System.out::println);
@@ -86,7 +94,7 @@ public class Game {
         }
 
         movesPlayed = new ArrayList<>();
-        return (Game) this.game;
+        return this;
     }
 
     public String getStringXY() throws Exception {

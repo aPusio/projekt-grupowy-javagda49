@@ -1,8 +1,7 @@
-package com.sda.games.checkers.model.player;
+package com.sda.games.checkers.logic.player;
 
-import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.board.Spot;
-import com.sda.games.checkers.model.piece.Piece;
+import com.sda.games.checkers.logic.board.Spot;
+import com.sda.games.checkers.logic.piece.Piece;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
