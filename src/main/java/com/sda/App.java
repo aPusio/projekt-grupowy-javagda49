@@ -1,7 +1,7 @@
 package com.sda;
 
 import com.sda.games.angrynerds.AngryNerdsBuilder;
-import com.sda.games.kamiennozycepapier.game.RockPaperScissorsBuilder;
+import com.sda.games.r_p_s.game.RockPaperScissorsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 import lombok.SneakyThrows;
