@@ -2,14 +2,15 @@ package com.sda.games.r_p_s.game;
 
 import com.sda.games.r_p_s.game.menu.ChristmasTree;
 
+import java.util.Optional;
 import java.util.Scanner;
+
+import static com.sda.games.r_p_s.game.Rps.*;
 
 
 public class RockPaperScissorsGame {
 
-    private static final int ROCK = 1;
-    private static final int PAPER = 2;
-    private static final int SCISSORS = 3;
+
 
     private static final int RUDOLF = 1;
     private static final int SANTA = 2;
@@ -24,7 +25,7 @@ public class RockPaperScissorsGame {
 
     public static void start() {
 
-        ChristmasTree christmasTree = new ChristmasTree('*',39);
+        ChristmasTree christmasTree = new ChristmasTree('#',19);
 
         String znowu = "t";
         Scanner skan = new Scanner(System.in);
@@ -35,11 +36,13 @@ public class RockPaperScissorsGame {
             System.out.print("choose:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
 
             int santa = skan.nextInt();
+            Optional<Rps> byId = Rps.getById(santa);
+            Rps rps = byId.get();
 
             System.out.print("Your choice: ");
             System.out.println();
 
-            switch (santa) {
+            switch (rps) {
                 case ROCK:
                     System.out.println("*******");
                     break;
@@ -51,17 +54,24 @@ public class RockPaperScissorsGame {
                     break;
             }
             System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
 
             System.out.print("Rudolf ");
             System.out.print("make your choice:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
             System.out.println();
+
             int rudolf = skan.nextInt();
-            switch (rudolf) {
+            Optional<Rps> byId2 = Rps.getById2(rudolf);
+            Rps rps2 = byId2.get();
+
+            switch (rps2) {
                 case ROCK:
                     System.out.println("*******");
-                    if (santa == SCISSORS) {
+                    if (rps == SCISSORS ) {
                         winner = RUDOLF;
-                    } else if (santa == PAPER) {
+                    } else if (rps == PAPER ) {
                         winner = SANTA;
                     } else {
                         winner = TIE;
@@ -69,9 +79,9 @@ public class RockPaperScissorsGame {
                     break;
                 case PAPER:
                     System.out.println("*******");
-                    if (santa == ROCK) {
+                    if (rps == ROCK) {
                         winner = RUDOLF;
-                    } else if (santa == SCISSORS) {
+                    } else if (rps == SCISSORS) {
                         winner = SANTA;
                     } else {
                         winner = TIE;
@@ -79,9 +89,9 @@ public class RockPaperScissorsGame {
                     break;
                 case SCISSORS:
                     System.out.println("*******");
-                    if (santa == PAPER) {
+                    if (rps == PAPER) {
                         winner = RUDOLF;
-                    } else if (santa == ROCK) {
+                    } else if (rps == PAPER) {
                         winner = SANTA;
                     } else {
                         winner = TIE;
