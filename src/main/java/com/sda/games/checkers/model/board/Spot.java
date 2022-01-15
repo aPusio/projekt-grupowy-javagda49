@@ -24,9 +24,7 @@ public class Spot {
             System.out.println("No checker here!");
         } else if ((currentPlayer.isWhite() && board.pieceIsBlack(startX, startY)) || (currentPlayer.isBlack()) && board.pieceIsWhite(startX, startY)){
             System.out.println("Not your checker!");
-        } else if (board.getPiece(startX, startY).hasMove(board, currentPlayer, startX, startY)) {
-            return true;
-        }
+        } else return board.getPiece(startX, startY).hasMove(board, currentPlayer, startX, startY);
         return false;
     }
 
@@ -42,7 +40,13 @@ public class Spot {
     }
 
     public boolean isStartSpotValid(Board board, Player player, Piece piece, int startX, int startY) throws Exception {
-        return piece.hasMove(board, player, startX, startY);
+        if(piece.isRegular()) {
+            return piece.hasMove(board, player, startX, startY);
+        } else {
+            if(piece.hasMove(board, player, startX, startY)){
+                return true;
+            } else return piece.hasKill(board, player, startX, startY);
+        }
     }
 
     public boolean isEndSpotValid(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
