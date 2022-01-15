@@ -237,6 +237,15 @@ public class UberPiece extends Piece {
         } else {
             actualMove.setLength(0);
             for (int i = 1; i < 6 && startX + i <= 6 && startY + i <= 6; i++) {
+                if (player.isWhite()) {
+                    if(board.hasNoPiece(startX + i, startY + i)){
+                        continue;
+                    }
+                } else if(board.hasPiece(startX + i, startY + i) && !board.getPiece(startX + i, startY + i).isWhite()){
+
+                }
+
+
                 if (i < 2) {
                     if (board.hasNoPiece(startX + i, startY + i)) {
                         possibleKills.add(actualMove.append(startX + i).append(startY + i).toString());
