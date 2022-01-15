@@ -18,9 +18,9 @@ public class WheelOfFortune {
     private Integer playerOneScore;
     private Integer playerTwoScore;
     private String currentWordState;
-    private boolean turn;
-    @OneToMany(mappedBy = "player")
+    private Turn turn;
+    @OneToMany(mappedBy = "wheelOfFortune")
     private List<Player> players;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "wheelOfFortune")
     private List<Words> wordsList;
 }

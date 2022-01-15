@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Categories {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer category_id;
+    private Integer categorId;
     private String name;
     @OneToMany (mappedBy = "category_id")
     private List<Words> wordsList;
