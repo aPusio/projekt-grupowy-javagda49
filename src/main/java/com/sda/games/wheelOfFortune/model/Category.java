@@ -17,5 +17,5 @@ public class Category {
     private Integer categorId;
     private String name;
     @OneToMany (mappedBy = "category_id")
-    private List<Words> wordsList;
+    private List<Word> wordsList;
 }
