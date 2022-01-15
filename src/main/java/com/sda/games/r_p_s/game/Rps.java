@@ -1,4 +1,4 @@
-package com.sda.games.kamiennozycepapier.game;
+package com.sda.games.r_p_s.game;
 
 import lombok.AllArgsConstructor;
 
@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 
 public enum Rps {
 
-    KAMIEN(1),
-    PAPIER(2),
-    NOZYCE(3);
+    ROCK(1),
+    PAPER(2),
+    SCISSORS(3);
 
     private int wartosc;
 

@@ -1,7 +1,7 @@
-package com.sda.games.kamiennozycepapier.game;
+package com.sda.games.r_p_s.game;
 
-import com.sda.games.kamiennozycepapier.game.manu.MenuOption;
-import com.sda.games.kamiennozycepapier.game.manu.RockPaperScissorsMenu;
+import com.sda.games.r_p_s.game.menu.MenuOption;
+import com.sda.games.r_p_s.game.menu.RockPaperScissorsMenu;
 import com.sda.utils.UserIoService;
 import lombok.AllArgsConstructor;
 
