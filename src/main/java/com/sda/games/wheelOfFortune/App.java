@@ -8,11 +8,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Start gry");
         //wybierz kategorie
-        //losowanie w ramach kategori
-     /*   String guessMeWord = WheelGame.idWord(4).toUpperCase(Locale.ROOT);
-        System.out.println(guessMeWord);
-        String[] wordUnknown = WheelGame.prepareUnknown(guessMeWord);
-        WheelGame.showMeUnknown(wordUnknown);*/
+        //losowanie w ramach kategorii
         WheelGame.startGame();
 
 
