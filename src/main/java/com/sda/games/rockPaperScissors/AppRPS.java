@@ -20,7 +20,6 @@ public class AppRPS {
         System.out.println("Player enter your name:");
         String playerName = scanner.nextLine();
         System.out.println("Hello " + playerName + ". Thank you for choosing our game, good luck !!");
-
         printMenu();
 
         boolean gameOver = false;
@@ -33,7 +32,5 @@ public class AppRPS {
                 gameOver = true;
             }
         }
-
-
     }
 }
