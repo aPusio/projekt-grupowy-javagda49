@@ -19,7 +19,7 @@ public class UserRPS {
     private Integer id;
     private String nickname;
     private boolean isHuman;
-    private Enum<SymbolRPS> symbol;
+    private SymbolRPS symbol;
     private int score;
 
     public UserRPS(boolean isHuman, int score) {
