@@ -4,10 +4,7 @@ import com.sda.games.rockPaperScissors.daoRPS.EntityDao;
 import com.sda.games.rockPaperScissors.modelRPS.RoundRPS;
 import com.sda.games.rockPaperScissors.modelRPS.SymbolRPS;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
-
-import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,8 +14,6 @@ public class GameEngineRPS {
     private UserRPS ai;
     private RoundRPS round;
     private EntityDao<UserRPS> genericUserDao;
-
-
 
     public void startGame(){
         Scanner scanner = new Scanner(System.in);
@@ -33,9 +28,11 @@ public class GameEngineRPS {
             System.out.println("Round: " + round.getRoundCounter());
             humanMove();
             aiMove();
-            System.out.println("User: " + human.getSymbol() + ", AI: " + ai.getSymbol());
+            System.out.println("AI picked " + ai.getSymbol());
             round.setRoundCounter(round.getRoundCounter()+1);
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
+            System.out.println("Human " + human.getScore() + " vs AI " + ai.getScore());
+            System.out.println();
         }
         printWinner();
     }
