@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 @AllArgsConstructor
-public class EntityDao <T>{
+public abstract class EntityDao <T>{
     private HibernateFactory hibernateFactory;
     private Class<T> clazz;
 

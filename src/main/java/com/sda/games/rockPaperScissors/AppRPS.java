@@ -1,6 +1,7 @@
 package com.sda.games.rockPaperScissors;
 
 import com.sda.games.rockPaperScissors.daoRPS.EntityDao;
+import com.sda.games.rockPaperScissors.daoRPS.UserDaoRPS;
 import com.sda.games.rockPaperScissors.modelRPS.RoundRPS;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
 import com.sda.utils.HibernateFactory;
@@ -13,7 +14,7 @@ public class AppRPS {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         HibernateFactory hibernateFactory = new HibernateFactory();
-        EntityDao<UserRPS> genericUserDao = new EntityDao<>(hibernateFactory, UserRPS.class);
+        EntityDao<UserRPS> genericUserDao = new UserDaoRPS(hibernateFactory, UserRPS.class);
         UserRPS human = new UserRPS(true, 0);
         UserRPS ai = new UserRPS(false, 0);
 

@@ -1,10 +1,6 @@
 package com.sda.games.rockPaperScissors.modelRPS;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +25,6 @@ public class UserRPS {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public void setHuman(boolean human) {
-        isHuman = human;
     }
 
     public void setSymbol(int symbolNumber) {
