@@ -1,4 +1,4 @@
-package com.sda.games.kamiennozycepapier.game.manu;
+package com.sda.games.r_p_s.game.menu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
