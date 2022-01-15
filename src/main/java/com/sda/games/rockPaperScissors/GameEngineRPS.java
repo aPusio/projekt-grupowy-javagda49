@@ -23,6 +23,7 @@ public class GameEngineRPS {
         System.out.println("Hello " + human.getNickname() + ". Thank you for choosing our game, good luck !!");
 
         genericUserDao.save(human);
+        genericUserDao.save(ai);
 
         while(round.getRoundCounter() <= round.getMAX_ROUNDS()){
             System.out.println("Round: " + round.getRoundCounter());
@@ -33,6 +34,8 @@ public class GameEngineRPS {
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
             System.out.println("Human " + human.getScore() + " vs AI " + ai.getScore());
             System.out.println();
+
+
         }
         printWinner();
     }
