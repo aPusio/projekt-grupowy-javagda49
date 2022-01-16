@@ -14,11 +14,11 @@ import org.hibernate.cfg.Configuration;
 public class HibernateFactory {
     private Configuration getHibernateConfig() {
         Configuration configuration = new Configuration();
-        configuration.setProperty("hibernate.connection.url", "jdbc:hsqldb:file:db-data/mydatabase;hsqldb.write_delay_millis=0");
-        configuration.setProperty("hibernate.connection.username", "admin123");
-        configuration.setProperty("hibernate.connection.password", "admin123");
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
-        configuration.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
+        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/test?serverTimezone=UTC");
+        configuration.setProperty("hibernate.connection.username", "root");
+        configuration.setProperty("hibernate.connection.password", "root");
+        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
         configuration.addAnnotatedClass(Category.class);
         configuration.addAnnotatedClass(Turn.class);
