@@ -26,14 +26,14 @@ public class DbGenerator {
         EntityDao<Word> wordsDao = new EntityDao<>(hibernateFactory, Word.class);
 
         loadCategories(categoryDao);
-        loadWords(wordsDao);
+        loadWords(wordsDao, categoryDao);
 
     }
 
     private static void loadCategories(EntityDao<Category> categoryEntityDao) throws FileNotFoundException {
-        List<com.sda.games.wheelOfFortune.dbGenerator.CategoryCsv> categoryCsvList =
+        List<CategoryCsv> categoryCsvList =
         new CsvToBeanBuilder(new FileReader(CATEGORTY_WHEEL_OF_FORTUNE_PATH.toFile()))
-                .withType(com.sda.games.wheelOfFortune.dbGenerator.CategoryCsv.class)
+                .withType(CategoryCsv.class)
                 .build()
                 .parse();
          categoryCsvList.stream()
@@ -41,28 +41,28 @@ public class DbGenerator {
                     .forEach(categoryEntityDao::save);
     }
 
-    private static Category toDbCategory(com.sda.games.wheelOfFortune.dbGenerator.CategoryCsv categoryCsv){
+    private static Category toDbCategory(CategoryCsv categoryCsv){
         Category category = new Category();
         category.setCategorId(categoryCsv.getIdCategory());
         category.setName(categoryCsv.getNameCategory());
         return category;
     }
-    private static void loadWords(EntityDao<Word> wordEntityDao) throws FileNotFoundException {
-        List<com.sda.games.wheelOfFortune.dbGenerator.WordCsv> wordCsvList =
+    private static void loadWords(EntityDao<Word> wordEntityDao, EntityDao<Category> categoryDao) throws FileNotFoundException {
+        List<WordCsv> wordCsvList =
                 new CsvToBeanBuilder(new FileReader(WORDS_WHEEL_OF_FORTUNE_PATH.toFile()))
-                .withType(com.sda.games.wheelOfFortune.dbGenerator.WordCsv.class)
+                .withType(WordCsv.class)
                 .build()
                 .parse();
         wordCsvList.stream()
-                .map(DbGenerator::doDbWord)
+                .map(wordCsv -> doDbWord(wordCsv, categoryDao))
                 .forEach(wordEntityDao::save);
     }
 
 
-    private static Word doDbWord(com.sda.games.wheelOfFortune.dbGenerator.WordCsv wordCsv){
+    private static Word doDbWord(WordCsv wordCsv, EntityDao<Category> categoryDao){
         Word word = new Word();
         word.setWordId(wordCsv.getWordId());
-        word.setCategoryId(wordCsv.getCategoryId());
+        word.setCategory(categoryDao.getById(wordCsv.getCategoryId()));
         word.setWord(wordCsv.getWord());
         return word;
     }
