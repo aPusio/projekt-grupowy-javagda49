@@ -16,7 +16,7 @@ public class Word {
     private Integer wordId;
     private String word;
     @ManyToOne
-    private Integer categoryId;
+    private Category category;
     @ManyToOne
     private WheelOfFortune wheelOfFortune;
 }
