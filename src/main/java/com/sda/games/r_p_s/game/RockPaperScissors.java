@@ -21,7 +21,7 @@ public class RockPaperScissors {
             case CONTINUE:
                 rockPaperScissorsGame.con();
             case EXIT:
-                rockPaperScissorsGame.exit();
+               rockPaperScissorsGame.exit();
         }
     }
 }
