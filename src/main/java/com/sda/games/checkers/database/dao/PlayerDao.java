@@ -1,7 +1,6 @@
 package com.sda.games.checkers.database.dao;
 
 import com.sda.games.checkers.database.model.PlayerEntity;
-import com.sda.games.checkers.logic.player.Player;
 import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -48,7 +47,7 @@ public class PlayerDao {
     public void reset() {
         Session session = hibernateFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete("FROM PlayerEntity");
+        session.createQuery("DELETE FROM PlayerEntity").executeUpdate();
         transaction.commit();
         session.close();
     }

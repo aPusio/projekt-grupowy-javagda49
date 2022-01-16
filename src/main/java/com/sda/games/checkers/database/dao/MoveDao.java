@@ -4,7 +4,6 @@ import com.sda.games.checkers.database.model.MoveEntity;
 import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
@@ -31,9 +30,8 @@ public class MoveDao {
     public void reset() {
         Session session = hibernateFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete("FROM MoveEntity");
+        session.createQuery("DELETE FROM MoveEntity").executeUpdate();
         transaction.commit();
         session.close();
     }
-
 }

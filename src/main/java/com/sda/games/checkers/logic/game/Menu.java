@@ -1,5 +1,7 @@
 package com.sda.games.checkers.logic.game;
 
+import com.sda.App;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +23,7 @@ public class Menu {
     public static void printOptions() {
         System.out.println("1. New Game");
         System.out.println("2. Continue");
-        System.out.println("3. Exit");
+        System.out.println("3. Main menu");
     }
 
     public static int optionInput() {
@@ -45,7 +47,7 @@ public class Menu {
                 System.out.println("Continue");
                 return 2;
             case 3:
-                System.out.println("Exit");
+                System.out.println("Main menu");
                 return 3;
         }
         return 0;
@@ -77,7 +79,7 @@ public class Menu {
                 System.out.println(game.getCurrentPlayer().getName() + " has won the game!");
                 break;
             case 3:
-                break;
+                return;
             default:
                 throw new IllegalStateException("Unexpected value: " + menuOption);
         }
