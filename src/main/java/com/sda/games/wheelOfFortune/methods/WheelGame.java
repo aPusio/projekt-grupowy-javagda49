@@ -3,6 +3,7 @@ package com.sda.games.wheelOfFortune.methods;
 import com.sda.games.wheelOfFortune.dao.CategoryDao;
 import com.sda.games.wheelOfFortune.dao.WordsDao;
 import com.sda.utils.HibernateFactory;
+
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -100,8 +101,8 @@ public class WheelGame {
 
         // while (isCorrect==false) {
         System.out.println("Podaj jedną literę");
-        String letter=new String(scanner.nextLine().toUpperCase(Locale.ROOT));
-       // letter = scanner.nextLine().toUpperCase(Locale.ROOT);
+        String letter = new String(scanner.nextLine().toUpperCase(Locale.ROOT));
+        // letter = scanner.nextLine().toUpperCase(Locale.ROOT);
         if (letterValidation(letter)) {
             System.out.println("Wartosc poprawna");
             //isCorrect = true;
@@ -172,8 +173,8 @@ public class WheelGame {
                 break;
             default:
                 System.out.println("Niepoprawny wybór");
-                //choiceValidation();
-                break;
+                choiceValidation();
+               // break;
         }
         return isValidationCorrect;
     }
@@ -192,8 +193,10 @@ public class WheelGame {
             if (!phraseKnown[i].toUpperCase(Locale.ROOT).equals(fullPhaseAssumed[i].toUpperCase(Locale.ROOT))) {
                 isFullCorrect = false;
                 System.out.println("Niepoprawne hasło");
+                break;
             }
         }
+
         if (isFullCorrect) {
             for (int i = 0; i < phraseLength; i++) {
                 phraseUnknown[i] = phraseKnown[i];
