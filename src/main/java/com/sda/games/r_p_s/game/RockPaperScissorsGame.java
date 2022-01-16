@@ -1,6 +1,9 @@
 package com.sda.games.r_p_s.game;
 
+import com.sda.games.r_p_s.database.dao.PlayerDao;
+import com.sda.games.r_p_s.database.model.PlayerRPS;
 import com.sda.games.r_p_s.game.menu.ChristmasTree;
+import com.sda.utils.HibernateFactory;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -9,6 +12,7 @@ import static com.sda.games.r_p_s.game.Rps.*;
 
 
 public class RockPaperScissorsGame {
+
 
 
 
@@ -24,6 +28,22 @@ public class RockPaperScissorsGame {
 
 
     public static void start() {
+
+        HibernateFactory hibernateFactory = new HibernateFactory();
+        PlayerDao playerDao = new PlayerDao(hibernateFactory);
+
+        PlayerRPS playerRPS1 = new PlayerRPS(1,"Sebix");
+        playerRPS1.setName("SebiX");
+        PlayerRPS.add(playerRPS1);
+
+        PlayerRPS playerRPS2 = new PlayerRPS(1,"Dorszyk");
+        playerRPS1.setName("Dorszyk");
+        PlayerRPS.add(playerRPS1);
+
+
+
+
+
 
         ChristmasTree christmasTree = new ChristmasTree('#',19);
 
@@ -114,6 +134,9 @@ public class RockPaperScissorsGame {
 
             }
             System.out.println();
+
+
+
             System.out.print("U want play more Muthafucka? (post 'Y' - U R awesome! or  'n' - Fck U n00b! )?");
             znowu = skan.nextLine();
             znowu = skan.nextLine();

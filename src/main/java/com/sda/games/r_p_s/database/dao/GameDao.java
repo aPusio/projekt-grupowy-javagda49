@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 public class GameDao<T> {
 
-    private HibernateFactory hibernateFactory;
+    public HibernateFactory hibernateFactory;
     private Class<T> clazz;
 
     public void save(T entity){
