@@ -8,13 +8,7 @@ import java.util.Locale;
 
 public class App {
     public static void main(String[] args)  {
-       System.out.println("Start gry");
-        //wybierz kategorie
-        //losowanie w ramach kategorii
-        HibernateFactory hibernateFactory = new HibernateFactory();
-        Session session = hibernateFactory.getSessionFactory().openSession();
-        session.close();
-        hibernateFactory.getSessionFactory().close();
+        System.out.println("Start gry");
         WheelGame.startGame();
 
     }

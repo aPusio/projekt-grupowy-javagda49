@@ -220,6 +220,9 @@ public class WheelGame {
     }
     private static int generateRNWord(int drawnNumberCategory) {
         WordsDao wordsDao = new WordsDao(WheelGame.hibernateFactory);
+        if(drawnNumberCategory<=0){     //
+            drawnNumberCategory=1;      // don't know y but this number can be -1 or 0 (problem with random?)
+        }                               //
         int max = wordsDao.getAllCountWordsFromCategory(drawnNumberCategory);
         Random random = new Random();
         return  random.nextInt(max+MIN)-MIN;
