@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -114,6 +117,14 @@ public abstract class Piece {
         return false;
     }
 
-    public abstract List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception;
+    public List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception{
+        List<String> list = new ArrayList<>();
+        return list;
+    };
+
+    public Map<String, String> possibleKills(Board board, Player player, int startX, int startY) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        return map;
+    }
 
 }

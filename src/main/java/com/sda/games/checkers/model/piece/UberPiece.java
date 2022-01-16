@@ -51,15 +51,15 @@ public class UberPiece extends Piece {
 
     public List<String> possiblePrimaryMoves(Board board, Player player, int startX, int startY) throws Exception {
         List<String> allPossibleMoves = new ArrayList<>();
-        allPossibleMoves.addAll(upRightMove(board, player, startX, startY));
-        allPossibleMoves.addAll(upLeftMove(board, player, startX, startY));
-        allPossibleMoves.addAll(downRightMove(board, player, startX, startY));
-        allPossibleMoves.addAll(downLeftMove(board, player, startX, startY));
+        allPossibleMoves.addAll(upRightMoves(board, startX, startY));
+        allPossibleMoves.addAll(upLeftMoves(board, startX, startY));
+        allPossibleMoves.addAll(downRightMoves(board, startX, startY));
+        allPossibleMoves.addAll(downLeftMoves(board, startX, startY));
         allPossibleMoves.forEach(System.out::println);
         return allPossibleMoves;
     }
 
-    public List<String> upRightMove(Board board, Player player, int startX, int startY) throws Exception {
+    public List<String> upRightMoves(Board board, int startX, int startY) throws Exception {
         List<String> possibleMoves = new ArrayList<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder previousMove = new StringBuilder();
@@ -82,7 +82,7 @@ public class UberPiece extends Piece {
         return possibleMoves;
     }
 
-    public List<String> upLeftMove(Board board, Player player, int startX, int startY) throws Exception {
+    public List<String> upLeftMoves(Board board, int startX, int startY) throws Exception {
         List<String> possibleMoves = new ArrayList<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder previousMove = new StringBuilder();
@@ -105,7 +105,7 @@ public class UberPiece extends Piece {
         return possibleMoves;
     }
 
-    public List<String> downRightMove(Board board, Player player, int startX, int startY) throws Exception {
+    public List<String> downRightMoves(Board board, int startX, int startY) throws Exception {
         List<String> possibleMoves = new ArrayList<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder previousMove = new StringBuilder();
@@ -128,7 +128,7 @@ public class UberPiece extends Piece {
         return possibleMoves;
     }
 
-    public List<String> downLeftMove(Board board, Player player, int startX, int startY) throws Exception {
+    public List<String> downLeftMoves(Board board, int startX, int startY) throws Exception {
         List<String> possibleMoves = new ArrayList<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder previousMove = new StringBuilder();
@@ -159,9 +159,13 @@ public class UberPiece extends Piece {
     @Override
     public boolean killEnemyPiece(Board board, Player player, int startX, int startY, int endX, int endY) throws Exception {
         String killed = possibleKills(board, player, startX, startY).get(String.valueOf(endX) + endY);
-        board.setBoardPieceNull(Integer.parseInt(String.valueOf(killed.charAt(0))),
-                Integer.parseInt(String.valueOf(killed.charAt(1))));
-        return true;
+        if (killed == null) {
+            return false;
+        } else {
+            board.setBoardPieceNull(Integer.parseInt(String.valueOf(killed.charAt(0))),
+                    Integer.parseInt(String.valueOf(killed.charAt(1))));
+            return true;
+        }
     }
 
     public Map<String, String> possibleKills(Board board, Player player, int startX, int startY) throws Exception {
@@ -191,6 +195,8 @@ public class UberPiece extends Piece {
                                     killedPiece.append(startX + i).append(startY + i).toString());
                             return possibleKill;
                         }
+                    } else {
+                        return possibleKill;
                     }
                 }
             } else {
@@ -203,6 +209,8 @@ public class UberPiece extends Piece {
                                 killedPiece.append(startX + i).append(startY + i).toString());
                         return possibleKill;
 
+                    } else {
+                        return possibleKill;
                     }
                 }
             }
@@ -226,11 +234,12 @@ public class UberPiece extends Piece {
                         possibleKill.put(actualMove.append(startX - i - 1).append(startY + i + 1).toString(),
                                 killedPiece.append(startX - i).append(startY + i).toString());
                         return possibleKill;
-
+                    } else {
+                        return possibleKill;
                     }
                 }
             } else {
-                for (int i = 1; i < 6 && startX + i <= 6 && startY + i <= 6; i++) {
+                for (int i = 1; i < 6 && startX - i >= 1 && startY + i <= 6; i++) {
                     if (board.hasNoPiece(startX - i, startY + i)) {
                         continue;
                     } else if (board.hasPiece(startX - i, startY + i) && board.getPiece(startX - i, startY + i).isWhite()
@@ -238,7 +247,8 @@ public class UberPiece extends Piece {
                         possibleKill.put(actualMove.append(startX - i - 1).append(startY + i + 1).toString(),
                                 killedPiece.append(startX - i).append(startY + i).toString());
                         return possibleKill;
-
+                    } else {
+                        return possibleKill;
                     }
                 }
             }
@@ -262,6 +272,8 @@ public class UberPiece extends Piece {
                         possibleKill.put(actualMove.append(startX + i + 1).append(startY - i - 1).toString(),
                                 killedPiece.append(startX + i).append(startY - i).toString());
                         return possibleKill;
+                    } else {
+                        return possibleKill;
                     }
                 }
             } else {
@@ -272,6 +284,8 @@ public class UberPiece extends Piece {
                             && board.hasNoPiece(startX + i + 1, startY - i - 1)) {
                         possibleKill.put(actualMove.append(startX + i + 1).append(startY - i - 1).toString(),
                                 killedPiece.append(startX + i).append(startY - i).toString());
+                        return possibleKill;
+                    } else {
                         return possibleKill;
                     }
                 }
@@ -296,6 +310,8 @@ public class UberPiece extends Piece {
                         possibleKill.put(actualMove.append(startX - i - 1).append(startY - i - 1).toString(),
                                 killedPiece.append(startX - i).append(startY - i).toString());
                         return possibleKill;
+                    } else {
+                        return possibleKill;
                     }
                 }
             } else {
@@ -306,6 +322,8 @@ public class UberPiece extends Piece {
                             && board.hasNoPiece(startX - i - 1, startY - i - 1)) {
                         possibleKill.put(actualMove.append(startX - i - 1).append(startY - i - 1).toString(),
                                 killedPiece.append(startX - i).append(startY - i).toString());
+                        return possibleKill;
+                    } else {
                         return possibleKill;
                     }
                 }

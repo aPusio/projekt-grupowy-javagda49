@@ -57,8 +57,7 @@ public class Spot {
             if(board.getPiece(startX,startY).isRegular()) {
                 return checkPrimaryMove(player, startX, startY, endX, endY);
             } else {
-                StringBuilder endXY = new StringBuilder();
-                return board.getPiece(startX,startY).possiblePrimaryMoves(board,player,startX,startY).contains(endXY.append(endX).append(endY).toString());
+                return board.getPiece(startX,startY).possiblePrimaryMoves(board,player,startX,startY).contains(String.valueOf(endX) + endY);
             }
         }
     }
