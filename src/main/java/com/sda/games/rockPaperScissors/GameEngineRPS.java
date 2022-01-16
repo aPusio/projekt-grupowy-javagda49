@@ -33,12 +33,21 @@ public class GameEngineRPS {
             System.out.println(ai.getNickname() + " picked " + ai.getSymbol());
             round.setRoundCounter(round.getRoundCounter()+1);
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
-            System.out.println("Human " + human.getScore() + " vs AI " + ai.getScore());
+            System.out.println(human.getNickname() + human.getScore() + " vs AI " + ai.getScore());
             System.out.println();
 
-
+            System.out.println("Need a brake? y/n");{
+                String decision = scanner.nextLine();
+                if (decision.equals("y")){
+                    break;
+                }
+            }
+            loadPreviousMatch();
         }
         printWinner();
+    }
+
+    private void loadPreviousMatch() {
     }
 
     private void printWinner() {
