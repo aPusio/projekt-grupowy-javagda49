@@ -42,8 +42,8 @@ public class WheelGame {
 
     private static String idWord(int nr) {
         //tu będzie pobieranie po podanym ID słowo z bazy
-        // String word = "Dupa dupa całka z dupy";
-        String word = "Dupa";
+
+        String word = "Hasło do zgadnięcia";
         return word;
     }
 
