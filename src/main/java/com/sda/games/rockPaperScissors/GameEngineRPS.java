@@ -35,8 +35,8 @@ public class GameEngineRPS {
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
             System.out.println(human.getNickname() + human.getScore() + " vs AI " + ai.getScore());
             System.out.println();
-
-            System.out.println("Need a brake? y/n");{
+            updatePlayersDB(human, ai);
+            System.out.println("Need a break? y/n");{
                 String decision = scanner.nextLine();
                 if (decision.equals("y")){
                     break;
@@ -44,7 +44,16 @@ public class GameEngineRPS {
             }
             loadPreviousMatch();
         }
-        printWinner();
+        if (human.getScore() == 3 || ai.getScore() == 3){
+            printWinner();
+        }else {
+            System.out.println("Match not finished");
+        }
+    }
+
+    private void updatePlayersDB(UserRPS human, UserRPS ai) {
+        genericUserDao.update(human);
+        genericUserDao.update(ai);
     }
 
     private void loadPreviousMatch() {
