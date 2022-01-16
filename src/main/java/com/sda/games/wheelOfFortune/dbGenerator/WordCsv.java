@@ -7,7 +7,7 @@ import lombok.Data;
 public class WordCsv {
     @CsvBindByName(column = "ID")
     private Integer wordId;
-    @CsvBindByName(column = "ID_Category")
+    @CsvBindByName(column = "IDCategory")
     private Integer categoryId;
     @CsvBindByName(column = "Word")
     private String word;
