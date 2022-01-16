@@ -18,7 +18,7 @@ public class DbGenerator {
                     "games", "wheelOfFortune", "csv", "koloFortunyKategorie.csv");
     private static final Path WORDS_WHEEL_OF_FORTUNE_PATH =
             Path.of("src", "main", "java", "com.sda",
-                    "games", "wheelOfFortune", "csv", "koloFortuny_Haslanew.csv");
+                    "games", "wheelOfFortune", "csv", "kolofortuny_haslanew.csv");
 
     public static void main(String[] args) throws FileNotFoundException {
         HibernateFactory hibernateFactory = new HibernateFactory();

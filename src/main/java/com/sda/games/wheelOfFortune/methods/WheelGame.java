@@ -11,8 +11,9 @@ public class WheelGame {
     final static int fullGuessBonus = 100;
     static int score = 0;
     static int emptySlots;
-    static int drawnNumber = 4; //to będzie importowane z metody losującej
-    static String guessMePhrase = idWord(drawnNumber);
+    //static int drawnNumberCategory = generateRNCategory;
+    static int drawnNumberWord = 4; //to będzie importowane z metody losującej
+    static String guessMePhrase = idWord(drawnNumberWord);
     final static Integer phraseLength = guessMePhrase.length();
     final static String[] phraseKnown = prepareKnown();
     static String[] phraseUnknown = prepareUnknown();
