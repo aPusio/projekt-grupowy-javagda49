@@ -14,11 +14,11 @@ import java.util.List;
 public class DbGenerator {
 
     private static final Path CATEGORTY_WHEEL_OF_FORTUNE_PATH =
-            Path.of("src", "main", "java", "com","sda",
+            Path.of("src", "main", "java", "com", "sda",
                     "games", "wheelOfFortune", "csv", "koloFortunyKategorie.csv");
     private static final Path WORDS_WHEEL_OF_FORTUNE_PATH =
-            Path.of("src", "main", "java", "com","sda",
-                    "games", "wheelOfFortune", "csv", "kolofortuny_haslanew.csv");
+            Path.of("src", "main", "java", "com", "sda",
+                    "games", "wheelOfFortune", "csv","KolofortunyHaslanew.csv");
 
     public static void main(String[] args) throws FileNotFoundException {
         HibernateFactory hibernateFactory = new HibernateFactory();
