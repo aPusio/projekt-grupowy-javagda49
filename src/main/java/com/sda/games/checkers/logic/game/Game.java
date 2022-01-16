@@ -1,11 +1,11 @@
 package com.sda.games.checkers.logic.game;
 
 import com.sda.games.checkers.database.dao.MoveDao;
+import com.sda.games.checkers.database.dao.PlayerDao;
 import com.sda.games.checkers.database.model.MoveEntity;
 import com.sda.games.checkers.database.model.PlayerEntity;
 import com.sda.games.checkers.logic.board.Board;
 import com.sda.games.checkers.logic.board.Spot;
-import com.sda.games.checkers.database.dao.PlayerDao;
 import com.sda.games.checkers.logic.player.Move;
 import com.sda.games.checkers.logic.player.Player;
 import com.sda.utils.HibernateFactory;
@@ -35,13 +35,15 @@ public class Game {
     private List<Move> movesPlayed;
     private static Scanner scanner = new Scanner(System.in);
     private HibernateFactory hibernateFactory = new HibernateFactory();
+    private PlayerDao playerDao = new PlayerDao(hibernateFactory);
+    private MoveDao moveDao = new MoveDao(hibernateFactory);
+
 
     public void runGame() throws Exception {
         Menu.mainMenu();
     }
 
     public List<Player> createPlayers() {
-        PlayerDao playerDao = new PlayerDao(hibernateFactory);
         players = new ArrayList<>();
 
         while (true) {
@@ -70,26 +72,24 @@ public class Game {
         return players;
     }
 
-    public Game newGame() {
+    public void newGame() {
+        playerDao.reset();
+        moveDao.reset();
         players = createPlayers();
-        Game game = initializeNewGame(players);
+        initializeNewGame(players);
         getBoard().printBoard();
-        return game;
     }
 
-    public Game continueGame() throws Exception {
-        PlayerDao playerDao = new PlayerDao(hibernateFactory);
+    public void continueGame() throws Exception {
         List<PlayerEntity> all = playerDao.getAll();
-        List<Player> dbPlayers = all.stream()
+        this.players = all.stream()
                 .map(Player::new)
                 .collect(Collectors.toList());
-        this.players = dbPlayers;
 
-        Game game = initializeContinue(players);
-        return game;
+        initializeContinue(players);
     }
 
-    public Game initializeNewGame(List<Player> players) {
+    public void initializeNewGame(List<Player> players) {
 
         board = new Board();
         board.resetBoard();
@@ -104,10 +104,9 @@ public class Game {
         }
 
         movesPlayed = new ArrayList<>();
-        return this;
     }
 
-    public Game initializeContinue(List<Player> players) throws Exception {
+    public void initializeContinue(List<Player> players) throws Exception {
 
         String startInput;
         String endInput;
@@ -118,7 +117,6 @@ public class Game {
         int endX;
         int endY;
 
-        MoveDao moveDao = new MoveDao(hibernateFactory);
         List<MoveEntity> all = moveDao.getAll();
         List<Move> moves = all.stream()
                 .map(Move::new)
@@ -136,13 +134,13 @@ public class Game {
             currentPlayer = player2;
         }
 
-        for (int i = 0; i < moves.size(); i++) {
-            startInput = moves.get(i).getStart();
+        for (Move move : moves) {
+            startInput = move.getStart();
             startSpotXY = convertPlayerInput(startInput);
             startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
             startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
 
-            endInput = moves.get(i).getEnd();
+            endInput = move.getEnd();
             endSpotXY = convertPlayerInput(endInput);
             endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
             endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
@@ -165,7 +163,6 @@ public class Game {
             currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
         }
         board.printBoard();
-        return this;
     }
 
     public String getPlayerInput() throws Exception {
@@ -200,8 +197,6 @@ public class Game {
     }
 
     public void makeMove() throws Exception {
-        HibernateFactory hibernateFactory = new HibernateFactory();
-        MoveDao moveDao = new MoveDao(hibernateFactory);
 
         System.out.println(currentPlayer.getName() + " move.");
 

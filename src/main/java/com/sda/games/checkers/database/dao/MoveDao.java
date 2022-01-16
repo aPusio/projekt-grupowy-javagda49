@@ -14,8 +14,7 @@ public class MoveDao {
     private HibernateFactory hibernateFactory;
 
     public void add(MoveEntity move) {
-        SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = hibernateFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(move);
         transaction.commit();
@@ -27,6 +26,14 @@ public class MoveDao {
         List<MoveEntity> fromMove = session.createQuery("FROM MoveEntity", MoveEntity.class).list();
         session.close();
         return fromMove;
+    }
+
+    public void reset() {
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete("FROM MoveEntity");
+        transaction.commit();
+        session.close();
     }
 
 }

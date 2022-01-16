@@ -25,15 +25,6 @@ public class PlayerDao {
         session.close();
     }
 
-    public List<Player> getById(String name) {
-        Session session = hibernateFactory.getSessionFactory().openSession();
-        Query<Player> query = session.createQuery("FROM Player n WHERE n.name = :name", Player.class);
-        query.setParameter("name", name);
-        List<Player> players = query.list();
-        session.close();
-        return players;
-    }
-
     public Optional<PlayerEntity> getByName(String name) {
         Session session = hibernateFactory.getSessionFactory().openSession();
         Query<PlayerEntity> query = session.createQuery("FROM PlayerEntity n WHERE n.name = :name", PlayerEntity.class);
@@ -52,5 +43,13 @@ public class PlayerDao {
         List<PlayerEntity> fromPlayer = session.createQuery("FROM PlayerEntity", PlayerEntity.class).list();
         session.close();
         return fromPlayer;
+    }
+
+    public void reset() {
+        Session session = hibernateFactory.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete("FROM PlayerEntity");
+        transaction.commit();
+        session.close();
     }
 }
