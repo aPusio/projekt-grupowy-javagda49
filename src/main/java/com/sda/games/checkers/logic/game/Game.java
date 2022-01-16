@@ -200,7 +200,7 @@ public class Game {
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
                 board.advancePiece(endX, endY, currentPlayer);
-                moveDao.add(new MoveEntity(0, currentPlayer, startInput, endInput, currentPlayer.isWhite()));
+                moveDao.add(new MoveEntity(0, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
@@ -211,7 +211,7 @@ public class Game {
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
-                    moveDao.add(new MoveEntity(0, currentPlayer, startInput, endInput, currentPlayer.isWhite()));
+                    moveDao.add(new MoveEntity(0, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
                     if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                         startInput = endInput;
                         System.out.println("Another kill!");

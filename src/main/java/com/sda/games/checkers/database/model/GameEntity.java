@@ -1,12 +1,14 @@
 package com.sda.games.checkers.database.model;
 
 import com.sda.games.checkers.logic.game.Game;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import com.sda.games.checkers.logic.player.Move;
-import lombok.*;
-
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Getter

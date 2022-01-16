@@ -3,7 +3,6 @@ package com.sda.utils;
 import com.sda.games.checkers.database.model.GameEntity;
 import com.sda.games.checkers.database.model.MoveEntity;
 import com.sda.games.checkers.database.model.PlayerEntity;
-import com.sda.games.checkers.logic.player.Player;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

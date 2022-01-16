@@ -13,13 +13,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Move {
-    private Player player;
+    private String playerName;
     private String start;
     private String end;
     private Piece pieceMoved;
 
     public Move(MoveEntity moveEntity) {
-        this.player = moveEntity.getPlayer();
+        this.playerName = moveEntity.getPlayerName();
         this.start = moveEntity.getStartSpot();
         this.end = moveEntity.getEndSpot();
     }

@@ -17,7 +17,7 @@ public class MoveEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Player player;
+    private String playerName;
     private String startSpot;
     private String endSpot;
     private boolean isWhite;

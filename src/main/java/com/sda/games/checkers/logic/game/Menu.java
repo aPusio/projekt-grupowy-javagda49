@@ -70,7 +70,7 @@ public class Menu {
                 System.out.println(game.getCurrentPlayer().getName() + " has won the game!");
                 break;
             case 2:
-                game.continueGame();
+//                game.continueGame();
 //                while (game.isActive()) {
 //                    game.makeMove();
 //                }
