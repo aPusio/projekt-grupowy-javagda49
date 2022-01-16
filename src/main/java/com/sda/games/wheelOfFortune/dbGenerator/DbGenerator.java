@@ -32,9 +32,9 @@ public class DbGenerator {
         while ((lineFromFileCategory = brCategory.readLine())!= null){
             String[] split = lineFromFileCategory.split(",");
             Category category = new Category();
-            category.setCategorId(Integer.valueOf(split[0]));
+            category.setCategoryId(Integer.valueOf(split[0]));
             category.setName(split[1]);
-            categoryDao.save(category, category.getCategorId());
+            categoryDao.save(category, category.getCategoryId());
         }
     }
 
