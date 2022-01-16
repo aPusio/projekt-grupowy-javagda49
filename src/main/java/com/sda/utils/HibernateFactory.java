@@ -1,6 +1,6 @@
 package com.sda.utils;
 
-import com.sda.games.wheelOfFortune.model.Category;
+//import com.sda.games.wheelOfFortune.model.Category;
 import com.sda.games.wheelOfFortune.model.Turn;
 import com.sda.games.wheelOfFortune.model.WheelOfFortune;
 import com.sda.games.wheelOfFortune.model.Word;
@@ -19,7 +19,7 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
-        configuration.addAnnotatedClass(Category.class);
+       // configuration.addAnnotatedClass(Category.class); --AW
         configuration.addAnnotatedClass(Turn.class);
         configuration.addAnnotatedClass(WheelOfFortune.class);
         configuration.addAnnotatedClass(Word.class);
