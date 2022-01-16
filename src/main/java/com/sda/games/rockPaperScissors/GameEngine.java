@@ -149,7 +149,7 @@ public class GameEngine {
     }
 
     private void humanMove() {
-        System.out.println("Wybierz liczbe przyporzadkowana do symbolu:");
+        System.out.println("Pick a number [1-3]:");
         System.out.println("1.ROCK, 2.PAPER, 3.SCISSORS");
         Scanner scanner = new Scanner(System.in);
         int symbol = scanner.nextInt();
