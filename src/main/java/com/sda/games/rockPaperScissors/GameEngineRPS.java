@@ -21,6 +21,7 @@ public class GameEngineRPS {
         System.out.println("Player enter your name:");
         human.setNickname(scanner.nextLine());
         System.out.println("Hello " + human.getNickname() + ". Thank you for choosing our game, good luck !!");
+        ai.setNickname("AI");
 
         genericUserDao.save(human);
         genericUserDao.save(ai);
@@ -29,7 +30,7 @@ public class GameEngineRPS {
             System.out.println("Round: " + round.getRoundCounter());
             humanMove();
             aiMove();
-            System.out.println("AI picked " + ai.getSymbol());
+            System.out.println(ai.getNickname() + " picked " + ai.getSymbol());
             round.setRoundCounter(round.getRoundCounter()+1);
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
             System.out.println("Human " + human.getScore() + " vs AI " + ai.getScore());
