@@ -22,19 +22,21 @@ public class WheelGame {
     public static void startGame() {
         System.out.println("Liter do zgadnięcia: " + emptySlots);
         showMeUnknownAndAsk();
-
         while (emptySlots > 0) {
-            String letter = WheelGame.userInputLetter();
-            System.out.println("Wprowadzono literę " + letter);
-            if (isLetterInKnown(letter)) {
-                if (!isLetterInUnknown(letter)) {
+            String letter = userInputLetter();
+            System.out.print("Wprowadzono literę " + letter + ". ");
+            if (isLetterInKnown(letter)==true) {
+                if (isLetterInUnknown(letter)==true) { //pierwsza - "tak" - nieznana
                     modifyUnknown(letter);
-                } else {
-                    System.out.println("Litera już została dodana do wyrażenia");
-                }
+                    if (choiceValidation()) {
+                        guessFullPhrase();
+                    }
+                } /*else {
+                    System.out.println("(do usuniecia: Litera już wcześniej została dodana do wyrażenia. Punktów: " + score);
+                }*/
             }
         }
-        System.out.println("Gra zakończona: hasło odgadnięte. Liczba punktów: " + score);
+        System.out.println("Gra zakończona: hasło odgadnięte. Liczba punktów:  " + score);
     }
 
 
@@ -86,19 +88,18 @@ public class WheelGame {
         System.out.println();
     }
 
-    private static String userInputLetter() { //mozemy użyc też dla całego słowa
-        boolean isCorrect = false;
+    private static String userInputLetter() {
+       // boolean isCorrect = false;
         String letter = null;
-        while (!isCorrect) {
+       // while (!isCorrect) {
             System.out.println("Podaj jedną literę");
              letter = scanner.nextLine().toUpperCase(Locale.ROOT);
             if (letterValidation(letter)) {
-                isCorrect = true;
+                System.out.println("Wartosc poprawna");
+                //isCorrect = true;
             } else {
                 System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
                 userInputLetter();
-            }
-
             }
         return letter;
     }
@@ -119,8 +120,8 @@ public class WheelGame {
             i++;
         }
         if (!inKnown) {
-
             System.out.println("Brak litery w haśle głównym");
+            System.out.println("score = " + score + " do zgadnięcia " + emptySlots);
             showMeUnknown();
             if (choiceValidation()) {
                 guessFullPhrase();
@@ -128,31 +129,29 @@ public class WheelGame {
         }
         return inKnown;
     }
-    //-------------
 
     private static boolean isLetterInUnknown(String letter) {
         boolean unknownLetter=true;
+        boolean duplicateLetter=false;
         int i = 0;
         while (i < phraseLength) {
             if (phraseUnknown[i].equals(letter)) {
-                System.out.println("litera już jest");
+                System.out.println("Litera już wcześniej została dodana do wyrażenia. Punktów: " + score);
                 showMeUnknown();
                 unknownLetter= false;
+                duplicateLetter= true;
             }
             i++;
         }
 
-        System.out.println("Trafiony! Litera do uzupełnienia.");
-        showMeUnknown();
-        if (choiceValidation()) {
-            guessFullPhrase();
+        if (duplicateLetter==false) {
+            System.out.println("Trafiony! Litera do uzupełnienia.");//?
         }
-        //isLetterInUnknown nie zostanie wywołany jeżeli nie będzie isLetterinKnown==true
-        return unknownLetter;
+        return unknownLetter; //boolean
     }
 
     private static boolean choiceValidation() {
-        System.out.print(" Czy chcesz zgadnąć pełne hasło? T/N");
+        System.out.print("Czy chcesz zgadnąć pełne hasło? T/N");
         String typeInFullPhase = scanner.nextLine().toUpperCase(Locale.ROOT);
         boolean isValidationCorrect = false;
         switch (typeInFullPhase) {
@@ -191,8 +190,7 @@ public class WheelGame {
             }
             score = score +(emptySlots * basicPointValue) + fullGuessBonus;
             emptySlots = 0;
-            showMeUnknown();
-            System.out.println("Gra zakończona");
+
         }
         return isFullCorrect;
     }
