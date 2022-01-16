@@ -1,7 +1,6 @@
 package com.sda.games.checkers.database.dao;
 
 import com.sda.games.checkers.database.model.MoveEntity;
-import com.sda.games.checkers.database.model.PlayerEntity;
 import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -25,7 +24,7 @@ public class MoveDao {
 
     public List<MoveEntity> getAll() {
         Session session = hibernateFactory.getSessionFactory().openSession();
-        List<MoveEntity> fromMove = session.createQuery("FROM PlayerEntity", MoveEntity.class).list();
+        List<MoveEntity> fromMove = session.createQuery("FROM MoveEntity", MoveEntity.class).list();
         session.close();
         return fromMove;
     }

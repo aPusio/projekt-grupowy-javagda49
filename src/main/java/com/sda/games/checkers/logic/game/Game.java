@@ -31,6 +31,7 @@ public class Game {
     private Board board;
     private Player currentPlayer;
     private GameStatus status;
+    private int moveCounter = 0;
     private List<Move> movesPlayed;
     private static Scanner scanner = new Scanner(System.in);
     private HibernateFactory hibernateFactory = new HibernateFactory();
@@ -76,15 +77,15 @@ public class Game {
         return game;
     }
 
-    public Game continueGame() {
+    public Game continueGame() throws Exception {
         PlayerDao playerDao = new PlayerDao(hibernateFactory);
         List<PlayerEntity> all = playerDao.getAll();
-        List<Player> players = all.stream()
-                .map(playerEntity -> new Player(playerEntity))
+        List<Player> dbPlayers = all.stream()
+                .map(Player::new)
                 .collect(Collectors.toList());
+        this.players = dbPlayers;
 
         Game game = initializeContinue(players);
-//        System.out.println(players);
         return game;
     }
 
@@ -106,12 +107,21 @@ public class Game {
         return this;
     }
 
-    public Game initializeContinue(List<Player> players) {
+    public Game initializeContinue(List<Player> players) throws Exception {
+
+        String startInput;
+        String endInput;
+        String startSpotXY;
+        String endSpotXY;
+        int startX;
+        int startY;
+        int endX;
+        int endY;
 
         MoveDao moveDao = new MoveDao(hibernateFactory);
         List<MoveEntity> all = moveDao.getAll();
         List<Move> moves = all.stream()
-                .map(moveEntity -> new Move(moveEntity))
+                .map(Move::new)
                 .collect(Collectors.toList());
 
         board = new Board();
@@ -126,7 +136,35 @@ public class Game {
             currentPlayer = player2;
         }
 
-        movesPlayed = new ArrayList<>();
+        for (int i = 0; i < moves.size(); i++) {
+            startInput = moves.get(i).getStart();
+            startSpotXY = convertPlayerInput(startInput);
+            startX = Integer.parseInt(String.valueOf(startSpotXY.charAt(0)));
+            startY = Integer.parseInt(String.valueOf(startSpotXY.charAt(1))) - 1;
+
+            endInput = moves.get(i).getEnd();
+            endSpotXY = convertPlayerInput(endInput);
+            endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
+            endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
+
+            if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
+                board.setSpotsAfterMove(startX, startY, endX, endY);
+                board.advancePiece(endX, endY, currentPlayer);
+            } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
+                    currentPlayer.killCounter();
+                    board.setSpotsAfterMove(startX, startY, endX, endY);
+                    board.advancePiece(endX, endY, currentPlayer);
+                    startX = endX;
+                    startY = endY;
+                    if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
+                        continue;
+                    }
+                }
+            }
+            currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
+        }
+        board.printBoard();
         return this;
     }
 
@@ -194,24 +232,26 @@ public class Game {
             endSpotXY = convertPlayerInput(endInput);
             endX = Integer.parseInt(String.valueOf(endSpotXY.charAt(0)));
             endY = Integer.parseInt(String.valueOf(endSpotXY.charAt(1))) - 1;
-
+            // Making move
             if (board.isEmpty(endX, endY)) {
                 System.out.println("Invalid board spot!");
             } else if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
+                moveCounter += 1;
                 board.advancePiece(endX, endY, currentPlayer);
-                moveDao.add(new MoveEntity(0, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
+                moveDao.add(new MoveEntity(moveCounter, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
                 getBoard().printBoard();
                 break;
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
+                    moveCounter += 1;
                     board.advancePiece(endX, endY, currentPlayer);
                     getBoard().printBoard();
                     startX = endX;
                     startY = endY;
-                    moveDao.add(new MoveEntity(0, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
+                    moveDao.add(new MoveEntity(moveCounter, currentPlayer.getName(), startInput, endInput, currentPlayer.isWhite()));
                     if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                         startInput = endInput;
                         System.out.println("Another kill!");
