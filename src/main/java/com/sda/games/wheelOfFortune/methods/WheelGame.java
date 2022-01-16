@@ -24,14 +24,13 @@ public class WheelGame {
         while (emptySlots > 0) {
             String letter = WheelGame.userInput();
             System.out.println("Wprowadzono literę " + letter);
-            if (isLetterInKnown(letter) == true) {
-                if (isLetterInUnknown(letter) == false) {
+            if (isLetterInKnown(letter)) {
+                if (!isLetterInUnknown(letter)) {
                     modifyUnknown(letter);
                 } else {
                     System.out.println("Litera już została dodana do wyrażenia");
                 }
             }
-            ;
         }
         System.out.println("Gra zakończona: hasło odgadnięte. Liczba punktów: " + score);
     }
@@ -83,21 +82,20 @@ public class WheelGame {
     private static String userInput() { //mozemy użyc też dla całego słowa
         boolean isCorrect = false;
         String letter = null;
-        while (isCorrect == false) {
+        while (!isCorrect) {
             System.out.println("Podaj jedną literę");
             letter = scanner.nextLine().toUpperCase(Locale.ROOT);
-            if (letterValidation(letter) == true) {
+            if (letterValidation(letter)) {
                 isCorrect = true;
             } else {
                 System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
             }
         }
-        ;
         return letter;
     }
 
     private static boolean letterValidation(String letter) {
-        Pattern pattern = Pattern.compile("[A-Z]{1}"); //tu uwzględnić jakoś polskie znaki
+        Pattern pattern = Pattern.compile("[A-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
         Matcher matcher = pattern.matcher(letter);
         return matcher.matches();
     }
@@ -111,7 +109,7 @@ public class WheelGame {
             }
             i++;
         }
-        if (inKnown == false) {
+        if (!inKnown) {
             System.out.println("Brak litery w haśle głównym");
         }
         return inKnown;
