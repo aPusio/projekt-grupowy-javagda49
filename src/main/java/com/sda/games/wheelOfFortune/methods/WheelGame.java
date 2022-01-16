@@ -1,11 +1,17 @@
 package com.sda.games.wheelOfFortune.methods;
 
+import com.sda.games.wheelOfFortune.dao.CategoryDao;
+import com.sda.games.wheelOfFortune.dao.WordsDao;
+import com.sda.utils.HibernateFactory;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WheelGame {
+    final static int MIN = 1;
+    final static HibernateFactory hibernateFactory = new HibernateFactory();
     static Scanner scanner = new Scanner(System.in);
     final static int basicPointValue = 10;
     final static int fullGuessBonus = 100;
