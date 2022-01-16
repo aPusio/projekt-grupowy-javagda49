@@ -35,9 +35,9 @@ public class GameEngine {
         PlayerEntity aiEntity = new PlayerEntity(ai.getNickname(), ai.getScore());
         savePlayersEntitiesToDB(humanEntity, aiEntity);
         getEntitiesIDandSaveToPlayers(humanEntity, aiEntity);
-        round.setCurrentRound(round.getSTARTING_ROUND());
+        int currentRound = round.getSTARTING_ROUND();
 
-        match(humanEntity, aiEntity);
+        match(humanEntity, aiEntity, currentRound);
     }
 
     public void loadPreviousMatch(){
@@ -45,14 +45,14 @@ public class GameEngine {
         PlayerEntity aiEntity = genericUserDao.getById(ai.getId());
 
         setupPlayersFromDB(human, ai, humanEntity, aiEntity);
-        round.setCurrentRound(Math.max(human.getScore(), ai.getScore()));
+        int currentRound = countRoundNumber(human, ai) + 1;
 
-        match(humanEntity, aiEntity);
+        match(humanEntity, aiEntity, currentRound);
     }
 
-    private void match(PlayerEntity humanEntity, PlayerEntity aiEntity){
-        while(round.getCurrentRound() <= round.getMAX_ROUNDS()){
-            System.out.println("Round: " + round.getCurrentRound());
+    private void match(PlayerEntity humanEntity, PlayerEntity aiEntity, int currentRound){
+        while(currentRound <= round.getMAX_ROUNDS()){
+            System.out.println("Round: " + currentRound);
             humanMove();
             aiMove();
             System.out.println(ai.getNickname() + " picked " + ai.getSymbol());
@@ -73,10 +73,9 @@ public class GameEngine {
                     break;
                 }
             }
+            currentRound++;
         }
     }
-
-
 
     private void setupPlayersFromDB(Player human, Player ai, PlayerEntity humanEntity, PlayerEntity aiEntity) {
         human.setNickname(humanEntity.getNickname());
@@ -127,6 +126,20 @@ public class GameEngine {
         else{
             ai.setScore(ai.getScore()+1);
         }
+    }
+
+    private int countRoundNumber(Player human, Player ai) {
+        int score = 0;
+        if (human.getScore() == ai.getScore()){
+            score = human.getScore();
+        }
+        else if(human.getScore() > ai.getScore()){
+            score = human.getScore() + (human.getScore() - ai.getScore());
+        }
+        else{
+            score = ai.getScore() + (ai.getScore() - human.getScore());
+        }
+        return score;
     }
 
     private void aiMove() {

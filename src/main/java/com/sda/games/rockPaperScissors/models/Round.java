@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 public class Round {
-    private int roundCounter;
-    private final int MAX_ROUNDS = 3;
+    private int currentRound;
     private final int STARTING_ROUND = 1;
+    private final int MAX_ROUNDS = 3;
 }
