@@ -18,7 +18,7 @@ public class RockPaperScissorsGame {
 
     private static final int RUDOLF = 1;
     private static final int SANTA = 2;
-    private static final int TIE = 3;
+    private static final int DRAW = 3;
 
     public static int winner = 0;
 
@@ -53,13 +53,13 @@ public class RockPaperScissorsGame {
         do {
             System.out.println();
             System.out.print("Santa ");
-            System.out.print("choose:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
+            System.out.print("choice:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
 
             int santa = skan.nextInt();
             Optional<Rps> byId = Rps.getById(santa);
             Rps rps = byId.get();
 
-            System.out.print("Your choice: ");
+            System.out.print("Santa choice: ");
             System.out.println();
 
             switch (rps) {
@@ -76,8 +76,8 @@ public class RockPaperScissorsGame {
             System.out.println();
 
 
-            System.out.print("Rudolf ");
-            System.out.print("make your choice:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
+            System.out.print("Rudolf!!!! ");
+            System.out.print("make your choice!!!!:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
             System.out.println();
 
             int rudolf = skan.nextInt();
@@ -92,7 +92,7 @@ public class RockPaperScissorsGame {
                     } else if (rps == PAPER ) {
                         winner = SANTA;
                     } else {
-                        winner = TIE;
+                        winner = DRAW;
                     }
                     break;
                 case PAPER:
@@ -102,7 +102,7 @@ public class RockPaperScissorsGame {
                     } else if (rps == SCISSORS) {
                         winner = SANTA;
                     } else {
-                        winner = TIE;
+                        winner = DRAW;
                     }
                     break;
                 case SCISSORS:
@@ -112,24 +112,25 @@ public class RockPaperScissorsGame {
                     } else if (rps == PAPER) {
                         winner = SANTA;
                     } else {
-                        winner = TIE;
+                        winner = DRAW;
                     }
             }
             if (winner == RUDOLF) {
                 System.out.println();
-                System.out.println("Santa choose " + santa + " " + "Rudolf choose " + rudolf);
-                System.out.println("RUDOLF --> won!");
+                System.out.println("Santa choose " + santa + ", " + "Rudolf choose " + rudolf);
+                System.out.println();
+                System.out.println("RUDOLF --> you win!");
                 defeats++;
 
             } else if (winner == SANTA) {
                 System.out.println();
-                System.out.println("Santa choose " + santa + " " + "Rudolf choose " + rudolf);
-                System.out.println("SANTA --> won!");
+                System.out.println("Santa choose " + santa + ", " + "Rudolf choose " + rudolf);
+                System.out.println("SANTA --> you win!");
                 wins++;
 
             } else {
                 System.out.println();
-                System.out.println("RUDOLF & SANTA = TIE!");
+                System.out.println("RUDOLF & SANTA = DRAW!");
                 ties++;
 
             }
@@ -137,20 +138,20 @@ public class RockPaperScissorsGame {
 
 
 
-            System.out.print("U want play more Muthafucka? (post 'Y' - U R awesome! or  'n' - Fck U n00b! )?");
+            System.out.print("Want to play more? (post 'Y' - U R awesome! or  'n' - nope means nope )?");
             znowu = skan.nextLine();
             znowu = skan.nextLine();
         } while (znowu.equalsIgnoreCase("Y"));
 
         System.out.println();
-        System.out.println("Santa u won " + wins + " once.");
-        System.out.println("Santa u defeat " + defeats + " once.");
-        System.out.println("The game is tie " + ties + " once.");
+        System.out.println("Santa won " + wins + " times.");
+        System.out.println("Santa was defeated " + defeats + " times.");
+        System.out.println("Draw " + ties + " times.");
         System.out.println();
 
-        System.out.println("Rudolfie czerwononosy wygrałeś " + defeats + " raz.");
-        System.out.println("Rudolfie czerwononosy przegrałeś " + wins + " raz.");
-        System.out.println("Rudolfie czerwononosy zremisowałeś " + ties + " raz.");
+        System.out.println("Rudolf won " + defeats + " times.");
+        System.out.println("Rudolf was defeated " + wins + " times.");
+        System.out.println("Draw " + ties + " times.");
     }
 
     public void con() {
