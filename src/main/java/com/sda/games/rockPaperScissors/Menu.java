@@ -22,7 +22,7 @@ public class Menu {
     }
 
 
-    public static  void printMenuOptions(){
+    public static void printMenuOptions(){
         System.out.println("------ Choose one of the options -------");
         System.out.println("------        1. NEW GAME         ------");
         System.out.println("------        2. CONTINUE         ------");
@@ -56,7 +56,7 @@ public class Menu {
         }
         return 0;
     }
-    public static int printMenu() {
+    public static int startMenu() {
         printGameLogo();
         printMenuOptions();
         return optionsOfInput();

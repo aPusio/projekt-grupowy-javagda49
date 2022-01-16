@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 @Getter
 public class Player {
+    private Integer id;
     private String nickname;
     private boolean isHuman;
     private Symbol symbol;
@@ -14,6 +15,10 @@ public class Player {
     public Player(boolean isHuman, int score) {
         this.isHuman = isHuman;
         this.score = score;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setNickname(String nickname) {
