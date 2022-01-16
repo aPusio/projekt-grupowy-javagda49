@@ -2,6 +2,7 @@ package com.sda.games.wheelOfFortune.methods;
 
 import com.sda.games.wheelOfFortune.dao.CategoryDao;
 import com.sda.games.wheelOfFortune.dao.WordsDao;
+import com.sda.games.wheelOfFortune.model.Category;
 import com.sda.utils.HibernateFactory;
 
 import java.util.Locale;
@@ -18,9 +19,9 @@ public class WheelGame {
     final static int fullGuessBonus = 100;
     static int score = 0;
     static int emptySlots;
-    //static int drawnNumberCategory = generateRNCategory;
-    static int drawnNumberWord = 4; //to będzie importowane z metody losującej
-    static String guessMePhrase = idWord(drawnNumberWord);
+    static int drawnNumberCategory = generateRNCategory(hibernateFactory);
+    static int drawnNumberWord = generateRNWord(drawnNumberCategory,hibernateFactory);
+    static String guessMePhrase = idWord(drawnNumberWord, hibernateFactory);
     final static Integer phraseLength = guessMePhrase.length();
     final static String[] phraseKnown = prepareKnown();
     static String[] phraseUnknown = prepareUnknown();
@@ -47,11 +48,9 @@ public class WheelGame {
     }
 
 
-    private static String idWord(int nr) {
-        //tu będzie pobieranie po podanym ID słowo z bazy
-
-        String word = "Hasło do zgadnięcia";
-        return word;
+    private static String idWord(int nr, HibernateFactory hibernateFactory) {
+        WordsDao wordsDao = new WordsDao(hibernateFactory);
+        return wordsDao.getById(nr).getWord();
     }
 
     private static String[] prepareKnown() {
@@ -206,5 +205,18 @@ public class WheelGame {
 
         }
         return isFullCorrect;
+    }
+
+    private static int generateRNCategory(HibernateFactory hibernateFactory) {
+        CategoryDao categoryDao = new CategoryDao(hibernateFactory);
+        int max = categoryDao.getAllCount();
+        Random random = new Random();
+        return random.nextInt(max+MIN)-MIN;
+    }
+    private static int generateRNWord(int drawnNumberCategory, HibernateFactory hibernateFactory) {
+        WordsDao wordsDao = new WordsDao(hibernateFactory);
+        int max = wordsDao.getAllCountWordsFromCategory(drawnNumberCategory);
+        Random random = new Random();
+        return  random.nextInt(max+MIN)-MIN;
     }
 }

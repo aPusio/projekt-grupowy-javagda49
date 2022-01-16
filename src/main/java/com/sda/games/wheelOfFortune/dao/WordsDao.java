@@ -16,7 +16,7 @@ public class WordsDao extends EntityDao<Word> {
     public int getAllCountWordsFromCategory(Integer id) {
         SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Query<Word> query = session.createQuery("FROM Word WHERE categorId=:idToFind", Word.class);
+        Query<Word> query = session.createQuery("FROM Word WHERE category_categorId=:idToFind", Word.class);
         query.setParameter("idToFind",id);
         List<Word> words = query.list();
         session.close();
