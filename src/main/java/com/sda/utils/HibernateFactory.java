@@ -15,7 +15,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateFactory {
     private Configuration getHibernateConfig() {
         Configuration configuration = new Configuration();
-        configuration.setProperty("hibernate.connection.url", "jdbc:hsqldb:file:db-data/mydatabase;hsqldb.write_delay_millis=3000");
+        configuration.setProperty("hibernate.connection.url", "jdbc:hsqldb:file:db-data/mydatabase;hsqldb.write_delay_millis=0");
         configuration.setProperty("hibernate.connection.username", "admin123");
         configuration.setProperty("hibernate.connection.password", "admin123");
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
