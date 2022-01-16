@@ -15,21 +15,17 @@ public class GameEngine {
     private Player ai;
     private Round round;
     private EntityDao<PlayerEntity> genericUserDao;
+    private Scanner scanner;
 
     public GameEngine(Player human, Player ai, Round round, EntityDao<PlayerEntity> genericUserDao) {
         this.human = human;
         this.ai = ai;
         this.round = round;
         this.genericUserDao = genericUserDao;
-    }
-
-    public GameEngine(EntityDao<PlayerEntity> genericUserDao) {
-        this.genericUserDao = genericUserDao;
+        this.scanner = new Scanner(System.in);
     }
 
     public void startNewGame(){
-        Scanner scanner = new Scanner(System.in);
-        round.setRoundCounter(round.getSTARTING_ROUND());
         System.out.println("Player enter your name:");
         human.setNickname(scanner.nextLine());
         System.out.println("Hello " + human.getNickname() + ". Thank you for choosing our game, good luck !!");
@@ -39,16 +35,30 @@ public class GameEngine {
         PlayerEntity aiEntity = new PlayerEntity(ai.getNickname(), ai.getScore());
         savePlayersEntitiesToDB(humanEntity, aiEntity);
         getEntitiesIDandSaveToPlayers(humanEntity, aiEntity);
+        round.setCurrentRound(round.getSTARTING_ROUND());
 
-        while(round.getRoundCounter() <= round.getMAX_ROUNDS()){
-            System.out.println("Round: " + round.getRoundCounter());
+        match(humanEntity, aiEntity);
+    }
+
+    public void loadPreviousMatch(){
+        PlayerEntity humanEntity = genericUserDao.getById(human.getId());
+        PlayerEntity aiEntity = genericUserDao.getById(ai.getId());
+
+        setupPlayersFromDB(human, ai, humanEntity, aiEntity);
+        round.setCurrentRound(Math.max(human.getScore(), ai.getScore()));
+
+        match(humanEntity, aiEntity);
+    }
+
+    private void match(PlayerEntity humanEntity, PlayerEntity aiEntity){
+        while(round.getCurrentRound() <= round.getMAX_ROUNDS()){
+            System.out.println("Round: " + round.getCurrentRound());
             humanMove();
             aiMove();
             System.out.println(ai.getNickname() + " picked " + ai.getSymbol());
-            round.setRoundCounter(round.getRoundCounter()+1);
+            round.setCurrentRound(round.getCurrentRound()+1);
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
             System.out.println(human.getNickname() + " " + human.getScore() + " vs AI " + ai.getScore());
-            System.out.println("Players id: " + human.getId() + " & AI id: " + ai.getId());
             System.out.println();
             updatePlayersDB(humanEntity, aiEntity);
             if (human.getScore() == 3 || ai.getScore() == 3){
@@ -59,19 +69,25 @@ public class GameEngine {
                 String decision = scanner.nextLine();
                 if (decision.equals("y" ) || decision.equals("Y")){
                     System.out.println("Ending current match");
+                    System.out.println("Players id: " + human.getId() + " & AI id: " + ai.getId());
                     break;
                 }
             }
         }
     }
 
+
+
+    private void setupPlayersFromDB(Player human, Player ai, PlayerEntity humanEntity, PlayerEntity aiEntity) {
+        human.setNickname(humanEntity.getNickname());
+        human.setScore(humanEntity.getScore());
+        ai.setNickname(aiEntity.getNickname());
+        ai.setScore(aiEntity.getScore());
+    }
+
     private void getEntitiesIDandSaveToPlayers(PlayerEntity humanEntity, PlayerEntity aiEntity) {
         human.setId(humanEntity.getId());
         ai.setId(aiEntity.getId());
-    }
-
-    public void loadPreviousMatch(){
-
     }
 
     private void savePlayersEntitiesToDB(PlayerEntity humanEntity, PlayerEntity aiEntity) {

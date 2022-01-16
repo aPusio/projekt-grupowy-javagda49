@@ -17,6 +17,10 @@ public class Player {
         this.score = score;
     }
 
+    public Player(Integer id) {
+        this.id = id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

@@ -20,7 +20,14 @@ public class PlayerEntity {
         this.score = score;
     }
 
+    public PlayerEntity() {
+    }
+
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -3,8 +3,8 @@ package com.sda.games.rockPaperScissors;
 import com.sda.games.rockPaperScissors.dao.EntityDao;
 import com.sda.games.rockPaperScissors.dao.PlayerDao;
 import com.sda.games.rockPaperScissors.models.Player;
-import com.sda.games.rockPaperScissors.models.Round;
 import com.sda.games.rockPaperScissors.entity.PlayerEntity;
+import com.sda.games.rockPaperScissors.models.Round;
 import com.sda.utils.HibernateFactory;
 
 import java.util.Scanner;
@@ -16,8 +16,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         HibernateFactory hibernateFactory = new HibernateFactory();
         EntityDao<PlayerEntity> genericUserDao = new PlayerDao(hibernateFactory, PlayerEntity.class);
-        Player human = new Player(true, 0);
-        Player ai = new Player(false, 0);
 
         boolean exitProgram = false;
         while (!exitProgram){
@@ -26,9 +24,13 @@ public class App {
                 case 1:
                     boolean matchOver = false;
                     while(!matchOver){
-                        GameEngine gameEngine = new GameEngine(human, ai, new Round(), genericUserDao);
+                        GameEngine gameEngine = new GameEngine(
+                                new Player(true, 0),
+                                new Player(false, 0),
+                                new Round(),
+                                genericUserDao);
                         gameEngine.startNewGame();
-                        System.out.println("Continue? (y/n)");
+                        System.out.println("Start new match? (y/n)");
                         String decision = scanner.nextLine();
                         if (decision.equals("n") || decision.equals("N")){
                             matchOver = true;
@@ -36,7 +38,13 @@ public class App {
                     }
                     break;
                 case 2:
-                    GameEngine gameEngine = new GameEngine(genericUserDao);
+                    System.out.println("Enter id of the player you would like to resume: ");
+                    int resumeID = scanner.nextInt();
+                    GameEngine gameEngine = new GameEngine(
+                            new Player(resumeID),
+                            new Player(resumeID+1),
+                            new Round(),
+                            genericUserDao);
                     gameEngine.loadPreviousMatch();
                     break;
                 case 3:
