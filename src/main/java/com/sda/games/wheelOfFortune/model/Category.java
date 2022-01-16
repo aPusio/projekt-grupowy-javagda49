@@ -16,6 +16,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categorId;
     private String name;
-    @OneToMany (mappedBy = "categoryId")
-    private List<Words> wordsList;
+    @OneToMany (mappedBy = "category")
+    private List<Word> wordsList;
 }

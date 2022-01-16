@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Words {
+public class Word {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer wordId;
     private String word;
     @ManyToOne
-    private Category categoryId;
+    private Category category;
     @ManyToOne
     private WheelOfFortune wheelOfFortune;
 }
