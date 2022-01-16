@@ -3,8 +3,9 @@ package com.sda.utils;
 import com.sda.games.wheelOfFortune.model.Category;
 import com.sda.games.wheelOfFortune.model.Turn;
 import com.sda.games.wheelOfFortune.model.WheelOfFortune;
-import com.sda.games.wheelOfFortune.model.Words;
+import com.sda.games.wheelOfFortune.model.Word;
 import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
+import com.sda.users.Player;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -22,8 +23,8 @@ public class HibernateFactory {
         configuration.addAnnotatedClass(Category.class);
         configuration.addAnnotatedClass(Turn.class);
         configuration.addAnnotatedClass(WheelOfFortune.class);
-        configuration.addAnnotatedClass(Words.class);
-//		configuration.setProperty("hibernate.show_sql", "true");
+        configuration.addAnnotatedClass(Word.class);
+        configuration.addAnnotatedClass(Player.class);
         configuration.addAnnotatedClass(UserRPS.class);
         return configuration;
     }
