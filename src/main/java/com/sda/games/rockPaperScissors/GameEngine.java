@@ -1,8 +1,9 @@
 package com.sda.games.rockPaperScissors;
 
 import com.sda.games.rockPaperScissors.dao.EntityDao;
-import com.sda.games.rockPaperScissors.entity.RoundEntity;
-import com.sda.games.rockPaperScissors.entity.SymbolEntity;
+import com.sda.games.rockPaperScissors.models.Player;
+import com.sda.games.rockPaperScissors.models.Round;
+import com.sda.games.rockPaperScissors.models.Symbol;
 import com.sda.games.rockPaperScissors.entity.PlayerEntity;
 import lombok.AllArgsConstructor;
 import java.util.Random;
@@ -10,9 +11,9 @@ import java.util.Scanner;
 
 @AllArgsConstructor
 public class GameEngine {
-    private PlayerEntity human;
-    private PlayerEntity ai;
-    private RoundEntity round;
+    private Player human;
+    private Player ai;
+    private Round round;
     private EntityDao<PlayerEntity> genericUserDao;
 
     public void startGame(){
@@ -23,8 +24,10 @@ public class GameEngine {
         System.out.println("Hello " + human.getNickname() + ". Thank you for choosing our game, good luck !!");
         ai.setNickname("AI");
 
-        genericUserDao.save(human);
-        genericUserDao.save(ai);
+        PlayerEntity humanEntity = new PlayerEntity(human.getNickname(), human.getScore());
+        genericUserDao.save(humanEntity);
+        PlayerEntity aiEntity = new PlayerEntity(ai.getNickname(), ai.getScore());
+        genericUserDao.save(aiEntity);
 
         while(round.getRoundCounter() <= round.getMAX_ROUNDS()){
             System.out.println("Round: " + round.getRoundCounter());
@@ -33,28 +36,30 @@ public class GameEngine {
             System.out.println(ai.getNickname() + " picked " + ai.getSymbol());
             round.setRoundCounter(round.getRoundCounter()+1);
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
-            System.out.println(human.getNickname() + human.getScore() + " vs AI " + ai.getScore());
+            System.out.println(human.getNickname() + " " + human.getScore() + " vs AI " + ai.getScore());
             System.out.println();
-//            updatePlayersDB(human, ai);
-            System.out.println("Need a break? y/n");{
+            updatePlayersDB(humanEntity, aiEntity);
+            if (human.getScore() == 3 || ai.getScore() == 3){
+                printWinner();
+                break;
+            }else {
+                System.out.println("Need a break? y/n");
                 String decision = scanner.nextLine();
                 if (decision.equals("y")){
+                    System.out.println("Match paused");
                     break;
                 }
             }
-            loadPreviousMatch();
         }
-        if (human.getScore() == 3 || ai.getScore() == 3){
-            printWinner();
-        }else {
-            System.out.println("Match not finished");
-        }
+        loadPreviousMatch();
     }
 
-//    private void updatePlayersDB(Player human, Player ai) {
-//        genericUserDao.update(new UserRpsEntity(human));
-//        genericUserDao.update(ai);
-//    }
+    private void updatePlayersDB(PlayerEntity humanEntity, PlayerEntity aiEntity) {
+        humanEntity.setScore(human.getScore());
+        genericUserDao.update(humanEntity);
+        aiEntity.setScore(ai.getScore());
+        genericUserDao.update(aiEntity);
+    }
 
     private void loadPreviousMatch() {
     }
@@ -67,18 +72,18 @@ public class GameEngine {
         }
     }
 
-    private void increaseWinnersScore(Enum<SymbolEntity> humanSymbol, Enum<SymbolEntity> aiSymbol) {
+    private void increaseWinnersScore(Enum<Symbol> humanSymbol, Enum<Symbol> aiSymbol) {
         if (humanSymbol.equals(aiSymbol)){
             human.setScore(human.getScore()+1);
             ai.setScore(ai.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolEntity.ROCK) && (aiSymbol.equals(SymbolEntity.SCISSORS))){
+        else if (humanSymbol.equals(Symbol.ROCK) && (aiSymbol.equals(Symbol.SCISSORS))){
             human.setScore(human.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolEntity.SCISSORS) && (aiSymbol.equals(SymbolEntity.PAPER))){
+        else if (humanSymbol.equals(Symbol.SCISSORS) && (aiSymbol.equals(Symbol.PAPER))){
             human.setScore(human.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolEntity.PAPER) && (aiSymbol.equals(SymbolEntity.ROCK))){
+        else if (humanSymbol.equals(Symbol.PAPER) && (aiSymbol.equals(Symbol.ROCK))){
             human.setScore(human.getScore()+1);
         }
         else{
@@ -99,7 +104,4 @@ public class GameEngine {
         int symbol = scanner.nextInt();
         human.setSymbol(symbol);
     }
-
-
-
 }

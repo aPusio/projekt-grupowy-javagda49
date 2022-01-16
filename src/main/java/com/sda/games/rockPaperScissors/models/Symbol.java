@@ -1,6 +1,6 @@
-package com.sda.games.rockPaperScissors.entity;
+package com.sda.games.rockPaperScissors.models;
 
-public enum SymbolEntity {
+public enum Symbol {
     ROCK,
     PAPER,
     SCISSORS;

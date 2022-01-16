@@ -1,8 +1,9 @@
 package com.sda.games.rockPaperScissors;
 
 import com.sda.games.rockPaperScissors.dao.EntityDao;
-import com.sda.games.rockPaperScissors.dao.UserDaoRPS;
-import com.sda.games.rockPaperScissors.entity.RoundEntity;
+import com.sda.games.rockPaperScissors.dao.PlayerDaoRPS;
+import com.sda.games.rockPaperScissors.models.Player;
+import com.sda.games.rockPaperScissors.models.Round;
 import com.sda.games.rockPaperScissors.entity.PlayerEntity;
 import com.sda.utils.HibernateFactory;
 
@@ -14,21 +15,19 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         HibernateFactory hibernateFactory = new HibernateFactory();
-        EntityDao<PlayerEntity> genericUserDao = new UserDaoRPS(hibernateFactory, PlayerEntity.class);
-        PlayerEntity human = new PlayerEntity(true, 0);
-        PlayerEntity ai = new PlayerEntity(false, 0);
-
-
+        EntityDao<PlayerEntity> genericUserDao = new PlayerDaoRPS(hibernateFactory, PlayerEntity.class);
+        Player human = new Player(true, 0);
+        Player ai = new Player(false, 0);
 
         printMenu();
 
         boolean gameOver = false;
         while(!gameOver){
-            GameEngine gameEngineRPS = new GameEngine(human, ai, new RoundEntity(), genericUserDao);
+            GameEngine gameEngineRPS = new GameEngine(human, ai, new Round(), genericUserDao);
             gameEngineRPS.startGame();
             System.out.println("Continue? (y/n)");
             String decision = scanner.nextLine();
-            if (decision.equals("n")){
+            if (decision.equals("n") || decision.equals("N")){
                 gameOver = true;
             }
         }
