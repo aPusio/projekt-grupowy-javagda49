@@ -40,4 +40,13 @@ public void delete(T entity){
     session.close();
     sessionFactory.close();
 }
+
+public T getById(Integer id){
+    SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
+    Session session = sessionFactory.openSession();
+    T entity = session.find(clazz, id);
+    session.close();
+    sessionFactory.close();
+    return entity;
+}
 }
