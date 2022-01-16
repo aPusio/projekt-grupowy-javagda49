@@ -1,5 +1,6 @@
 package com.sda.games.r_p_s.game;
 
+import com.sda.games.r_p_s.database.dao.GameDao;
 import com.sda.games.r_p_s.database.dao.PlayerDao;
 import com.sda.games.r_p_s.database.model.PlayerRPS;
 import com.sda.games.r_p_s.game.menu.ChristmasTree;
@@ -32,16 +33,13 @@ public class RockPaperScissorsGame {
         HibernateFactory hibernateFactory = new HibernateFactory();
         PlayerDao playerDao = new PlayerDao(hibernateFactory);
 
-        PlayerRPS playerRPS1 = new PlayerRPS(1,"Sebix");
-        playerRPS1.setName("SebiX");
-        PlayerRPS.add(playerRPS1);
+        PlayerRPS playerRPS = new PlayerRPS();
+        playerRPS.setName("Santa");
+        playerDao.add(playerRPS);
 
-        PlayerRPS playerRPS2 = new PlayerRPS(1,"Dorszyk");
-        playerRPS1.setName("Dorszyk");
-        PlayerRPS.add(playerRPS1);
-
-
-
+        PlayerRPS playerRPS1 = new PlayerRPS();
+        playerRPS1.setName("Rudolf");
+        playerDao.add(playerRPS1);
 
 
 
@@ -107,7 +105,7 @@ public class RockPaperScissorsGame {
                     break;
                 case SCISSORS:
                     System.out.println("*******");
-                    if (rps == PAPER) {
+                    if (rps == ROCK) {
                         winner = RUDOLF;
                     } else if (rps == PAPER) {
                         winner = SANTA;
