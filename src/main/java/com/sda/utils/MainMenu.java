@@ -7,6 +7,7 @@ public class MainMenu {
         return List.of("1. Rock,Paper,Scissors!",
                 "2. Tu bedzie gra",
                 "3. Tu bedzie gra",
-                "4. Tu bedzie gra");
+                "4. Tu bedzie gra",
+                "5. Angry Nerds");
     }
 }

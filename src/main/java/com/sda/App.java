@@ -1,6 +1,8 @@
 package com.sda;
 
+
 import com.sda.games.r_p_s.game.RockPaperScissorsBuilder;
+import com.sda.games.angrynerds.AngryNerdsBuilder;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 import lombok.SneakyThrows;
@@ -27,7 +29,8 @@ public class App {
                 System.out.println("Implement me 🤣🤣");
                 break;
             case 5:
-                return;
+                AngryNerdsBuilder.build().start();
+                break;
             default:
                 System.out.println("Option Not recognized");
         }
