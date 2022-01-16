@@ -5,7 +5,6 @@ import com.sda.games.wheelOfFortune.model.Category;
 import com.sda.games.wheelOfFortune.model.Turn;
 import com.sda.games.wheelOfFortune.model.WheelOfFortune;
 import com.sda.games.wheelOfFortune.model.Word;
-import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
 import com.sda.users.Player;
 import com.sda.games.rockPaperScissors.entity.PlayerEntity;
 import org.hibernate.SessionFactory;
@@ -27,7 +26,6 @@ public class HibernateFactory {
         configuration.addAnnotatedClass(WheelOfFortune.class);
         configuration.addAnnotatedClass(Word.class);
         configuration.addAnnotatedClass(Player.class);
-        configuration.addAnnotatedClass(UserRPS.class);
         configuration.addAnnotatedClass(PlayerRPS.class);
 //		configuration.setProperty("hibernate.show_sql", "true");
 

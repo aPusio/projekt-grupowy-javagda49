@@ -5,7 +5,7 @@ import java.util.List;
 public class MainMenu {
     public List<String> createMenu() {
         return List.of("1. Rock,Paper,Scissors!",
-                "2. Tu bedzie gra",
+                "2. Rock Paper Scissors",
                 "3. Tu bedzie gra",
                 "4. Tu bedzie gra",
                 "5. Angry Nerds");

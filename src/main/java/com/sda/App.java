@@ -2,6 +2,7 @@ package com.sda;
 
 import com.sda.games.angrynerds.AngryNerdsBuilder;
 import com.sda.games.r_p_s.game.RockPaperScissorsBuilder;
+import com.sda.games.rockPaperScissors.NewRpsGame;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 import lombok.SneakyThrows;
@@ -19,7 +20,9 @@ public class App {
                 RockPaperScissorsBuilder.build().start();
                 break;
             case 2:
-                System.out.println("Implement me 🤣🤣");
+                System.out.println("Rock Paper Scissors");
+                NewRpsGame newRpsGame = new NewRpsGame();
+                newRpsGame.start();
                 break;
             case 3:
                 System.out.println("Implement me 🤣🤣");
