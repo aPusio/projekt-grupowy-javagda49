@@ -17,9 +17,5 @@ public class App {
         hibernateFactory.getSessionFactory().close();
         WheelGame.startGame();
 
-
-
-
-
     }
 }
