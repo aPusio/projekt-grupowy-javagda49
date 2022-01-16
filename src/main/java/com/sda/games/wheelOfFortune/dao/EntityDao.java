@@ -22,6 +22,21 @@ public class EntityDao <T> {
         session.close();
     }
 
+    public void save(T entity, Integer id){
+        SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        T byId = getById(id);
+        if(byId == null){
+            session.save(entity);
+        } else {
+            session.update(entity);
+        }
+
+        transaction.commit();
+        session.close();
+    }
+
     public T getById(Integer id){
         SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
         Session session = sessionFactory.openSession();
