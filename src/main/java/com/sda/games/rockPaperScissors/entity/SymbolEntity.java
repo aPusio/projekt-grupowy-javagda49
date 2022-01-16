@@ -1,8 +1,6 @@
-package com.sda.games.rockPaperScissors.modelRPS;
+package com.sda.games.rockPaperScissors.entity;
 
-import java.util.*;
-
-public enum SymbolRPS {
+public enum SymbolEntity {
     ROCK,
     PAPER,
     SCISSORS;

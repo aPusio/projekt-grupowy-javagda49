@@ -1,4 +1,4 @@
-package com.sda.games.rockPaperScissors.daoRPS;
+package com.sda.games.rockPaperScissors.dao;
 
 import com.sda.utils.HibernateFactory;
 import lombok.AllArgsConstructor;

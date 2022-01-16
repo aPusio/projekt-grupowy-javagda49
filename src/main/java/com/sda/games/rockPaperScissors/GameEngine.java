@@ -1,19 +1,19 @@
 package com.sda.games.rockPaperScissors;
 
-import com.sda.games.rockPaperScissors.daoRPS.EntityDao;
-import com.sda.games.rockPaperScissors.modelRPS.RoundRPS;
-import com.sda.games.rockPaperScissors.modelRPS.SymbolRPS;
-import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
+import com.sda.games.rockPaperScissors.dao.EntityDao;
+import com.sda.games.rockPaperScissors.entity.RoundEntity;
+import com.sda.games.rockPaperScissors.entity.SymbolEntity;
+import com.sda.games.rockPaperScissors.entity.PlayerEntity;
 import lombok.AllArgsConstructor;
 import java.util.Random;
 import java.util.Scanner;
 
 @AllArgsConstructor
-public class GameEngineRPS {
-    private UserRPS human;
-    private UserRPS ai;
-    private RoundRPS round;
-    private EntityDao<UserRPS> genericUserDao;
+public class GameEngine {
+    private PlayerEntity human;
+    private PlayerEntity ai;
+    private RoundEntity round;
+    private EntityDao<PlayerEntity> genericUserDao;
 
     public void startGame(){
         Scanner scanner = new Scanner(System.in);
@@ -35,7 +35,7 @@ public class GameEngineRPS {
             increaseWinnersScore(human.getSymbol(), ai.getSymbol());
             System.out.println(human.getNickname() + human.getScore() + " vs AI " + ai.getScore());
             System.out.println();
-            updatePlayersDB(human, ai);
+//            updatePlayersDB(human, ai);
             System.out.println("Need a break? y/n");{
                 String decision = scanner.nextLine();
                 if (decision.equals("y")){
@@ -51,10 +51,10 @@ public class GameEngineRPS {
         }
     }
 
-    private void updatePlayersDB(UserRPS human, UserRPS ai) {
-        genericUserDao.update(human);
-        genericUserDao.update(ai);
-    }
+//    private void updatePlayersDB(Player human, Player ai) {
+//        genericUserDao.update(new UserRpsEntity(human));
+//        genericUserDao.update(ai);
+//    }
 
     private void loadPreviousMatch() {
     }
@@ -67,18 +67,18 @@ public class GameEngineRPS {
         }
     }
 
-    private void increaseWinnersScore(Enum<SymbolRPS> humanSymbol, Enum<SymbolRPS> aiSymbol) {
+    private void increaseWinnersScore(Enum<SymbolEntity> humanSymbol, Enum<SymbolEntity> aiSymbol) {
         if (humanSymbol.equals(aiSymbol)){
             human.setScore(human.getScore()+1);
             ai.setScore(ai.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolRPS.ROCK) && (aiSymbol.equals(SymbolRPS.SCISSORS))){
+        else if (humanSymbol.equals(SymbolEntity.ROCK) && (aiSymbol.equals(SymbolEntity.SCISSORS))){
             human.setScore(human.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolRPS.SCISSORS) && (aiSymbol.equals(SymbolRPS.PAPER))){
+        else if (humanSymbol.equals(SymbolEntity.SCISSORS) && (aiSymbol.equals(SymbolEntity.PAPER))){
             human.setScore(human.getScore()+1);
         }
-        else if (humanSymbol.equals(SymbolRPS.PAPER) && (aiSymbol.equals(SymbolRPS.ROCK))){
+        else if (humanSymbol.equals(SymbolEntity.PAPER) && (aiSymbol.equals(SymbolEntity.ROCK))){
             human.setScore(human.getScore()+1);
         }
         else{

@@ -1,4 +1,4 @@
-package com.sda.games.rockPaperScissors.modelRPS;
+package com.sda.games.rockPaperScissors.entity;
 
 import lombok.Getter;
 import javax.persistence.Entity;
@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 @Entity
 @Getter
-public class UserRPS {
+public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nickname;
     private boolean isHuman;
-    private SymbolRPS symbol;
+    private SymbolEntity symbol;
     private int score;
 
-    public UserRPS(boolean isHuman, int score) {
+    public PlayerEntity(boolean isHuman, int score) {
         this.isHuman = isHuman;
         this.score = score;
     }
@@ -30,13 +30,13 @@ public class UserRPS {
     public void setSymbol(int symbolNumber) {
         switch (symbolNumber){
             case 1:
-                this.symbol = SymbolRPS.ROCK;
+                this.symbol = SymbolEntity.ROCK;
                 break;
             case 2:
-                this.symbol = SymbolRPS.PAPER;
+                this.symbol = SymbolEntity.PAPER;
                 break;
             case 3:
-                this.symbol = SymbolRPS.SCISSORS;
+                this.symbol = SymbolEntity.SCISSORS;
                 break;
             default:
                 System.out.println("Something went wrong");
@@ -45,7 +45,6 @@ public class UserRPS {
                 setSymbol(scanner.nextInt());
         }
     }
-
     public void setScore(int score) {
         this.score = score;
     }

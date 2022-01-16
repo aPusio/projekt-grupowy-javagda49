@@ -1,6 +1,6 @@
 package com.sda.utils;
 
-import com.sda.games.rockPaperScissors.modelRPS.UserRPS;
+import com.sda.games.rockPaperScissors.entity.PlayerEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,7 +17,7 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 //		configuration.setProperty("hibernate.show_sql", "true");
 
-        configuration.addAnnotatedClass(UserRPS.class);
+        configuration.addAnnotatedClass(PlayerEntity.class);
 
         return configuration;
     }
