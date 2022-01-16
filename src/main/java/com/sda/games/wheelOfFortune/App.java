@@ -1,4 +1,4 @@
-package com.sda.games.wheelOfFortune; //Tu piszemy yeahbunny kod koła
+package com.sda.games.wheelOfFortune;
 
 import com.sda.games.wheelOfFortune.methods.WheelGame;
 import com.sda.utils.HibernateFactory;
