@@ -85,7 +85,6 @@ public class Game {
         this.players = all.stream()
                 .map(Player::new)
                 .collect(Collectors.toList());
-
         initializeContinue(players);
     }
 
@@ -147,11 +146,13 @@ public class Game {
 
             if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
+                board.printBoard();
                 board.advancePiece(endX, endY, currentPlayer);
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
+                    board.printBoard();
                     board.advancePiece(endX, endY, currentPlayer);
                     startX = endX;
                     startY = endY;
@@ -173,11 +174,14 @@ public class Game {
                 input = scanner.nextLine();
                 if (input.equals("exit")) {
                     Menu.mainMenu();
-                    break;
+                    status = GameStatus.END;
                 } else if (input.length() != 2) {
                     System.out.println("Invalid input!");
                 }
-            } while (input.length() != 2);
+            } while (input.length() != 2 && !input.equals("exit"));
+            if (input.equals("exit")) {
+                return input;
+            }
             Matcher matcher = movePattern.matcher(input);
             boolean isInputValid = matcher.matches();
             if (isInputValid) {
@@ -186,7 +190,6 @@ public class Game {
                 System.out.println("Invalid input!");
             }
         }
-
         return input;
     }
 
@@ -256,10 +259,17 @@ public class Game {
                 }
             }
         }
+        System.out.println(currentPlayer.kills);
+        if (currentPlayer.kills == 12) {
+            status = GameStatus.END;
+        }
         currentPlayer = currentPlayer.switchPlayers(currentPlayer, players);
     }
 
     public boolean isActive() {
-        return (currentPlayer.kills != 12);
+        if (status == GameStatus.END){
+            return false;
+        }
+        return true;
     }
 }

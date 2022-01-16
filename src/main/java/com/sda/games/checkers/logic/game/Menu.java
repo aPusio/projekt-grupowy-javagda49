@@ -31,8 +31,9 @@ public class Menu {
         String input;
         while (true) {
             input = scanner.nextLine();
+            scanner.reset();
             Matcher matcher = pattern.matcher(input);
-            Boolean isInputValid = matcher.matches();
+            boolean isInputValid = matcher.matches();
             if (isInputValid) {
                 break;
             } else {

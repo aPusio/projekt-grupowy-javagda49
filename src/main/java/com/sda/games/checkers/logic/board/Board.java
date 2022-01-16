@@ -20,10 +20,6 @@ public class Board {
         return getBoardSpot(x, y).getPiece();
     }
 
-    public void setBoardSpot(int x, int y, Spot spotFactory) {
-        boardSpots[x][y] = spotFactory;
-    }
-
     public void advancePiece(int x, int y, Player player) throws Exception {
         if(getPiece(x,y).isRegular()) {
             if (y == 7 && player.isWhite()) {
@@ -84,10 +80,6 @@ public class Board {
         return getBoardSpot(x, y) == null;
     }
 
-    public boolean isRegular(int x , int y) throws Exception{
-        return getBoardSpot(x, y).getPiece().isRegular();
-    }
-
     public void resetBoard() {
 
         boardSpots[0][0] = SpotFactory.regularWhite(0, 0);
@@ -126,18 +118,6 @@ public class Board {
         boardSpots[2][4] = SpotFactory.emptySpot(2, 4);
         boardSpots[4][4] = SpotFactory.emptySpot(4, 4);
         boardSpots[6][4] = SpotFactory.emptySpot(6, 4);
-
-
-//        boardSpots[1][1] = SpotFactory.uberBlack(1, 1);
-//        boardSpots[3][1] = SpotFactory.emptySpot(3, 1);
-//        boardSpots[5][7] = SpotFactory.uberWhite(5, 7);
-//        boardSpots[4][6] = SpotFactory.emptySpot(4, 6);
-//        boardSpots[3][7] = SpotFactory.emptySpot(3, 7);
-//        boardSpots[2][6] = SpotFactory.emptySpot(2, 6);
-//        boardSpots[2][0] = SpotFactory.emptySpot(2, 0);
-//        boardSpots[4][0] = SpotFactory.emptySpot(4, 0);
-//        boardSpots[2][2] = SpotFactory.emptySpot(2, 2);
-//        boardSpots[3][5] = SpotFactory.emptySpot(3, 5);
 
     }
 }
