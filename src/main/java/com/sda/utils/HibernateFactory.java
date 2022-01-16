@@ -1,5 +1,6 @@
 package com.sda.utils;
 
+import com.sda.games.r_p_s.database.model.PlayerRPS;
 import com.sda.games.wheelOfFortune.model.Category;
 import com.sda.games.wheelOfFortune.model.Turn;
 import com.sda.games.wheelOfFortune.model.WheelOfFortune;
@@ -26,6 +27,7 @@ public class HibernateFactory {
         configuration.addAnnotatedClass(Word.class);
         configuration.addAnnotatedClass(Player.class);
         configuration.addAnnotatedClass(UserRPS.class);
+        configuration.addAnnotatedClass(PlayerRPS.class);
         return configuration;
     }
 
