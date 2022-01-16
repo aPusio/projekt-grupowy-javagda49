@@ -137,20 +137,22 @@ public class RockPaperScissorsGame {
 
 
 
-            System.out.print("U want play more Muthafucka? (post 'Y' - U R awesome! or  'n' - Fck U n00b! )?");
+            System.out.print("U want play more? post 'Y' otherwise  'N' bye n00b!");
             znowu = skan.nextLine();
             znowu = skan.nextLine();
         } while (znowu.equalsIgnoreCase("Y"));
 
         System.out.println();
-        System.out.println("Santa u won " + wins + " once.");
-        System.out.println("Santa u defeat " + defeats + " once.");
-        System.out.println("The game is tie " + ties + " once.");
+        System.out.println("Santa u won " + wins + " times.");
+        System.out.println("Santa u defeat " + defeats + " times.");
+        System.out.println("Santa ur game was tied " + ties + " times.");
         System.out.println();
 
-        System.out.println("Rudolfie czerwononosy wygrałeś " + defeats + " raz.");
-        System.out.println("Rudolfie czerwononosy przegrałeś " + wins + " raz.");
-        System.out.println("Rudolfie czerwononosy zremisowałeś " + ties + " raz.");
+        System.out.println("Rudolf u won " + defeats + " times.");
+        System.out.println("Rudolf u defeat " + wins + " times.");
+        System.out.println("Rudolf ur game was tied " + ties + " times.");
+
+        System.out.println("The game was tied " + ties + " times.");
     }
 
     public void con() {
