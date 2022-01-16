@@ -8,7 +8,7 @@ import java.util.Locale;
 
 public class App {
     public static void main(String[] args)  {
-        System.out.println("Start gry");
+       System.out.println("Start gry");
         //wybierz kategorie
         //losowanie w ramach kategorii
         HibernateFactory hibernateFactory = new HibernateFactory();
