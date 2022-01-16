@@ -17,4 +17,6 @@ public class PlayerRPS {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+
 }

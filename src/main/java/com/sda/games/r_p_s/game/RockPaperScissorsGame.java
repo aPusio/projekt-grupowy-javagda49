@@ -1,11 +1,9 @@
 package com.sda.games.r_p_s.game;
 
-import com.sda.games.r_p_s.database.dao.GameDao;
 import com.sda.games.r_p_s.database.dao.PlayerDao;
 import com.sda.games.r_p_s.database.model.PlayerRPS;
 import com.sda.games.r_p_s.game.menu.ChristmasTree;
 import com.sda.utils.HibernateFactory;
-
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -13,7 +11,6 @@ import static com.sda.games.r_p_s.game.Rps.*;
 
 
 public class RockPaperScissorsGame {
-
 
 
 
@@ -34,13 +31,23 @@ public class RockPaperScissorsGame {
         PlayerDao playerDao = new PlayerDao(hibernateFactory);
 
         PlayerRPS playerRPS = new PlayerRPS();
-        playerRPS.setName("Santa");
+        //TODO user !
+
+
+        Scanner player1 = new Scanner(System.in);
+        System.out.println("Player 1 name: ");
+        String player1Name = player1.nextLine();
+        playerRPS.setName(player1Name);
         playerDao.add(playerRPS);
 
-        PlayerRPS playerRPS1 = new PlayerRPS();
-        playerRPS1.setName("Rudolf");
-        playerDao.add(playerRPS1);
 
+        Scanner player2 = new Scanner(System.in);
+        System.out.println("Player 2 name: ");
+        String player2Name = player2.nextLine();
+        PlayerRPS playerRPS1 = new PlayerRPS();
+        playerRPS1.setName(player2Name);
+        //get or add
+        playerDao.add(playerRPS1);
 
 
         ChristmasTree christmasTree = new ChristmasTree('#',19);
@@ -50,14 +57,14 @@ public class RockPaperScissorsGame {
 
         do {
             System.out.println();
-            System.out.print("Santa ");
+            System.out.print(player1Name + " ");
             System.out.print("choice:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
 
             int santa = skan.nextInt();
             Optional<Rps> byId = Rps.getById(santa);
             Rps rps = byId.get();
 
-            System.out.print("Santa choice: ");
+            System.out.print(player1Name + " choice: ");
             System.out.println();
 
             switch (rps) {
@@ -74,7 +81,7 @@ public class RockPaperScissorsGame {
             System.out.println();
 
 
-            System.out.print("Rudolf!!!! ");
+            System.out.print(player2Name + "!!!! ");
             System.out.print("make your choice!!!!:\n\t\t1 = Rock\n\t\t2 = Paper\n\t\t3 = Scissors\n\t\t");
             System.out.println();
 
@@ -106,34 +113,35 @@ public class RockPaperScissorsGame {
                 case SCISSORS:
                     System.out.println("*******");
                     if (rps == ROCK) {
-                        winner = RUDOLF;
-                    } else if (rps == PAPER) {
                         winner = SANTA;
+                    } else if (rps == PAPER) {
+                        winner = RUDOLF;
                     } else {
                         winner = DRAW;
                     }
             }
+            //TODO replace string message
             if (winner == RUDOLF) {
                 System.out.println();
-                System.out.println("Santa choose " + santa + ", " + "Rudolf choose " + rudolf);
+                System.out.println(player1Name + " choose" + santa + ", " + player2Name + " choose" + rudolf);
                 System.out.println();
-                System.out.println("RUDOLF --> you win!");
+                System.out.println(player2Name + "--> you win!");
                 defeats++;
 
             } else if (winner == SANTA) {
                 System.out.println();
-                System.out.println("Santa choose " + santa + ", " + "Rudolf choose " + rudolf);
-                System.out.println("SANTA --> you win!");
+                System.out.println(player1Name + " choose" + santa + ", " + player2Name + " choose" + rudolf);
+                System.out.println();
+                System.out.println(player1Name + "--> you win!");
                 wins++;
 
             } else {
                 System.out.println();
-                System.out.println("RUDOLF & SANTA = DRAW!");
+                System.out.println(player1Name + " &" + player2Name + " DRAW!");
                 ties++;
 
             }
             System.out.println();
-
 
 
             System.out.print("Want to play more? (post 'Y' - U R awesome! or  'n' - nope means nope )?");
@@ -142,13 +150,13 @@ public class RockPaperScissorsGame {
         } while (znowu.equalsIgnoreCase("Y"));
 
         System.out.println();
-        System.out.println("Santa won " + wins + " times.");
-        System.out.println("Santa was defeated " + defeats + " times.");
+        System.out.println( player1Name + " won " + wins + " times.");
+        System.out.println( player1Name + " was defeated " + defeats + " times.");
         System.out.println("Draw " + ties + " times.");
         System.out.println();
 
-        System.out.println("Rudolf won " + defeats + " times.");
-        System.out.println("Rudolf was defeated " + wins + " times.");
+        System.out.println( player2Name + " won " + defeats + " times.");
+        System.out.println( player2Name + " was defeated " + wins + " times.");
         System.out.println("Draw " + ties + " times.");
     }
 
@@ -161,13 +169,3 @@ public class RockPaperScissorsGame {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
