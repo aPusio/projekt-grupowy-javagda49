@@ -38,7 +38,7 @@ public class DbGenerator {
                 .parse();
          categoryCsvList.stream()
                 .map(DbGenerator::toDbCategory)
-                    .forEach(categoryEntityDao::save);
+                    .forEach(categoryEntityDao::saveOrUpdate);
     }
 
     private static Category toDbCategory(CategoryCsv categoryCsv){
@@ -55,7 +55,7 @@ public class DbGenerator {
                 .parse();
         wordCsvList.stream()
                 .map(wordCsv -> doDbWord(wordCsv, categoryDao))
-                .forEach(wordEntityDao::save);
+                .forEach(wordEntityDao::saveOrUpdate);
     }
 
 

@@ -11,12 +11,12 @@ public class EntityDao <T> {
     private HibernateFactory hibernateFactory;
     private Class<T> clazz;
 
-    public void save(T entity){
+    public void saveOrUpdate(T entity){
         SessionFactory sessionFactory = hibernateFactory.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.save(entity);
+        session.saveOrUpdate(entity);
 
         transaction.commit();
         session.close();
