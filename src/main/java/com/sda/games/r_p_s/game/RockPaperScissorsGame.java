@@ -36,6 +36,10 @@ public class RockPaperScissorsGame {
         playerRPS1.setName("SebiX");
         PlayerRPS.add(playerRPS1);
 
+        PlayerRPS playerRPS2 = new PlayerRPS(1,"Dorszyk");
+        playerRPS1.setName("Dorszyk");
+        PlayerRPS.add(playerRPS1);
+
 
 
 
