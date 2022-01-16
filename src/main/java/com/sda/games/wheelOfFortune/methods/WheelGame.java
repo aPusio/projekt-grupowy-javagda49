@@ -21,7 +21,7 @@ public class WheelGame {
 
     public static void startGame() {
         System.out.println("Liter do zgadnięcia: " + emptySlots);
-        showMeUnknown();
+        showMeUnknownAndAsk();
 
         while (emptySlots > 0) {
             String letter = WheelGame.userInputLetter();
@@ -74,8 +74,11 @@ public class WheelGame {
         System.out.println("score = " + score + " do zgadnięcia " + emptySlots);
     }
 
-    public static void showMeUnknown() {
+    public static void showMeUnknownAndAsk () {
         System.out.println("Zgadnij hasło"); //dodac informacje z której kategorii pochodzi
+        showMeUnknown();
+    }
+    public static void showMeUnknown() {
         for (String i : phraseUnknown
         ) {
             System.out.print(i);
@@ -88,21 +91,20 @@ public class WheelGame {
         String letter = null;
         while (!isCorrect) {
             System.out.println("Podaj jedną literę");
-            letter = scanner.nextLine().toUpperCase(Locale.ROOT);
+             letter = scanner.nextLine().toUpperCase(Locale.ROOT);
             if (letterValidation(letter)) {
                 isCorrect = true;
             } else {
                 System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
-                if (choiceValidation()) {
-                    guessFullPhrase();
-                }
+                userInputLetter();
             }
-        }
+
+            }
         return letter;
     }
 
     private static boolean letterValidation(String letter) {
-        Pattern pattern = Pattern.compile("[A-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
+        Pattern pattern = Pattern.compile("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{1}");
         Matcher matcher = pattern.matcher(letter);
         return matcher.matches();
     }
@@ -117,7 +119,9 @@ public class WheelGame {
             i++;
         }
         if (!inKnown) {
+
             System.out.println("Brak litery w haśle głównym");
+            showMeUnknown();
             if (choiceValidation()) {
                 guessFullPhrase();
             }
@@ -132,12 +136,14 @@ public class WheelGame {
         while (i < phraseLength) {
             if (phraseUnknown[i].equals(letter)) {
                 System.out.println("litera już jest");
+                showMeUnknown();
                 unknownLetter= false;
             }
             i++;
         }
 
         System.out.println("Trafiony! Litera do uzupełnienia.");
+        showMeUnknown();
         if (choiceValidation()) {
             guessFullPhrase();
         }
@@ -157,7 +163,7 @@ public class WheelGame {
                 break;
             default:
                 System.out.println("Niepoprawny wybór");
-                choiceValidation();
+                //choiceValidation();
                 break;
         }
         return isValidationCorrect;

@@ -16,7 +16,7 @@ public class EntityDao <T> {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.save(entity);
+        session.saveOrUpdate(entity);
 
         transaction.commit();
         session.close();
