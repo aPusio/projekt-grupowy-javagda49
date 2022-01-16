@@ -1,9 +1,6 @@
 package com.sda.games.r_p_s.database.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +9,8 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class PlayerRPS {
 
     @Id
@@ -21,4 +18,7 @@ public class PlayerRPS {
     private Integer id;
     private String name;
 
+    public static void add(PlayerRPS playerRPS1) {
+
+    }
 }
