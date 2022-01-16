@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 
 @AllArgsConstructor
 public class EntityDao <T> {
-    private HibernateFactory hibernateFactory;
+    protected HibernateFactory hibernateFactory;
     private Class<T> clazz;
 
     public void save(T entity){
@@ -65,4 +65,5 @@ public class EntityDao <T> {
         transaction.commit();
         session.close();
     }
+
 }
