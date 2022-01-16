@@ -1,6 +1,8 @@
 package com.sda.utils;
 
-import com.sda.games.checkers.model.player.Player;
+import com.sda.games.checkers.database.model.GameEntity;
+import com.sda.games.checkers.database.model.MoveEntity;
+import com.sda.games.checkers.database.model.PlayerEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,7 +19,9 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
 //		configuration.setProperty("hibernate.show_sql", "true");
 
-        configuration.addAnnotatedClass(Player.class);
+        configuration.addAnnotatedClass(PlayerEntity.class);
+        configuration.addAnnotatedClass(GameEntity.class);
+        configuration.addAnnotatedClass(MoveEntity.class);
         return configuration;
     }
 

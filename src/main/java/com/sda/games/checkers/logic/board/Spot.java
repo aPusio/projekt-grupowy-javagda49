@@ -1,7 +1,7 @@
-package com.sda.games.checkers.model.board;
+package com.sda.games.checkers.logic.board;
 
-import com.sda.games.checkers.model.piece.Piece;
-import com.sda.games.checkers.model.player.Player;
+import com.sda.games.checkers.logic.piece.Piece;
+import com.sda.games.checkers.logic.player.Player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,6 @@ public class Spot {
         if ((player.isWhite() && (startY - endY) != -1) ||
                 (player.isBlack() && (startY - endY != 1)) ||
                 (startX - endX != -1 && startX - endX != 1)) {
-            System.out.println("Invalid move!");
         } else {
             return true;
         }

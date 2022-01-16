@@ -1,12 +1,11 @@
-package com.sda.games.checkers.model.piece;
+package com.sda.games.checkers.logic.piece;
 
-import com.sda.games.checkers.model.board.Board;
-import com.sda.games.checkers.model.player.Player;
+import com.sda.games.checkers.logic.board.Board;
+import com.sda.games.checkers.logic.player.Player;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter

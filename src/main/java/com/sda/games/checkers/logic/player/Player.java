@@ -1,26 +1,30 @@
-package com.sda.games.checkers.model.player;
+package com.sda.games.checkers.logic.player;
 
-import lombok.*;
+import com.sda.games.checkers.database.model.PlayerEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Player {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "playerName")
     private String name;
     private boolean isWhite;
     public static String whitePlayerName;
     public static String blackPlayerName;
     public int kills = 0;
+
+    public Player(PlayerEntity playerEntity) {
+        this.name = playerEntity.getName();
+        this.isWhite = playerEntity.isWhite();
+        this.kills = playerEntity.getKills();
+    }
 
     public void killCounter() {
         kills += 1;
@@ -37,7 +41,6 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", isWhite=" + isWhite +
                 ", kills=" + kills +
