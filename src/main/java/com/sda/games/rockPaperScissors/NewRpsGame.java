@@ -2,8 +2,8 @@ package com.sda.games.rockPaperScissors;
 
 import com.sda.games.rockPaperScissors.dao.EntityDao;
 import com.sda.games.rockPaperScissors.dao.PlayerDao;
-import com.sda.games.rockPaperScissors.models.Player;
 import com.sda.games.rockPaperScissors.entity.PlayerEntity;
+import com.sda.games.rockPaperScissors.models.Player;
 import com.sda.games.rockPaperScissors.models.Round;
 import com.sda.utils.HibernateFactory;
 
@@ -11,8 +11,9 @@ import java.util.Scanner;
 
 import static com.sda.games.rockPaperScissors.Menu.startMenu;
 
-public class App {
-    public static void main(String[] args) {
+public class NewRpsGame {
+
+    public void start(){
         Scanner scanner = new Scanner(System.in);
         HibernateFactory hibernateFactory = new HibernateFactory();
         EntityDao<PlayerEntity> genericUserDao = new PlayerDao(hibernateFactory, PlayerEntity.class);
@@ -52,5 +53,6 @@ public class App {
                     break;
             }
         }
+
     }
 }

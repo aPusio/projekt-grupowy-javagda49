@@ -1,5 +1,6 @@
 package com.sda;
 
+import com.sda.games.rockPaperScissors.NewRpsGame;
 import com.sda.utils.MainMenu;
 import com.sda.utils.UserIoService;
 
@@ -19,7 +20,9 @@ public class App
                 System.out.println("Implement me 🤣🤣");
                 break;
             case "3":
-                System.out.println("Implement me 🤣🤣");
+                System.out.println("Rock Paper Scissors");
+                NewRpsGame newRpsGame = new NewRpsGame();
+                newRpsGame.start();
                 break;
             case "4":
                 System.out.println("Implement me 🤣🤣");
