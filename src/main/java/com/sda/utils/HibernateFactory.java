@@ -26,7 +26,6 @@ public class HibernateFactory {
         configuration.addAnnotatedClass(WheelOfFortune.class);
         configuration.addAnnotatedClass(Word.class);
         configuration.addAnnotatedClass(Player.class);
-		configuration.setProperty("hibernate.show_sql", "true");
         configuration.addAnnotatedClass(UserRPS.class);
         configuration.addAnnotatedClass(PlayerRPS.class);
         return configuration;
