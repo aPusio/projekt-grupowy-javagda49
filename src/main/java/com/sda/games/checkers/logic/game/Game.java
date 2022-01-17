@@ -146,13 +146,11 @@ public class Game {
 
             if (board.getBoardSpot(endX, endY).isEndSpotValid(board, currentPlayer, startX, startY, endX, endY)) {
                 board.setSpotsAfterMove(startX, startY, endX, endY);
-                board.printBoard();
                 board.advancePiece(endX, endY, currentPlayer);
             } else if (board.getPiece(startX, startY).hasKill(board, currentPlayer, startX, startY)) {
                 if (board.getPiece(startX, startY).killEnemyPiece(board, currentPlayer, startX, startY, endX, endY)) {
                     currentPlayer.killCounter();
                     board.setSpotsAfterMove(startX, startY, endX, endY);
-                    board.printBoard();
                     board.advancePiece(endX, endY, currentPlayer);
                     startX = endX;
                     startY = endY;
@@ -259,7 +257,6 @@ public class Game {
                 }
             }
         }
-        System.out.println(currentPlayer.kills);
         if (currentPlayer.kills == 12) {
             status = GameStatus.END;
         }
@@ -267,7 +264,7 @@ public class Game {
     }
 
     public boolean isActive() {
-        if (status == GameStatus.END){
+        if (status == GameStatus.END) {
             return false;
         }
         return true;

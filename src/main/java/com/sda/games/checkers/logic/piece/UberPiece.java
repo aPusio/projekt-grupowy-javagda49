@@ -37,14 +37,18 @@ public class UberPiece extends Piece {
                 System.out.println("Not your piece!");
                 return false;
             } else {
-                return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
+                if(!possiblePrimaryMoves(board, player, startX, startY).isEmpty()) {
+                    return true;
+                } return (!possibleKills(board, player, startX, startY).isEmpty());
             }
         } else {
             if (board.pieceIsWhite(startX, startY)) {
                 System.out.println("Not your piece!");
                 return false;
             } else {
-                return !possiblePrimaryMoves(board, player, startX, startY).isEmpty();
+                if(!possiblePrimaryMoves(board, player, startX, startY).isEmpty()) {
+                    return true;
+                } return (!possibleKills(board, player, startX, startY).isEmpty());
             }
         }
     }
@@ -182,7 +186,7 @@ public class UberPiece extends Piece {
         Map<String, String> possibleKill = new HashMap<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder killedPiece = new StringBuilder();
-        if (startX == 6 || startY == 6) {
+        if (startX >= 6 || startY >= 6) {
             return possibleKill;
         } else {
             if (player.isWhite()) {
@@ -222,7 +226,7 @@ public class UberPiece extends Piece {
         Map<String, String> possibleKill = new HashMap<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder killedPiece = new StringBuilder();
-        if (startX == 1 || startY == 6) {
+        if (startX <= 1 || startY >= 6) {
             return possibleKill;
         } else {
             if (player.isWhite()) {
@@ -260,7 +264,7 @@ public class UberPiece extends Piece {
         Map<String, String> possibleKill = new HashMap<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder killedPiece = new StringBuilder();
-        if (startX == 6 || startY == 1) {
+        if (startX >= 6 || startY <= 1) {
             return possibleKill;
         } else {
             if (player.isWhite()) {
@@ -298,7 +302,7 @@ public class UberPiece extends Piece {
         Map<String, String> possibleKill = new HashMap<>();
         StringBuilder actualMove = new StringBuilder();
         StringBuilder killedPiece = new StringBuilder();
-        if (startX == 1 || startY == 1) {
+        if (startX <= 1 || startY <= 1) {
             return possibleKill;
         } else {
             if (player.isWhite()) {
