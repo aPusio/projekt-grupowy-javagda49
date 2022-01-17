@@ -39,7 +39,7 @@ public class UberPiece extends Piece {
             } else {
                 if(!possiblePrimaryMoves(board, player, startX, startY).isEmpty()) {
                     return true;
-                } return (!possibleKills(board, player, startX, startY).isEmpty());
+                } return hasKill(board, player, startX, startY);
             }
         } else {
             if (board.pieceIsWhite(startX, startY)) {
@@ -48,7 +48,7 @@ public class UberPiece extends Piece {
             } else {
                 if(!possiblePrimaryMoves(board, player, startX, startY).isEmpty()) {
                     return true;
-                } return (!possibleKills(board, player, startX, startY).isEmpty());
+                } return hasKill(board, player, startX, startY);
             }
         }
     }
