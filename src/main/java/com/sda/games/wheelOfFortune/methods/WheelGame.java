@@ -98,22 +98,22 @@ public class WheelGame {
 
     private static String userInputLetter() {
         boolean isCorrect = false;
-
-        // while (isCorrect==false) {
-        System.out.println("Podaj jedną literę");
-        String letter = new String(scanner.nextLine().toUpperCase(Locale.ROOT));
-        // letter = scanner.nextLine().toUpperCase(Locale.ROOT);
-        if (letterValidation(letter)) {
-            System.out.println("Wartosc poprawna");
-            //isCorrect = true;
-            return letter;
-        } else {
-            System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
-            userInputLetter();
+        Scanner scanner=new Scanner(System.in);
+        String letter=null;
+        while (isCorrect == false) {
+            System.out.println("Podaj jedną literę");
+            letter = scanner.nextLine().toUpperCase(Locale.ROOT);
+            if (letterValidation(letter)) {
+                System.out.println("Wartosc poprawna");
+                isCorrect = true;
+            } else {
+                System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
+                isCorrect = false;
+            }
         }
-        // }
-        return letter + letter;
+        return letter;
     }
+
 
     private static boolean letterValidation(String letter) {
         Pattern pattern = Pattern.compile("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{1}");
