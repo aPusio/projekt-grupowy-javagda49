@@ -36,14 +36,12 @@ public class WheelGame {
             //noinspection SpellCheckingInspection
             System.out.print("Wprowadzono literę " + letter + ". ");
             if (isLetterInKnown(letter)) {
-                if (isLetterInUnknown(letter)) { //pierwsza - "tak" - nieznana
+                if (isLetterInUnknown(letter)) {
                     modifyUnknown(letter);
                     if (choiceValidation()) {
                         guessFullPhrase();
                     }
-                } /*else {
-                    System.out.println("(do usuniecia: Litera już wcześniej została dodana do wyrażenia. Punktów: " + score);
-                }*/
+                }
             }
         }
         //noinspection SpellCheckingInspection
