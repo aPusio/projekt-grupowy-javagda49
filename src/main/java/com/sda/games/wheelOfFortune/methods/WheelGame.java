@@ -13,13 +13,14 @@ import java.util.regex.Pattern;
 public class WheelGame {
     final static int MIN = 1;
     final static HibernateFactory hibernateFactory = new HibernateFactory();
+    final static CategoryDao categoryDao = new CategoryDao(hibernateFactory);
     static Scanner scanner = new Scanner(System.in);
     final static int basicPointValue = 10;
     final static int fullGuessBonus = 100;
     static int score = 0;
     static int emptySlots;
-    //static int drawnNumberCategory = generateRNCategory;
-    static int drawnNumberWord = 4; //to będzie importowane z metody losującej
+    static int drawnNumberCategory = generateRNCategory();
+    static int drawnNumberWord = generateRNWord(drawnNumberCategory);
     static String guessMePhrase = idWord(drawnNumberWord);
     final static Integer phraseLength = guessMePhrase.length();
     final static String[] phraseKnown = prepareKnown();
@@ -27,13 +28,15 @@ public class WheelGame {
 
 
     public static void startGame() {
+        //noinspection SpellCheckingInspection
         System.out.println("Liter do zgadnięcia: " + emptySlots);
         showMeUnknownAndAsk();
         while (emptySlots > 0) {
             String letter = userInputLetter();
+            //noinspection SpellCheckingInspection
             System.out.print("Wprowadzono literę " + letter + ". ");
-            if (isLetterInKnown(letter) == true) {
-                if (isLetterInUnknown(letter) == true) { //pierwsza - "tak" - nieznana
+            if (isLetterInKnown(letter)) {
+                if (isLetterInUnknown(letter)) { //pierwsza - "tak" - nieznana
                     modifyUnknown(letter);
                     if (choiceValidation()) {
                         guessFullPhrase();
@@ -43,15 +46,14 @@ public class WheelGame {
                 }*/
             }
         }
+        //noinspection SpellCheckingInspection
         System.out.println("Gra zakończona: hasło odgadnięte. Liczba punktów:  " + score);
     }
 
 
     private static String idWord(int nr) {
-        //tu będzie pobieranie po podanym ID słowo z bazy
-
-        String word = "Hasło do zgadnięcia";
-        return word;
+        WordsDao wordsDao = new WordsDao(WheelGame.hibernateFactory);
+        return wordsDao.getById(nr).getWord();
     }
 
     private static String[] prepareKnown() {
@@ -80,11 +82,13 @@ public class WheelGame {
             }
         }
         showMeUnknown();
+        //noinspection SpellCheckingInspection
         System.out.println("score = " + score + " do zgadnięcia " + emptySlots);
     }
 
     public static void showMeUnknownAndAsk() {
-        System.out.println("Zgadnij hasło"); //dodac informacje z której kategorii pochodzi
+        //noinspection SpellCheckingInspection
+        System.out.println("Zgadnij hasło, Category: " + categoryDao.getById(generateRNCategory()).getName());
         showMeUnknown();
     }
 
@@ -131,7 +135,10 @@ public class WheelGame {
             i++;
         }
         if (!inKnown) {
+            //noinspection SpellCheckingInspection
             System.out.println("Brak litery w haśle głównym");
+            System.out.println("Category: ");
+            //noinspection SpellCheckingInspection
             System.out.println("score = " + score + " do zgadnięcia " + emptySlots);
             showMeUnknown();
             if (choiceValidation()) {
@@ -155,7 +162,7 @@ public class WheelGame {
             i++;
         }
 
-        if (duplicateLetter == false) {
+        if (!duplicateLetter) {
             System.out.println("Trafiony! Litera do uzupełnienia.");//?
         }
         return unknownLetter; //boolean
@@ -183,21 +190,24 @@ public class WheelGame {
         return fullPhraseAssumed.split("");
     }
 
-    //dodac opcje pelnego hasla jezeli brak litery w hasle glownym
+    //add option to check if there are still missing letters in the word
     public static boolean guessFullPhrase() {
         boolean isFullCorrect = true;
+        //noinspection SpellCheckingInspection
         System.out.println("Wprowadź pełne hasło");
         String userInputfullPhrase = scanner.nextLine();
         String[] fullPhaseAssumed = prepareFullPhase(userInputfullPhrase);
         for (int i = 0; i < phraseLength; i++) {
             if (!phraseKnown[i].toUpperCase(Locale.ROOT).equals(fullPhaseAssumed[i].toUpperCase(Locale.ROOT))) {
                 isFullCorrect = false;
+                //noinspection SpellCheckingInspection
                 System.out.println("Niepoprawne hasło");
                 break;
             }
         }
 
         if (isFullCorrect) {
+            //noinspection ManualArrayCopy
             for (int i = 0; i < phraseLength; i++) {
                 phraseUnknown[i] = phraseKnown[i];
             }
@@ -207,4 +217,21 @@ public class WheelGame {
         }
         return isFullCorrect;
     }
+    private static int generateRNCategory() {
+        CategoryDao categoryDao = new CategoryDao(WheelGame.hibernateFactory);
+        int max = categoryDao.getAllCount();
+        Random random = new Random();
+        return random.nextInt(max+MIN)-MIN;
+    }
+    private static int generateRNWord(int drawnNumberCategory) {
+        WordsDao wordsDao = new WordsDao(WheelGame.hibernateFactory);
+        if(drawnNumberCategory<=0){     //
+            drawnNumberCategory=1;      // don't know y but this number can be -1 or 0 (problem with random?)
+        }                               //
+        int max = wordsDao.getAllCountWordsFromCategory(drawnNumberCategory);
+        Random random = new Random();
+        return  random.nextInt(max+MIN)-MIN;
+    }
+    
+    
 }
