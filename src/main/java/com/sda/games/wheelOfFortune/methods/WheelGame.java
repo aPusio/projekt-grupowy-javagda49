@@ -29,7 +29,7 @@ public class WheelGame {
 
     public static void startGame() {
         //noinspection SpellCheckingInspection
-        System.out.println("Liter do zgadnięcia: " + emptySlots);
+        System.out.println("Liter do zgadnięcia: " + emptySlots + " -> " + guessMePhrase + " -> cat " + drawnNumberCategory + "word " + drawnNumberWord);
         showMeUnknownAndAsk();
         while (emptySlots > 0) {
             String letter = userInputLetter();
@@ -86,7 +86,7 @@ public class WheelGame {
 
     public static void showMeUnknownAndAsk() {
         //noinspection SpellCheckingInspection
-        System.out.println("Zgadnij hasło, Category: " + categoryDao.getById(generateRNCategory()).getName());
+        System.out.println("Zgadnij hasło, Category: " + categoryDao.getById(drawnNumberCategory).getName());
         showMeUnknown();
     }
 
@@ -167,7 +167,7 @@ public class WheelGame {
     }
 
     private static boolean choiceValidation() {
-        if (emptySlots!=0) {
+  /*      if (emptySlots!=0) { //póki co
             System.out.print("Czy chcesz zgadnąć pełne hasło? T/N");
             String typeInFullPhase = scanner.nextLine().toUpperCase(Locale.ROOT);
             boolean isValidationCorrect = false;
@@ -184,7 +184,8 @@ public class WheelGame {
             }
             return isValidationCorrect;
         }
-        return false;
+        return false;*/
+        return false; //będzie do usunięcia
     }
 
     private static String[] prepareFullPhase(String fullPhraseAssumed) {
@@ -231,7 +232,7 @@ public class WheelGame {
         }                               //
         int max = wordsDao.getAllCountWordsFromCategory(drawnNumberCategory);
         Random random = new Random();
-        return  random.nextInt(max+MIN)-MIN;
+        return random.nextInt(max+MIN)-MIN;
     }
     
     
