@@ -167,21 +167,24 @@ public class WheelGame {
     }
 
     private static boolean choiceValidation() {
-        System.out.print("Czy chcesz zgadnąć pełne hasło? T/N");
-        String typeInFullPhase = scanner.nextLine().toUpperCase(Locale.ROOT);
-        boolean isValidationCorrect = false;
-        switch (typeInFullPhase) {
-            case "T":
-                isValidationCorrect = true;
-                break;
-            case "N":
-                break;
-            default:
-                System.out.println("Niepoprawny wybór");
-                choiceValidation();
-               // break;
+        if (emptySlots!=0) {
+            System.out.print("Czy chcesz zgadnąć pełne hasło? T/N");
+            String typeInFullPhase = scanner.nextLine().toUpperCase(Locale.ROOT);
+            boolean isValidationCorrect = false;
+            switch (typeInFullPhase) {
+                case "T":
+                    isValidationCorrect = true;
+                    break;
+                case "N":
+                    break;
+                default:
+                    System.out.println("Niepoprawny wybór");
+                    choiceValidation();
+                    // break;
+            }
+            return isValidationCorrect;
         }
-        return isValidationCorrect;
+        return false;
     }
 
     private static String[] prepareFullPhase(String fullPhraseAssumed) {
