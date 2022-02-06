@@ -36,14 +36,12 @@ public class WheelGame {
             //noinspection SpellCheckingInspection
             System.out.print("Wprowadzono literę " + letter + ". ");
             if (isLetterInKnown(letter)) {
-                if (isLetterInUnknown(letter)) { //pierwsza - "tak" - nieznana
+                if (isLetterInUnknown(letter)) {
                     modifyUnknown(letter);
                     if (choiceValidation()) {
                         guessFullPhrase();
                     }
-                } /*else {
-                    System.out.println("(do usuniecia: Litera już wcześniej została dodana do wyrażenia. Punktów: " + score);
-                }*/
+                }
             }
         }
         //noinspection SpellCheckingInspection
@@ -101,23 +99,26 @@ public class WheelGame {
     }
 
     private static String userInputLetter() {
-        //noinspection SpellCheckingInspection
-        System.out.println("Podaj jedną literę");
-        String letter = scanner.nextLine().toUpperCase(Locale.ROOT);
-        if (letterValidation(letter)) {
-            //noinspection SpellCheckingInspection
-            System.out.println("Wartosc poprawna");
-            return letter;
-        } else {
-            //noinspection SpellCheckingInspection
-            System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
-            userInputLetter();
+        boolean isCorrect = false;
+        Scanner scanner=new Scanner(System.in);
+        String letter=null;
+        while (isCorrect == false) {
+            System.out.println("Podaj jedną literę");
+            letter = scanner.nextLine().toUpperCase(Locale.ROOT);
+            if (letterValidation(letter)) {
+                System.out.println("Wartosc poprawna");
+                isCorrect = true;
+            } else {
+                System.out.println("Wprowadzono niepoprawną wartość. Wprowadź ponownie");
+                isCorrect = false;
+            }
         }
-        return "a"; //needs to be corrected;
+        return letter;
     }
 
+
     private static boolean letterValidation(String letter) {
-        Pattern pattern = Pattern.compile("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]");
+        Pattern pattern = Pattern.compile("[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{1}");
         Matcher matcher = pattern.matcher(letter);
         return matcher.matches();
     }
@@ -126,7 +127,9 @@ public class WheelGame {
         int i = 0;
         boolean inKnown = false;
         while (i < phraseLength) {
-            inKnown = phraseKnown[i].toUpperCase(Locale.ROOT).equals(letter);
+            if (phraseKnown[i].toUpperCase(Locale.ROOT).equals(letter)) {
+                inKnown = true;
+            }
             i++;
         }
         if (!inKnown) {
@@ -186,12 +189,12 @@ public class WheelGame {
     }
 
     //add option to check if there are still missing letters in the word
-    public static void guessFullPhrase() {
+    public static boolean guessFullPhrase() {
         boolean isFullCorrect = true;
         //noinspection SpellCheckingInspection
         System.out.println("Wprowadź pełne hasło");
-        String userInputFullPhrase = scanner.nextLine();
-        String[] fullPhaseAssumed = prepareFullPhase(userInputFullPhrase);
+        String userInputfullPhrase = scanner.nextLine();
+        String[] fullPhaseAssumed = prepareFullPhase(userInputfullPhrase);
         for (int i = 0; i < phraseLength; i++) {
             if (!phraseKnown[i].toUpperCase(Locale.ROOT).equals(fullPhaseAssumed[i].toUpperCase(Locale.ROOT))) {
                 isFullCorrect = false;
@@ -210,8 +213,8 @@ public class WheelGame {
             emptySlots = 0;
 
         }
+        return isFullCorrect;
     }
-
     private static int generateRNCategory() {
         CategoryDao categoryDao = new CategoryDao(WheelGame.hibernateFactory);
         int max = categoryDao.getAllCount();
@@ -227,4 +230,6 @@ public class WheelGame {
         Random random = new Random();
         return  random.nextInt(max+MIN)-MIN;
     }
+    
+    
 }
