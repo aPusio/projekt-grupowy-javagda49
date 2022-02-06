@@ -167,7 +167,7 @@ public class WheelGame {
     }
 
     private static boolean choiceValidation() {
-  /*      if (emptySlots!=0) { //póki co
+        if (emptySlots!=0) { //póki co
             System.out.print("Czy chcesz zgadnąć pełne hasło? T/N");
             String typeInFullPhase = scanner.nextLine().toUpperCase(Locale.ROOT);
             boolean isValidationCorrect = false;
@@ -184,8 +184,7 @@ public class WheelGame {
             }
             return isValidationCorrect;
         }
-        return false;*/
-        return false; //będzie do usunięcia
+        return false;
     }
 
     private static String[] prepareFullPhase(String fullPhraseAssumed) {
@@ -223,16 +222,18 @@ public class WheelGame {
         CategoryDao categoryDao = new CategoryDao(WheelGame.hibernateFactory);
         int max = categoryDao.getAllCount();
         Random random = new Random();
-        return random.nextInt(max+MIN)-MIN;
+        //return random.nextInt(max-MIN)+MIN;
+        return random.nextInt(max)+MIN; //eliminacja błędu ujemnej kategorii
     }
     private static int generateRNWord(int drawnNumberCategory) {
         WordsDao wordsDao = new WordsDao(WheelGame.hibernateFactory);
-        if(drawnNumberCategory<=0){     //
+/*        if(drawnNumberCategory<=0){     //
             drawnNumberCategory=1;      // don't know y but this number can be -1 or 0 (problem with random?)
-        }                               //
+        }  */                             //
         int max = wordsDao.getAllCountWordsFromCategory(drawnNumberCategory);
         Random random = new Random();
-        return random.nextInt(max+MIN)-MIN;
+        //return random.nextInt(max+MIN)-MIN;
+        return (random.nextInt(max)+MIN)+((drawnNumberCategory-1)*10); //metoda łoma
     }
     
     
