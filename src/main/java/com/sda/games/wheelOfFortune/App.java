@@ -1,9 +1,10 @@
 package com.sda.games.wheelOfFortune;
 
-import java.sql.Connection;
+import com.sda.games.wheelOfFortune.methods.WheelGame;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-
+    public static void main(String[] args)  {
+        System.out.println("Start gry");
+        WheelGame.startGame();
     }
 }

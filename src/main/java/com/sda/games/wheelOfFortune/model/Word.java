@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Word {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer wordId;
     private String word;
     @ManyToOne

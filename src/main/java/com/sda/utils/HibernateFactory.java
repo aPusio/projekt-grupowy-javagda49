@@ -21,6 +21,8 @@ public class HibernateFactory {
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+        //configuration.setProperty("hibernate.hbm2ddl.auto", "create"); //AW
+        //co do cholery
         configuration.addAnnotatedClass(Category.class);
         configuration.addAnnotatedClass(Turn.class);
         configuration.addAnnotatedClass(WheelOfFortune.class);

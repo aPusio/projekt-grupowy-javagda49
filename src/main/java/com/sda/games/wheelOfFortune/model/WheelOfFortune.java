@@ -26,5 +26,5 @@ public class WheelOfFortune {
     @OneToMany(mappedBy = "wheelOfFortune")
     private List<Player> players;
     @OneToMany(mappedBy = "wheelOfFortune")
-    private List<Word> wordList;
+    private List<Word> wordsList;
 }
